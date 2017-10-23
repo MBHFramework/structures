@@ -1,0 +1,21 @@
+{
+  "name": "mbh-framework/structures",
+  "license": "MIT",
+  "authors": [{
+    "name": "Ulises Jeremias Cornejo Fandos",
+    "email": "ulisescf.24@gmail.com"
+  }],
+  "description": "Common interface used by many other classes in a Mbh application that manage \"collections\" of data ",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MBHFramework/structures.git"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mbh\\": "Mbh"
+    }
+  },
+  "require": {
+    "php": "^7.0"
+  }
+}
