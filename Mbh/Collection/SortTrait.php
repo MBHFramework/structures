@@ -8,7 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-trait Sort
+trait SortTrait
 {
     /**
      * Perform a bottom-up, non-recursive, in-place mergesort.
