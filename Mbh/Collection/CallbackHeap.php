@@ -8,6 +8,8 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use SplHeap;
+
 /**
  * The CallbackHeap
  *
@@ -21,8 +23,6 @@
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-
-use SplHeap;
 
 class CallbackHeap extends SplHeap
 {
