@@ -154,4 +154,34 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
         $concatIt = new ConcatIterator(...$args);
         return new static($concatIt);
     }
+
+    /**
+     * Find a single element
+     *
+     * @param callable $callback The test to run on each element
+     * @return mixed The element we found
+     */
+    public function find(callable $callback)
+    {
+        foreach ($this->sfa as $i => $elem) {
+            if ($callback($elem, $i, $this)) {
+                return $elem;
+            }
+        }
+    }
+
+    /**
+     * Return a new sorted ImmutableArray
+     *
+     * @param callable $callback The sort callback
+     * @return ImmutableArray
+     */
+    public function sort(callable $callback = null)
+    {
+        if ($callback) {
+            return $this->quickSortWithCallback($callback);
+        }
+
+        return $this->arraySort();
+    }
 }
