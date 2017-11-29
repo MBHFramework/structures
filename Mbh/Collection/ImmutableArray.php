@@ -103,13 +103,30 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
         $sfa = new SplFixedArray($count);
         $newCount = 0;
 
-        foreach ($this->sfa as $el) {
-            if ($callback($el)) {
-                $sfa[$newCount++] = $el;
+        foreach ($this->sfa as $elem) {
+            if ($callback($elem)) {
+                $sfa[$newCount++] = $elem;
             }
         }
 
         $sfa->setSize($newCount);
         return new static($sfa);
+    }
+
+    /**
+     * Reduce to a single value
+     *
+     * @param callable $callback Callback(
+     *     mixed $previous, mixed $current[, mixed $index, mixed $immArray]
+     * ):mixed Callback to run reducing function
+     * @param mixed $accumulator Initial value for first argument
+     */
+    public function reduce(callable $callback, $accumulator = null)
+    {
+        foreach ($this->sfa as $i => $elem) {
+            $accumulator = $callback($accumulator, $elem, $i, $this);
+        }
+
+        return $accumulator;
     }
 }
