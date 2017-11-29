@@ -131,6 +131,17 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
     }
 
     /**
+     * Join a set of strings together.
+     *
+     * @param string $token Main token to put between elements
+     * @param string $secondToken If set, $token on left $secondToken on right
+     * @return string
+     */
+    public function join(string $token = ',', string $secondToken = null): string
+    {
+    }
+
+    /**
      * Take a slice of the array
      *
      * @param int $begin Start index of slice
@@ -235,6 +246,73 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
     }
 
     public function toArray(): array
+    {
+        return $this->sfa->toArray();
+    }
+
+    /**
+     * Countable
+     */
+    public function count(): int
+    {
+        return count($this->sfa);
+    }
+
+    /**
+     * Iterator
+     */
+    public function current()
+    {
+        return $this->sfa->current();
+    }
+
+    public function key(): int
+    {
+        return $this->sfa->key();
+    }
+
+    public function next()
+    {
+        return $this->sfa->next();
+    }
+
+    public function rewind()
+    {
+        return $this->sfa->rewind();
+    }
+
+    public function valid()
+    {
+        return $this->sfa->valid();
+    }
+
+    /**
+     * ArrayAccess
+     */
+    public function offsetExists($offset): bool
+    {
+        return $this->sfa->offsetExists($offset);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->sfa->offsetGet($offset);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
+    }
+
+    public function offsetUnset($offset)
+    {
+        throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
+    }
+
+    /**
+     * JsonSerializable
+     */
+    public function jsonSerialize(): array
     {
         return $this->sfa->toArray();
     }
