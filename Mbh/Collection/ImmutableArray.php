@@ -41,4 +41,35 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
     use SortTrait {
         SortTrait::quickSort as quickSortWithCallback;
     }
+
+    // The secondary flash array - fixed array
+    private $sfa = null;
+
+    /**
+     * Create an immutable array
+     *
+     * @param Traversable $immute Data guaranteed to be immutable
+     */
+    private function __construct(Traversable $immute)
+    {
+        $this->sfa = $immute;
+    }
+
+    /**
+     * Map elements to a new ImmutableArray via a callback
+     *
+     * @param callable $cb Function to map new data
+     * @return ImmutableArray
+     */
+    public function map(callable $cb): self
+    {
+        $count = count($this);
+        $sfa = new SplFixedArray($count);
+
+        for ($i = 0; $i < $count; $i++) {
+            $sfa[$i] = $cb($this->sfa[$i], $i, $this);
+        }
+
+        return new static($sfa);
+    }
 }
