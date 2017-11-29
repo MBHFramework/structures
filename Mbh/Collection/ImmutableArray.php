@@ -141,16 +141,16 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
     {
         $str = "";
         if ($secondToken) {
-            foreach($this->sfa as $i => $elem) {
+            foreach ($this->sfa as $i => $elem) {
                 $str .= $token . (string) $elem . $secondToken;
-             }
+            }
         } else {
             $this->rewind();
-            while($this->valid()) {
-                $str .= (string) $this . $token;
+            while ($this->valid()) {
+                $str .= (string) $this;
                 $this = $this->next();
-                if (!$this->valid()) {
-                    break;
+                if ($this->valid()) {
+                    $str .= $token;
                 }
             }
         }
