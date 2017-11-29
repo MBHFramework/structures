@@ -184,4 +184,58 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
 
         return $this->arraySort();
     }
+
+    /**
+     * Sort a new ImmutableArray by filtering through a heap.
+     * Tends to run much faster than array or merge sorts, since you're only
+     * sorting the pointers, and the sort function is running in a highly
+     * optimized space.
+     *
+     * @param SplHeap $heap The heap to run for sorting
+     * @return ImmutableArray
+     */
+    public function sortHeap(SplHeap $heap): self
+    {
+        foreach ($this as $item) {
+            $heap->insert($item);
+        }
+        return static::fromItems($heap);
+    }
+
+    /**
+     * Factory for building ImmutableArrays from any traversable
+     *
+     * @return ImmutableArray
+     */
+    public static function fromItems(Traversable $array): self
+    {
+        // We can only do it this way if we can count it
+        if ($array instanceof Countable) {
+            $sfa = new SplFixedArray(count($array));
+
+            foreach ($array as $i => $elem) {
+                $sfa[$i] = $elem;
+            }
+
+            return new static($sfa);
+        }
+
+        // If we can't count it, it's simplest to iterate into an array first
+        return static::fromArray(iterator_to_array($array));
+    }
+
+    /**
+     * Build from an array
+     *
+     * @return ImmutableArray
+     */
+    public static function fromArray(array $array): self
+    {
+        return new static(SplFixedArray::fromArray($array));
+    }
+
+    public function toArray(): array
+    {
+        return $this->sfa->toArray();
+    }
 }
