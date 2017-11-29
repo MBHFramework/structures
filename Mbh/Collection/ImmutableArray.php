@@ -129,4 +129,29 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
 
         return $accumulator;
     }
+
+    /**
+     * Take a slice of the array
+     *
+     * @param int $begin Start index of slice
+     * @param int $end End index of slice
+     * @return ImmutableArray
+     */
+    public function slice(int $begin = 0, int $end = null): self
+    {
+        $it = new SliceIterator($this->sfa, $begin, $end);
+        return new static($it);
+    }
+
+    /**
+     * Concat to the end of this array
+     *
+     * @param Traversable,...
+     * @return ImmutableArray
+     */
+    public function concat(...$args): self
+    {
+        $concatIt = new ConcatIterator(...$args);
+        return new static($concatIt);
+    }
 }
