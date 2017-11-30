@@ -12,7 +12,7 @@ Immutable collections, with filter, map, join, sort, slice, and other methods. W
 use Mbh\Collection\ImmutableArray;
 $polite = ImmutableArray::fromArray(['set', 'once', 'don\'t', 'mutate']);
 echo $polite->join(' ');
-// => "set once don't mutate"
+// "set once don't mutate"
 ```
 
 ### Map with a callback
@@ -33,12 +33,12 @@ echo <<<EOT
 </article>
 EOT;
 
-// => <article>
-// =>   <h3>A Wonderful List</h3>
-// =>   <ul>
-// =>     <li>SET</li><li>ONCE</li><li>DON'T</li><li>MUTATE</li>
-// =>   </ul>
-// => </article>
+// <article>
+//   <h3>A Wonderful List</h3>
+//   <ul>
+//     <li>SET</li><li>ONCE</li><li>DON'T</li><li>MUTATE</li>
+//   </ul>
+// </article>
 ```
 
 ### Sort with a callback
@@ -51,7 +51,7 @@ echo 'Ordered ascending: ' .
         ->sort(function ($a, $b) { return strcmp($a, $b); })
         ->join(' ');
 
-// => "Ordered ascending: DON'T MUTATE ONCE SET"
+// "Ordered ascending: DON'T MUTATE ONCE SET"
 ```
 
 ### Slice
@@ -60,7 +60,7 @@ echo 'Ordered ascending: ' .
 <?php
 
 echo 'First 2 words only: ' . $polite->slice(0, 2)->join(' ');
-// => "set once"
+// "set once"
 ```
 
 ## More of the same
@@ -107,5 +107,69 @@ $ib = ImmutableArray::fromArray([5, 6, 7, 8]);
 
 // Like in slice() method, it's just a little iterator in-memory
 $ic = $ia->concat($ib);
-// => [1, 2, 3, 4, 5, 6, 7, 8]
+// [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+### Reduce
+
+```php
+<?php
+
+$fruits = ImmutableArray::fromArray(['peach', 'plum', 'orange']);
+
+$fruits->reduce(function($last, $cur, $i) {
+  return $last . '{"' . $i . '":' . $cur . '"},';
+}, 'My Fruits: ');
+
+// My Fruits: {"0":"peach"},{"1":"plum"},{"2":"orange"},
+```
+
+### Find
+
+```php
+<?php
+
+$fruits = ImmutableArray::fromArray(['peach', 'apple', 'plum', 'banana', 'orange']);
+
+$fruitILike = $fruits->find(function ($fruit) {
+  return $fruit === 'banana';
+});
+
+// 'banana'
+```
+
+### Array accessible
+
+```php
+<?php
+
+echo $fruits[1];
+// 'apple'
+```
+
+### Countable
+
+```php
+<?php
+
+count($fruits);
+// 5
+```
+
+### Iterable
+
+```php
+<?php
+
+foreach ($fruits as $fruit) {
+    $fruitCart->sell($fruit);
+}
+```
+
+### Load from any `Traversable` object
+
+```php
+<?php
+
+$vegetables = ImmutableArray::fromItems($vegetableIterator);
 ```
