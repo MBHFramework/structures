@@ -97,6 +97,8 @@ $immSlice = ImmutableArray::fromArray($range)->slice(0, 30000);
 $noApples = $fruitsImm->filter(function($fruit) { return $fruit !== 'apple'; });
 ```
 
+## Back to small arrays
+
 ### Concat
 
 ```php
