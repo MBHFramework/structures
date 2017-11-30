@@ -177,7 +177,7 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
      * @param Traversable,...
      * @return ImmutableArray
      */
-    public function concat(...$args): self
+    public function concat(): self
     {
         $args = func_get_args();
         array_unshift($args, $this->sfa);
