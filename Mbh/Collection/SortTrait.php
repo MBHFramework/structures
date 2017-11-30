@@ -8,6 +8,10 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use SplFixedArray;
+use SplStack;
+use LimitIterator;
+
 trait SortTrait
 {
     /**
