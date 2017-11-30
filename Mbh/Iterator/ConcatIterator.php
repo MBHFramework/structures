@@ -8,6 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\Interfaces\SequenceableCollection as SequenceableCollectionInterface;
 use ArrayAccess;
 use AppendIterator;
 use JsonSerializable;
@@ -20,7 +21,7 @@ use InvalidArgumentException;
  * Iterator to allow multiple iterators to be concatenated
  */
 
-class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, JsonSerializable
+class ConcatIterator extends AppendIterator implements SequenceableCollectionInterface
 {
     const INVALID_INDEX = 'Index invalid or out of range';
 

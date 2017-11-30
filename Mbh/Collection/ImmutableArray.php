@@ -8,6 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\Interfaces\SequenceableCollection as SequenceableCollectionInterface;
 use Mbh\Collection\CallbackHeap;
 use Mbh\Iterator\SliceIterator;
 use Mbh\Iterator\ConcatIterator;
@@ -36,7 +37,7 @@ use ReflectionClass;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializable
+class ImmutableArray implements SequenceableCollectionInterface
 {
     use Traits\Sort {
         Traits\Sort::quickSort as quickSortWithCallback;
