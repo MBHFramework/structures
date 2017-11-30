@@ -22,7 +22,7 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return ImmutableArray
      */
-    protected function mergeSort(callable $callback)
+    public function mergeSort(callable $callback)
     {
         $count = count($this);
         $sfa = $this->sfa;
@@ -69,7 +69,7 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return ImmutableArray
      */
-    protected function quickSort(callable $callback): self
+    public function quickSort(callable $callback): self
     {
         $sfa = new SplFixedArray(count($this));
 
@@ -140,7 +140,7 @@ trait Sort
      * @param callable $callback The comparison callback
      * @return ImmutableArray
      */
-    protected function heapSort(callable $callback): self
+    public function heapSort(callable $callback): self
     {
         $h = new CallbackHeap($callback);
         foreach ($this as $el) {
@@ -156,7 +156,7 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return ImmutableArray
      */
-    protected function arraySort(callable $callback = null)
+    public function arraySort(callable $callback = null)
     {
         $array = $this->toArray();
 
