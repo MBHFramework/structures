@@ -8,6 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use SplHeap;
 
 /**
@@ -24,7 +25,7 @@ use SplHeap;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-class CallbackHeap extends SplHeap
+class CallbackHeap extends SplHeap implements CollectionInterface
 {
     public $cb;
 
