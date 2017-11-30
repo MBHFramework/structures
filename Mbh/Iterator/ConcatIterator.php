@@ -49,6 +49,7 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
                 } else {
                     $this->append($iterator);
                 }
+
                 $this->count += count($iterator);
             } else {
                 throw new InvalidArgumentException(
