@@ -244,23 +244,6 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
     }
 
     /**
-     * Fallback behaviour to use the builtin array sort functions
-     *
-     * @param callable $callback The callback for comparison
-     * @return ImmutableArray
-     */
-    protected function arraySort(callable $callback = null)
-    {
-        $array = $this->toArray();
-        if ($callback) {
-            usort($array, $callback);
-        } else {
-            sort($array);
-        }
-        return static::fromArray($array);
-    }
-
-    /**
      * Factory for building ImmutableArrays from any traversable
      *
      * @return ImmutableArray
