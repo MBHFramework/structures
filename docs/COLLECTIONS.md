@@ -94,7 +94,7 @@ $immSlice = ImmutableArray::fromArray($range)->slice(0, 30000);
 <?php
 
 // Yes, we have no apples
-$noBananas = $fruitsImm->filter(function($fruit) { return $fruit !== 'apple'; });
+$noApples = $fruitsImm->filter(function($fruit) { return $fruit !== 'apple'; });
 ```
 
 ### Concat
