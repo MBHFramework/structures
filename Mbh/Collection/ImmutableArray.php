@@ -40,6 +40,7 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
 {
     use Traits\Sort {
         Traits\Sort::quickSort as quickSortWithCallback;
+        Traits\Sort::heapSort as heapSortWithCallback;
     }
 
     // The secondary flash array - fixed array
