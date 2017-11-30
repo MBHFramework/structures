@@ -214,7 +214,13 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
     public function sort(callable $callback = null)
     {
         if ($callback) {
-            return $this->arraySort($callback);
+            // Custom searches can be easier on memory, but run absurdly slow
+            // pre PHP7
+            if (PHP_MAJOR_VERSION < 7) {
+                return $this->arraySort($callback);
+            }
+            
+            return $this->mergeSort($callback);
         }
 
         return $this->arraySort();
