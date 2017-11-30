@@ -1,6 +1,6 @@
 # MBH Structures
 
-[![Build Status](https://travis-ci.org/MBHFramework/structures.svg?branch=master)](https://travis-ci.org/MBHFramework/structures)
+[![Build Status](https://travis-ci.org/MBHFramework/structures.svg?branch=1.x)](https://travis-ci.org/MBHFramework/structures)
 
 Mbh structures contains an abstraction of many of the structures used throughout the development of the framework, giving the possibility of being used by any other developer as a mini library of data structures.
 
