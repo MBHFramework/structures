@@ -53,3 +53,12 @@ echo 'Os in front: ' .
 
 // => "Os in front: DON'T MUTATE ONCE SET"
 ```
+
+### Slice
+
+```php
+<?php
+
+echo 'First 2 words only: ' . $polite->slice(0, 2)->join(' ');
+// => "set once"
+```
