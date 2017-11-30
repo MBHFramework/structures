@@ -1,4 +1,4 @@
-<?php namespace Mbh\Collection;
+<?php namespace Mbh\Collection\Traits;
 
 /**
  * MBHFramework
@@ -12,7 +12,7 @@ use SplFixedArray;
 use SplStack;
 use LimitIterator;
 
-trait SortTrait
+trait Sort
 {
     /**
      * Perform a bottom-up, non-recursive, in-place mergesort.
@@ -165,7 +165,7 @@ trait SortTrait
         } else {
             sort($array);
         }
-        
+
         return static::fromArray($array);
     }
 }
