@@ -75,7 +75,7 @@ Until recently we saw examples of how to use certain features in small arrays. N
 use Mbh\Collection\ImmutableArray;
 
 // Big memory footprint: $fruits is 30MB on PHP5.6
-$fruits = array_merge(array_fill(0, 1000000, 'tomato'), array_fill(0, 1000000, 'banana'));
+$fruits = array_merge(array_fill(0, 1000000, 'tomato'), array_fill(0, 1000000, 'apple'));
 
 // Small memory footprint: only 12MB
 $fruitsImm = ImmutableArray::fromArray($fruits);
@@ -86,4 +86,26 @@ $sliceArray = array_slice($range, 0, 30000);
 
 // But this is a 192 bytes iterator!
 $immSlice = ImmutableArray::fromArray($range)->slice(0, 30000);
+```
+
+### Filter
+
+```php
+<?php
+
+// Yes, we have no apples
+$noBananas = $fruitsImm->filter(function($fruit) { return $fruit !== 'apple'; });
+```
+
+### Concat
+
+```php
+<?php
+
+$ia = ImmutableArray::fromArray([1, 2, 3, 4]);
+$ib = ImmutableArray::fromArray([5, 6, 7, 8]);
+
+// Like in slice() method, it's just a little iterator in-memory
+$ic = $ia->concat($ib);
+// => [1, 2, 3, 4, 5, 6, 7, 8]
 ```
