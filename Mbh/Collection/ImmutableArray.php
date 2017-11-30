@@ -38,8 +38,8 @@ use ReflectionClass;
 
 class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializable
 {
-    use SortTrait {
-        SortTrait::quickSort as quickSortWithCallback;
+    use Traits\Sort {
+        Traits\Sort::quickSort as quickSortWithCallback;
     }
 
     // The secondary flash array - fixed array
