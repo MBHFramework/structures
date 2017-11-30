@@ -28,6 +28,42 @@ class BasicHeap extends SplHeap
     }
 }
 
+// A basic iterator for testing loading large sets
+class BigSetIterator implements Iterator, Countable
+{
+    protected $count;
+    protected $position = 0;
+
+    public function __construct($count = 0)
+    {
+        $this->count = $count;
+    }
+    public function rewind()
+    {
+        $this->position = 0;
+    }
+    public function current()
+    {
+        return md5($this->position);
+    }
+    public function key()
+    {
+        return $this->position;
+    }
+    public function next()
+    {
+        ++$this->position;
+    }
+    public function valid()
+    {
+        return $this->position < $this->count;
+    }
+    public function count()
+    {
+        return $this->count;
+    }
+}
+
 class ImmutableArrayTest extends TestCase
 {
     public function testMap()
@@ -123,5 +159,16 @@ class ImmutableArrayTest extends TestCase
 
         $heapSorted = $unsorted->heapSort(new BasicHeap());
         $this->assertSame($heapSorted->toArray(), ['a', 'b', 'c', 'd', 'e', 'f'], 'Heap sort failed.');
+    }
+
+    public function testLoadBigSet()
+    {
+        $startMemoryLimit = ini_get('memory_limit');
+        ini_set('memory_limit', '50M');
+
+        // Big Set Load
+        $bigSet = ImmutableArray::fromItems(new BigSetIterator(200000));
+        $this->assertCount(200000, $bigSet);
+        ini_set('memory_limit', $startMemoryLimit);
     }
 }
