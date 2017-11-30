@@ -147,8 +147,8 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
         } else {
             $this->rewind();
             while ($this->valid()) {
-                $str .= (string) $this;
-                $this = $this->next();
+                $str .= (string) $this->current();
+                $this->next();
                 if ($this->valid()) {
                     $str .= $token;
                 }
@@ -207,7 +207,7 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
     public function sort(callable $callback = null)
     {
         if ($callback) {
-            return $this->quickSortWithCallback($callback);
+            return $this->arraySort($callback);
         }
 
         return $this->arraySort();
@@ -222,12 +222,29 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
      * @param SplHeap $heap The heap to run for sorting
      * @return ImmutableArray
      */
-    public function sortHeap(SplHeap $heap): self
+    public function heapSort(SplHeap $heap): self
     {
         foreach ($this as $item) {
             $heap->insert($item);
         }
         return static::fromItems($heap);
+    }
+
+    /**
+     * Fallback behaviour to use the builtin array sort functions
+     *
+     * @param callable $callback The callback for comparison
+     * @return ImmutableArray
+     */
+    protected function arraySort(callable $callback = null)
+    {
+        $array = $this->toArray();
+        if ($callback) {
+            usort($array, $callback);
+        } else {
+            sort($array);
+        }
+        return static::fromArray($array);
     }
 
     /**
