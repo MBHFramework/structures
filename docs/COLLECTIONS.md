@@ -40,3 +40,16 @@ EOT;
 // =>   </ul>
 // => </article>
 ```
+
+### Sort with a callback
+
+```php
+<?php
+
+echo 'Os in front: ' .
+    $yelling
+        ->sort(function ($a, $b) { return strcmp($a, $b); })
+        ->join(' ');
+
+// => "Os in front: DON'T MUTATE ONCE SET"
+```
