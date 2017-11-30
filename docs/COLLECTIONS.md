@@ -46,12 +46,12 @@ EOT;
 ```php
 <?php
 
-echo 'Os in front: ' .
+echo 'Ordered ascending: ' .
     $yelling
         ->sort(function ($a, $b) { return strcmp($a, $b); })
         ->join(' ');
 
-// => "Os in front: DON'T MUTATE ONCE SET"
+// => "Ordered ascending: DON'T MUTATE ONCE SET"
 ```
 
 ### Slice
