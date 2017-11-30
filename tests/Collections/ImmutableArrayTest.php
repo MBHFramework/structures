@@ -117,7 +117,7 @@ class ImmutableArrayTest extends TestCase
         $this->assertSame($sorted->toArray(), ['a', 'b', 'c', 'd', 'e', 'f'], 'Callback sort failed.');
     }
 
-    public function testSortHeap()
+    public function testHeapSort()
     {
         $unsorted = ImmutableArray::fromArray(['f', 'c', 'a', 'b', 'e', 'd']);
 
