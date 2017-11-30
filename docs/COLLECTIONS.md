@@ -84,6 +84,6 @@ $fruitsImm = ImmutableArray::fromArray($fruits);
 $range = range(0, 50000);
 $sliceArray = array_slice($range, 0, 30000);
 
-// But this is a 192 _bytes_ iterator!
+// But this is a 192 *bytes* iterator!
 $immSlice = ImmutableArray::fromArray($range)->slice(0, 30000);
 ```
