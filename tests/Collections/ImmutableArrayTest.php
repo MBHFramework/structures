@@ -45,15 +45,6 @@ class ImmutableArrayTest extends TestCase
         }
     }
 
-    public function testJoin()
-    {
-        $imarr = ImmutableArray::fromArray(['foo', 'bar', 'baz']);
-
-        $this->assertEquals('foo,bar,baz', $imarr->join(), 'Default join failed.');
-        $this->assertEquals('fooXXXbarXXXbaz', $imarr->join('XXX'), 'Token join failed.');
-        $this->assertEquals('<li>foo</li><li>bar</li><li>baz</li>', $imarr->join('<li>', '</li>'), 'Two token join failed.');
-    }
-
     public function testFilter()
     {
         $oddArr = [1, 3, 5, 7, 9];
@@ -66,6 +57,54 @@ class ImmutableArrayTest extends TestCase
         foreach ($odds as $i => $v) {
             $this->assertEquals($v, $oddArr[$i]);
         }
+    }
+
+    public function testReduce()
+    {
+        $arIt = new ArrayIterator([1, 2, 3, 4, 5]);
+        $numberSet = ImmutableArray::fromItems($arIt);
+
+        // Reduce with sum
+        $sum = $numberSet->reduce(function ($last, $cur) {
+            return $last + $cur;
+        }, 0);
+
+        $this->assertEquals(15, $sum);
+
+        // Reduce with string concat
+        $concatted = $numberSet->reduce(function ($last, $cur, $i) {
+            return $last . '{"'. $i . '":"' . $cur . '"},';
+        }, '');
+
+        $this->assertEquals('{"0":"1"},{"1":"2"},{"2":"3"},{"3":"4"},{"4":"5"},', $concatted);
+    }
+
+    public function testJoin()
+    {
+        $imarr = ImmutableArray::fromArray(['foo', 'bar', 'baz']);
+
+        $this->assertEquals('foo,bar,baz', $imarr->join(), 'Default join failed.');
+        $this->assertEquals('fooXXXbarXXXbaz', $imarr->join('XXX'), 'Token join failed.');
+        $this->assertEquals('<li>foo</li><li>bar</li><li>baz</li>', $imarr->join('<li>', '</li>'), 'Two token join failed.');
+    }
+
+    public function testSlice()
+    {
+        $immArr = ImmutableArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+        $firstThree = $immArr->slice(0, 3);
+
+        $this->assertCount(3, $firstThree);
+        $this->assertSame([1, 2, 3], $firstThree->toArray());
+    }
+
+    public function testConcat()
+    {
+        $setA = ImmutableArray::fromArray([1, 2, 3]);
+        $setB = ImmutableArray::fromItems(new ArrayIterator([4, 5, 6]));
+
+        $concatted = $setA->concat($setB);
+        $this->assertSame([1, 2, 3, 4, 5, 6], $concatted->toArray());
     }
 
     public function testSort()
@@ -84,15 +123,5 @@ class ImmutableArrayTest extends TestCase
 
         $heapSorted = $unsorted->heapSort(new BasicHeap());
         $this->assertSame($heapSorted->toArray(), ['a', 'b', 'c', 'd', 'e', 'f'], 'Heap sort failed.');
-    }
-
-    public function testSlice()
-    {
-        $immArr = ImmutableArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-
-        $firstThree = $immArr->slice(0, 3);
-
-        $this->assertCount(3, $firstThree);
-        $this->assertSame([1, 2, 3], $firstThree->toArray());
     }
 }
