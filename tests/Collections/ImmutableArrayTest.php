@@ -11,7 +11,6 @@
 use PHPUnit\Framework\TestCase;
 use Mbh\Collection\ImmutableArray;
 use Mbh\Collection\CallbackHeap;
-use SplHeap;
 
 /**
  * Test cases for verifying each ImmutableArray method
