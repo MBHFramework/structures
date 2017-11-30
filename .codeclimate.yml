@@ -1,3 +1,8 @@
+version: "2"
+languages:
+  PHP: true
+exclude_paths:
+  - "tests/*"
 plugins:
   phpcodesniffer:
     enabled: true
