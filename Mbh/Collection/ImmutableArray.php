@@ -219,7 +219,7 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
             if (PHP_MAJOR_VERSION < 7) {
                 return $this->arraySort($callback);
             }
-            
+
             return $this->mergeSort($callback);
         }
 
