@@ -179,7 +179,14 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
      */
     public function concat(...$args): self
     {
-        $concatIt = new ConcatIterator(...$args);
+        $args = func_get_args();
+        array_unshift($args, $this->sfa);
+
+        // Concat this iterator, and variadic args
+        $class = new ReflectionClass('Mbh\Iterator\ConcatIterator');
+        $concatIt = $class->newInstanceArgs($args);
+
+        // Create as new immutable's iterator
         return new static($concatIt);
     }
 
