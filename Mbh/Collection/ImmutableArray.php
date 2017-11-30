@@ -221,7 +221,7 @@ class ImmutableArray implements Iterator, ArrayAccess, Countable, JsonSerializab
                 return $this->arraySort($callback);
             }
 
-            return $this->mergeSort($callback);
+            return $this->quickSortWithCallback($callback);
         }
 
         return $this->arraySort();
