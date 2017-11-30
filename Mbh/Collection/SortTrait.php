@@ -19,10 +19,10 @@ trait SortTrait
      * Efficient for very-large objects, and written without recursion
      * since PHP isn't well optimized for large recursion stacks.
      *
-     * @param callable $cb The callback for comparison
+     * @param callable $callback The callback for comparison
      * @return ImmutableArray
      */
-    protected function mergeSort(callable $cb)
+    protected function mergeSort(callable $callback)
     {
         $count = count($this);
         $sfa = $this->sfa;
@@ -35,7 +35,7 @@ trait SortTrait
                 $i = $left;
                 $j = $right;
                 while ($i < $right && $j < $rend) {
-                    if ($cb($sfa[$i], $sfa[$j]) <= 0) {
+                    if ($callback($sfa[$i], $sfa[$j]) <= 0) {
                         $result[$m] = $sfa[$i];
                         $i++;
                     } else {
@@ -66,10 +66,10 @@ trait SortTrait
     /**
      * A classic quickSort - great for inplace sorting a big fixed array
      *
-     * @param callable $cb The callback for comparison
+     * @param callable $callback The callback for comparison
      * @return ImmutableArray
      */
-    protected function quickSort(callable $cb): self
+    protected function quickSort(callable $callback): self
     {
         $sfa = new SplFixedArray(count($this));
 
@@ -99,7 +99,7 @@ trait SortTrait
             $i = ($lo - 1);
 
             foreach ($partition as $j => $el) {
-                if ($cb($ii[$j], $x) <= 0) {
+                if ($callback($ii[$j], $x) <= 0) {
                     // Bump up the index of the last low hit, and swap
                     $i++;
                     $temp = $sfa[$i];
@@ -137,12 +137,12 @@ trait SortTrait
      * Sort by applying a CallbackHeap and building a new heap
      * Can be efficient for sorting large stored objects.
      *
-     * @param callable $cb The comparison callback
+     * @param callable $callback The comparison callback
      * @return ImmutableArray
      */
-    protected function heapSort(callable $cb): self
+    protected function heapSort(callable $callback): self
     {
-        $h = new CallbackHeap($cb);
+        $h = new CallbackHeap($callback);
         foreach ($this as $el) {
             $h->insert($el);
         }
@@ -153,17 +153,19 @@ trait SortTrait
     /**
      * Fallback behaviour to use the builtin array sort functions
      *
-     * @param callable $cb The callback for comparison
+     * @param callable $callback The callback for comparison
      * @return ImmutableArray
      */
-    protected function arraySort(callable $cb = null): self
+    protected function arraySort(callable $callback = null)
     {
-        $ar = $this->toArray();
-        if ($cb) {
-            usort($ar, $cb);
+        $array = $this->toArray();
+
+        if ($callback) {
+            usort($array, $callback);
         } else {
-            sort($ar);
+            sort($array);
         }
-        return static::fromArray($ar);
+        
+        return static::fromArray($array);
     }
 }
