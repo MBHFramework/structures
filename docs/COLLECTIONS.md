@@ -62,3 +62,28 @@ echo 'Ordered ascending: ' .
 echo 'First 2 words only: ' . $polite->slice(0, 2)->join(' ');
 // => "set once"
 ```
+
+## More of the same
+
+Until recently we saw examples of how to use certain features in small arrays. Now we could go to another level, and apply other functions to slightly larger arrays.
+
+### Load big objects
+
+```php
+<?php
+
+use Mbh\Collection\ImmutableArray;
+
+// Big memory footprint: $fruits is 30MB on PHP5.6
+$fruits = array_merge(array_fill(0, 1000000, 'tomato'), array_fill(0, 1000000, 'banana'));
+
+// Small memory footprint: only 12MB
+$fruitsImm = ImmutableArray::fromArray($fruits);
+
+// Especially big savings for slices -- array_slice() gives a 31MB object
+$range = range(0, 50000);
+$sliceArray = array_slice($range, 0, 30000);
+
+// But this is a 192 _bytes_ iterator!
+$immSlice = ImmutableArray::fromArray($range)->slice(0, 30000);
+```
