@@ -168,7 +168,7 @@ foreach ($fruits as $fruit) {
 }
 ```
 
-### Load from any `Traversable` object
+### Load from any Traversable object
 
 ```php
 <?php
