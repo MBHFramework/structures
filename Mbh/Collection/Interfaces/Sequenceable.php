@@ -20,6 +20,6 @@ use ArrayAccess;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-interface SequenceableCollection extends CollectionInterface, ArrayAccess
+interface Sequenceable extends CollectionInterface, ArrayAccess
 {
 }
