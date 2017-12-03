@@ -1,5 +1,7 @@
 <?php namespace Mbh\Collection\Traits;
 
+use Mbh\Collection\Interfaces\Collection as CollectionInterface;
+
 /**
  * MBHFramework
  *
@@ -36,6 +38,15 @@ trait Collection
         return $this->toArray();
     }
 
+    /**
+     * Creates a shallow copy of the collection.
+     *
+     * @return CollectionInterface a shallow copy of the collection.
+     */
+    public function copy(): CollectionInterface
+    {
+        return new self($this);
+    }
 
     /**
      * Returns an array representation of the collection.
