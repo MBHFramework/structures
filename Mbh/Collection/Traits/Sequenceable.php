@@ -39,7 +39,7 @@ trait Sequenceable
      * @param callable $callback Function to map new data
      * @return Sequenceable
      */
-    public function map(callable $callback): self
+    public function map(callable $callback): SequenceableInterface
     {
         $count = count($this);
         $sfa = new SplFixedArray($count);
@@ -60,7 +60,7 @@ trait Sequenceable
      * @param callable $callback Function to call on each element
      * @return Sequenceable
      */
-    public function walk(callable $callback): self
+    public function walk(callable $callback): SequenceableInterface
     {
         foreach ($this as $i => $elem) {
             $callback($elem, $i, $this);
@@ -75,7 +75,7 @@ trait Sequenceable
      * @param callable $callback Function to filter out on false
      * @return Sequenceable
      */
-    public function filter(callable $callback): self
+    public function filter(callable $callback): SequenceableInterface
     {
         $count = count($this);
         $sfa = new SplFixedArray($count);
@@ -143,7 +143,7 @@ trait Sequenceable
      * @param int $end End index of slice
      * @return Sequenceable
      */
-    public function slice(int $begin = 0, int $end = null): self
+    public function slice(int $begin = 0, int $end = null): SequenceableInterface
     {
         $it = new SliceIterator($this, $begin, $end);
         return new static($it);
@@ -155,7 +155,7 @@ trait Sequenceable
      * @param Traversable,...
      * @return Sequenceable
      */
-    public function concat(): self
+    public function concat(): SequenceableInterface
     {
         $args = func_get_args();
         array_unshift($args, $this);
@@ -207,7 +207,7 @@ trait Sequenceable
      * @param SplHeap $heap The heap to run for sorting
      * @return Sequenceable
      */
-    public function heapSort(SplHeap $heap): self
+    public function heapSort(SplHeap $heap): SequenceableInterface
     {
         foreach ($this as $item) {
             $heap->insert($item);
