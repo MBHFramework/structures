@@ -81,11 +81,11 @@ trait Sort
         $stack->push([0, count($sfa) - 1]);
 
         $first = true;
+
         // Keep popping from stack while is not empty
         while (!$stack->isEmpty()) {
             // Pop h and l
             list($lo, $hi) = $stack->pop();
-
             if ($first) {
                 // Start our partition iterator on the original data
                 $partition = new LimitIterator($this->sfa, $lo, $hi - $lo);
@@ -93,26 +93,25 @@ trait Sort
                 $partition = new LimitIterator($sfa, $lo, $hi - $lo);
             }
             $ii = $partition->getInnerIterator();
-
             // Set pivot element at its correct position in sorted array
             $x = $ii[$hi];
             $i = ($lo - 1);
-
-            foreach ($partition as $j => $el) {
+            foreach ($partition as $j => $elem) {
                 if ($callback($ii[$j], $x) <= 0) {
                     // Bump up the index of the last low hit, and swap
                     $i++;
                     $temp = $sfa[$i];
-                    $sfa[$i] = $el;
+                    $sfa[$i] = $elem;
                     $sfa[$j] = $temp;
                 } elseif ($first) {
-                    $sfa[$j] = $el;
+                    $sfa[$j] = $elem;
+                    $first = false;
                 }
             }
-            $sfa[$hi] = $x;
 
             // Set the pivot element
             $pivot = $i + 1;
+
             // Swap the last hi with the second-last hi
             $sfa[$hi] = $sfa[$pivot];
             $sfa[$pivot] = $x;
@@ -122,7 +121,6 @@ trait Sort
             if ($pivot - 1 > $lo) {
                 $stack->push([$lo, $pivot - 1]);
             }
-
             // If there are elements on right side of pivot, then push right
             // side to stack
             if ($pivot + 1 < $hi) {
@@ -143,8 +141,8 @@ trait Sort
     public function heapSort(callable $callback): self
     {
         $h = new CallbackHeap($callback);
-        foreach ($this as $el) {
-            $h->insert($el);
+        foreach ($this as $elem) {
+            $h->insert($elem);
         }
 
         return static::fromItems($h);
