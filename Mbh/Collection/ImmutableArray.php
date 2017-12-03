@@ -334,4 +334,9 @@ class ImmutableArray implements SequenceableInterface
     {
         throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
     }
+
+    public function clear()
+    {
+        throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
+    }
 }
