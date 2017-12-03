@@ -47,7 +47,7 @@ class ImmutableArray implements SequenceableInterface
     /**
      * Create an immutable array
      *
-     * @param Traversable $immute Data guaranteed to be immutable
+     * @param Traversable $immute data guaranteed to be immutable
      */
     private function __construct(Traversable $immute)
     {
