@@ -39,8 +39,8 @@ use ReflectionClass;
 
 class ImmutableArray implements SequenceableCollectionInterface
 {
+    use Traits\Collection;
     use Traits\Sort {
-        Traits\Sort::quickSort as quickSortWithCallback;
         Traits\Sort::heapSort as heapSortWithCallback;
     }
 
@@ -101,11 +101,11 @@ class ImmutableArray implements SequenceableCollectionInterface
      */
     public function filter(callable $callback): self
     {
-        $count = count($this->sfa);
+        $count = count($this);
         $sfa = new SplFixedArray($count);
         $newCount = 0;
 
-        foreach ($this->sfa as $elem) {
+        foreach ($this as $elem) {
             if ($callback($elem)) {
                 $sfa[$newCount++] = $elem;
             }
@@ -125,7 +125,7 @@ class ImmutableArray implements SequenceableCollectionInterface
      */
     public function reduce(callable $callback, $accumulator = null)
     {
-        foreach ($this->sfa as $i => $elem) {
+        foreach ($this as $i => $elem) {
             $accumulator = $callback($accumulator, $elem, $i, $this);
         }
 
@@ -143,7 +143,7 @@ class ImmutableArray implements SequenceableCollectionInterface
     {
         $str = "";
         if ($secondToken) {
-            foreach ($this->sfa as $i => $elem) {
+            foreach ($this as $i => $elem) {
                 $str .= $token . (string) $elem . $secondToken;
             }
         } else {
@@ -169,7 +169,7 @@ class ImmutableArray implements SequenceableCollectionInterface
      */
     public function slice(int $begin = 0, int $end = null): self
     {
-        $it = new SliceIterator($this->sfa, $begin, $end);
+        $it = new SliceIterator($this, $begin, $end);
         return new static($it);
     }
 
@@ -182,7 +182,7 @@ class ImmutableArray implements SequenceableCollectionInterface
     public function concat(): self
     {
         $args = func_get_args();
-        array_unshift($args, $this->sfa);
+        array_unshift($args, $this);
 
         // Concat this iterator, and variadic args
         $class = new ReflectionClass('Mbh\Iterator\ConcatIterator');
@@ -200,7 +200,7 @@ class ImmutableArray implements SequenceableCollectionInterface
      */
     public function find(callable $callback)
     {
-        foreach ($this->sfa as $i => $elem) {
+        foreach ($this as $i => $elem) {
             if ($callback($elem, $i, $this)) {
                 return $elem;
             }
@@ -333,13 +333,5 @@ class ImmutableArray implements SequenceableCollectionInterface
     public function offsetUnset($offset)
     {
         throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
-    }
-
-    /**
-     * JsonSerializable
-     */
-    public function jsonSerialize(): array
-    {
-        return $this->sfa->toArray();
     }
 }
