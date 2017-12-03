@@ -8,7 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\Interfaces\SequenceableCollection as SequenceableCollectionInterface;
+use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use ArrayAccess;
 use LimitIterator;
 use JsonSerializable;
@@ -21,8 +21,10 @@ use RuntimeException;
 * Iterator to allow a slice to be used like an array
 */
 
-class SliceIterator extends LimitIterator implements SequenceableCollectionInterface
+class SliceIterator extends LimitIterator implements SequenceableInterface
 {
+    use \Mbh\Collection\Traits\Collection;
+
     protected $count = 0;
     protected $begin = 0;
 
@@ -78,10 +80,14 @@ class SliceIterator extends LimitIterator implements SequenceableCollectionInter
         }
     }
 
+    public function clear()
+    {
+    }
+
     /**
      * Countable
      */
-    public function count()
+    public function count(): int
     {
         return $this->count;
     }
@@ -113,15 +119,7 @@ class SliceIterator extends LimitIterator implements SequenceableCollectionInter
         return $this->getInnerIterator()->offsetUnset($offset + $this->begin);
     }
 
-    /**
-     * JsonSerializable
-     */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    public function toArray()
+    public function toArray(): array
     {
         return iterator_to_array($this, false);
     }

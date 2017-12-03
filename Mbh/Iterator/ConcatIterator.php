@@ -8,7 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\Interfaces\SequenceableCollection as SequenceableCollectionInterface;
+use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use ArrayAccess;
 use AppendIterator;
 use JsonSerializable;
@@ -21,8 +21,10 @@ use InvalidArgumentException;
  * Iterator to allow multiple iterators to be concatenated
  */
 
-class ConcatIterator extends AppendIterator implements SequenceableCollectionInterface
+class ConcatIterator extends AppendIterator implements SequenceableInterface
 {
+    use \Mbh\Collection\Traits\Collection;
+
     const INVALID_INDEX = 'Index invalid or out of range';
 
     /** @var int $count Fast-lookup count for full set of iterators */
@@ -66,7 +68,7 @@ class ConcatIterator extends AppendIterator implements SequenceableCollectionInt
     /**
      * Countable
      */
-    public function count()
+    public function count(): int
     {
         return $this->count;
     }
@@ -101,15 +103,7 @@ class ConcatIterator extends AppendIterator implements SequenceableCollectionInt
         $it->offsetUnset($idx);
     }
 
-    /**
-     * JsonSerializable
-     */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    public function toArray()
+    public function toArray(): array
     {
         return iterator_to_array($this, false);
     }

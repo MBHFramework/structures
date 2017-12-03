@@ -27,6 +27,8 @@ use SplHeap;
 
 class CallbackHeap extends SplHeap implements CollectionInterface
 {
+    use Traits\Collection;
+
     public $cb;
 
     public function __construct(callable $cb)
