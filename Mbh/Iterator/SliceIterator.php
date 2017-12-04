@@ -23,7 +23,7 @@ use RuntimeException;
 
 class SliceIterator extends LimitIterator implements SequenceableInterface
 {
-    use \Mbh\Collection\Traits\Collection;
+    use \Mbh\Collection\Traits\Sequenceable;
 
     protected $count = 0;
     protected $begin = 0;

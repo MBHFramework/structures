@@ -23,7 +23,7 @@ use InvalidArgumentException;
 
 class ConcatIterator extends AppendIterator implements SequenceableInterface
 {
-    use \Mbh\Collection\Traits\Collection;
+    use \Mbh\Collection\Traits\Sequenceable;
 
     const INVALID_INDEX = 'Index invalid or out of range';
 
