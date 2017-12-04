@@ -25,7 +25,7 @@ trait Sort
     public function mergeSort(callable $callback)
     {
         $count = count($this);
-        $sfa = $this->sfa;
+        $sfa = $this;
         $result = new SplFixedArray($count);
         for ($k = 1; $k < $count; $k = $k << 1) {
             for ($left = 0; ($left + $k) < $count; $left += $k << 1) {
@@ -88,7 +88,7 @@ trait Sort
             list($lo, $hi) = $stack->pop();
             if ($first) {
                 // Start our partition iterator on the original data
-                $partition = new LimitIterator($this->sfa, $lo, $hi - $lo);
+                $partition = new LimitIterator($this, $lo, $hi - $lo);
             } else {
                 $partition = new LimitIterator($sfa, $lo, $hi - $lo);
             }
