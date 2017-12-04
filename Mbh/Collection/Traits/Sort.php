@@ -25,7 +25,7 @@ trait Sort
     public function mergeSort(callable $callback)
     {
         $count = count($this);
-        $sfa = $this;
+        $sfa = $this->sfa;
         $result = new SplFixedArray($count);
         for ($k = 1; $k < $count; $k = $k << 1) {
             for ($left = 0; ($left + $k) < $count; $left += $k << 1) {

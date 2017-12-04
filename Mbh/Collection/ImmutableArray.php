@@ -8,6 +8,8 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use RuntimeException;
+
 /**
  * The Immutable Array
  *
