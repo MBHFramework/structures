@@ -45,7 +45,7 @@ trait Sequenceable
         $sfa = new SplFixedArray($count);
 
         for ($i = 0; $i < $count; $i++) {
-            $sfa[$i] = $callback($this->sfa[$i], $i, $this);
+            $sfa[$i] = $callback($this[$i], $i, $this);
         }
 
         return new static($sfa);
