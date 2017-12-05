@@ -27,16 +27,16 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     /**
      * Factory for building FixedArrays from any traversable
      *
-     * @return self
+     * @return Sequenceable
      */
-    public static function fromItems(Traversable $array): self;
+    public static function fromItems(Traversable $array): Sequenceable;
 
     /**
      * Build from an array
      *
-     * @return self
+     * @return Sequenceable
      */
-    public static function fromArray(array $array): self;
+    public static function fromArray(array $array): Sequenceable;
 
     /**
      * Creates a shallow copy of the collection.
@@ -49,9 +49,9 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * Map elements to a new Sequenceable via a callback
      *
      * @param callable $callback Function to map new data
-     * @return self
+     * @return Sequenceable
      */
-    public function map(callable $callback): self;
+    public function map(callable $callback): Sequenceable;
 
     /**
      * forEach, or "walk" the data
@@ -60,17 +60,17 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * Named walk for historic reasons - forEach is reserved in PHP
      *
      * @param callable $callback Function to call on each element
-     * @return self
+     * @return Sequenceable
      */
-    public function walk(callable $callback): self;
+    public function walk(callable $callback): Sequenceable;
 
     /**
      * Filter out elements
      *
      * @param callable $callback Function to filter out on false
-     * @return self
+     * @return Sequenceable
      */
-    public function filter(callable $callback): self;
+    public function filter(callable $callback): Sequenceable;
 
     /**
      * Reduce to a single value
@@ -96,17 +96,17 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      *
      * @param int $begin Start index of slice
      * @param int $end End index of slice
-     * @return self
+     * @return Sequenceable
      */
-    public function slice(int $begin = 0, int $end = null): self;
+    public function slice(int $begin = 0, int $end = null): Sequenceable;
 
     /**
      * Concat to the end of this array
      *
      * @param Traversable,...
-     * @return self
+     * @return Sequenceable
      */
-    public function concat(): self;
+    public function concat(): Sequenceable;
 
     /**
      * Find a single element
@@ -120,7 +120,7 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * Return a new sorted Sequenceable
      *
      * @param callable $callback The sort callback
-     * @return self
+     * @return Sequenceable
      */
     public function sort(callable $callback = null);
 
@@ -131,7 +131,7 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * optimized space.
      *
      * @param SplHeap $heap The heap to run for sorting
-     * @return self
+     * @return Sequenceable
      */
-    public function heapSort(SplHeap $heap): self;
+    public function heapSort(SplHeap $heap): Sequenceable;
 }
