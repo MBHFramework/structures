@@ -231,7 +231,7 @@ trait Sequenceable
      * @param callable $callback The sort callback
      * @return SequenceableInterface
      */
-    public function sort(callable $callback = null)
+    public function sort(callable $callback = null): SequenceableInterface
     {
         if ($callback) {
             return $this->mergeSort($callback);
