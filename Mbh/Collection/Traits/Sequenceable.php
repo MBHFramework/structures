@@ -214,4 +214,14 @@ trait Sequenceable
         }
         return static::fromItems($heap);
     }
+
+    /**
+     * Creates a shallow copy of the collection.
+     *
+     * @return CollectionInterface a shallow copy of the collection.
+     */
+    public function copy(): CollectionInterface
+    {
+        return static::fromArray($this->toArray());
+    }
 }

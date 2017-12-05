@@ -8,6 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\FixedArray;
 use SplFixedArray;
 use SplStack;
 use LimitIterator;
@@ -25,7 +26,7 @@ trait Sort
     public function mergeSort(callable $callback)
     {
         $count = count($this);
-        $sfa = $this->sfa;
+        $sfa = FixedArray::fromItems($this);
         $result = new SplFixedArray($count);
         for ($k = 1; $k < $count; $k = $k << 1) {
             for ($left = 0; ($left + $k) < $count; $left += $k << 1) {
