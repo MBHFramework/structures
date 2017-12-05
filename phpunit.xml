@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<phpunit bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" backupGlobals="false" backupStaticAttributes="false">
+<phpunit colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" backupGlobals="false" backupStaticAttributes="false" bootstrap="tests/bootstrap.php">
   <testsuites>
     <testsuite name="Tests">
       <directory>tests/</directory>
