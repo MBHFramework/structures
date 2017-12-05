@@ -80,23 +80,6 @@ trait Sort
     }
 
     /**
-     * Sort by applying a CallbackHeap and building a new heap
-     * Can be efficient for sorting large stored objects.
-     *
-     * @param callable $callback The comparison callback
-     * @return SequenceableInterface
-     */
-    public function heapSorted(callable $callback): SequenceableInterface
-    {
-        $h = new CallbackHeap($callback);
-        foreach ($this as $elem) {
-            $h->insert($elem);
-        }
-
-        return static::fromItems($h);
-    }
-
-    /**
      * Fallback behaviour to use the builtin array sort functions
      *
      * @param callable $callback The callback for comparison
@@ -115,6 +98,45 @@ trait Sort
         $this->setTraversable(static::fromArray($array));
 
         return $this;
+    }
+
+    /**
+     * Sorts the collection with mergeSort
+     *
+     * @param callable $callback The callback for comparison
+     * @return SequenceableInterface
+     */
+    public function mergeSorted(callable $callback = null): SequenceableInterface
+    {
+        return $this->copy()->mergeSort($callback);
+    }
+
+    /**
+     * Sort by applying a CallbackHeap and building a new heap
+     * Can be efficient for sorting large stored objects.
+     *
+     * @param callable $callback The comparison callback
+     * @return SequenceableInterface
+     */
+    public function heapSorted(callable $callback): SequenceableInterface
+    {
+        $h = new CallbackHeap($callback);
+        foreach ($this as $elem) {
+            $h->insert($elem);
+        }
+
+        return static::fromItems($h);
+    }
+
+    /**
+     * Sorts the collection
+     *
+     * @param callable $callback The callback for comparison
+     * @return SequenceableInterface
+     */
+    public function arraySorted(callable $callback = null): SequenceableInterface
+    {
+        return $this->copy()->arraySort($callback);
     }
 
     abstract protected function setTraversable(Traversable $traversable);
