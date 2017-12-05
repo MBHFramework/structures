@@ -34,6 +34,48 @@ trait Sequenceable
     }
 
     /**
+     * Factory for building FixedArrays from any traversable
+     *
+     * @return FixedArray
+     */
+    public static function fromItems(Traversable $array): self
+    {
+        // We can only do it this way if we can count it
+        if ($array instanceof Countable) {
+            $sfa = new SplFixedArray(count($array));
+
+            foreach ($array as $i => $elem) {
+                $sfa[$i] = $elem;
+            }
+
+            return new static($sfa);
+        }
+
+        // If we can't count it, it's simplest to iterate into an array first
+        return static::fromArray(iterator_to_array($array));
+    }
+
+    /**
+     * Build from an array
+     *
+     * @return FixedArray
+     */
+    public static function fromArray(array $array): self
+    {
+        return new static(SplFixedArray::fromArray($array));
+    }
+
+    /**
+     * Creates a shallow copy of the collection.
+     *
+     * @return CollectionInterface a shallow copy of the collection.
+     */
+    public function copy(): CollectionInterface
+    {
+        return static::fromArray($this->toArray());
+    }
+
+    /**
      * Map elements to a new Sequenceable via a callback
      *
      * @param callable $callback Function to map new data
@@ -213,15 +255,5 @@ trait Sequenceable
             $heap->insert($item);
         }
         return static::fromItems($heap);
-    }
-
-    /**
-     * Creates a shallow copy of the collection.
-     *
-     * @return CollectionInterface a shallow copy of the collection.
-     */
-    public function copy(): CollectionInterface
-    {
-        return static::fromArray($this->toArray());
     }
 }

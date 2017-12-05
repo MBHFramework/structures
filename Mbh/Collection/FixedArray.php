@@ -46,45 +46,13 @@ class FixedArray implements SequenceableInterface
     protected $sfa = null;
 
     /**
-     * Create an immutable array
+     * Create an fixed array
      *
-     * @param Traversable $immute data guaranteed to be immutable
+     * @param Traversable $fixed data guaranteed to be immutable
      */
-    protected function __construct(Traversable $immute)
+    protected function __construct(Traversable $fixed)
     {
-        $this->sfa = $immute;
-    }
-
-    /**
-     * Factory for building FixedArrays from any traversable
-     *
-     * @return FixedArray
-     */
-    public static function fromItems(Traversable $array): self
-    {
-        // We can only do it this way if we can count it
-        if ($array instanceof Countable) {
-            $sfa = new SplFixedArray(count($array));
-
-            foreach ($array as $i => $elem) {
-                $sfa[$i] = $elem;
-            }
-
-            return new static($sfa);
-        }
-
-        // If we can't count it, it's simplest to iterate into an array first
-        return static::fromArray(iterator_to_array($array));
-    }
-
-    /**
-     * Build from an array
-     *
-     * @return FixedArray
-     */
-    public static function fromArray(array $array): self
-    {
-        return new static(SplFixedArray::fromArray($array));
+        $this->sfa = $fixed;
     }
 
     public function toArray(): array
