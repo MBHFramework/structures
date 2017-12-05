@@ -9,6 +9,7 @@
  */
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
+use Traversable;
 use ArrayAccess;
 use SplHeap;
 
@@ -23,6 +24,27 @@ use SplHeap;
 
 interface Sequenceable extends CollectionInterface, ArrayAccess
 {
+    /**
+     * Factory for building FixedArrays from any traversable
+     *
+     * @return FixedArray
+     */
+    public static function fromItems(Traversable $array): self;
+
+    /**
+     * Build from an array
+     *
+     * @return FixedArray
+     */
+    public static function fromArray(array $array): self;
+
+    /**
+     * Creates a shallow copy of the collection.
+     *
+     * @return CollectionInterface a shallow copy of the collection.
+     */
+    public function copy(): CollectionInterface;
+
     /**
      * Map elements to a new Sequenceable via a callback
      *

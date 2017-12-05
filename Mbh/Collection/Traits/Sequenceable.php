@@ -38,7 +38,7 @@ trait Sequenceable
      *
      * @return FixedArray
      */
-    public static function fromItems(Traversable $array): self
+    public static function fromItems(Traversable $array): SequenceableInterface
     {
         // We can only do it this way if we can count it
         if ($array instanceof Countable) {
@@ -60,7 +60,7 @@ trait Sequenceable
      *
      * @return FixedArray
      */
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array): SequenceableInterface
     {
         return new static(SplFixedArray::fromArray($array));
     }
