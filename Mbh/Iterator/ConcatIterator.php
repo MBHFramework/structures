@@ -8,7 +8,6 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use ArrayAccess;
 use AppendIterator;
 use JsonSerializable;
@@ -21,10 +20,8 @@ use InvalidArgumentException;
  * Iterator to allow multiple iterators to be concatenated
  */
 
-class ConcatIterator extends AppendIterator implements SequenceableInterface
+class ConcatIterator extends AppendIterator implements Iterator, Countable
 {
-    use \Mbh\Collection\Traits\Sequenceable;
-
     const INVALID_INDEX = 'Index invalid or out of range';
 
     /** @var int $count Fast-lookup count for full set of iterators */

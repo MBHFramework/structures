@@ -55,6 +55,27 @@ class FixedArray implements SequenceableInterface
         $this->sfa = $fixed;
     }
 
+    /**
+     * Fallback behaviour to use the builtin array sort functions
+     *
+     * @param callable $callback The callback for comparison
+     * @return SequenceableInterface
+     */
+    public function arraySort(callable $callback = null): SequenceableInterface
+    {
+        $array = $this->toArray();
+
+        if ($callback) {
+            usort($array, $callback);
+        } else {
+            sort($array);
+        }
+
+        $this->sfa = static::fromArray($array);
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         return $this->sfa->toArray();

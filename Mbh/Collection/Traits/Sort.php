@@ -87,16 +87,5 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return SequenceableInterface
      */
-    public function arraySort(callable $callback = null): SequenceableInterface
-    {
-        $array = $this->toArray();
-
-        if ($callback) {
-            usort($array, $callback);
-        } else {
-            sort($array);
-        }
-
-        return static::fromArray($array);
-    }
+    abstract public function arraySort(callable $callback = null): SequenceableInterface;
 }

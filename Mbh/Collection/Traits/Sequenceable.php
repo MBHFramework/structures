@@ -235,12 +235,10 @@ trait Sequenceable
     public function sort(callable $callback = null): SequenceableInterface
     {
         if ($callback) {
-            $this->mergeSort($callback);
+            return $this->mergeSort($callback);
         }
 
-        $this->arraySort();
-
-        return $this;
+        return $this->arraySort();
     }
 
     /**

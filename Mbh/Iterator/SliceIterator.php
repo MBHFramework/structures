@@ -8,7 +8,6 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use ArrayAccess;
 use LimitIterator;
 use JsonSerializable;
@@ -21,10 +20,8 @@ use RuntimeException;
 * Iterator to allow a slice to be used like an array
 */
 
-class SliceIterator extends LimitIterator implements SequenceableInterface
+class SliceIterator extends LimitIterator implements Iterator, Countable
 {
-    use \Mbh\Collection\Traits\Sequenceable;
-
     protected $count = 0;
     protected $begin = 0;
 
