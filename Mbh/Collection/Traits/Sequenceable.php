@@ -32,6 +32,7 @@ trait Sequenceable
     use Collection;
     use Sort {
         Sort::heapSort as heapSortWithCallback;
+        Sort::heapSorted as heapSortedWithCallback;
     }
 
     /**
@@ -249,7 +250,7 @@ trait Sequenceable
      */
     public function sorted(callable $callback = null): SequenceableInterface
     {
-        $copy = FixedArray::fromArray($this->toArray());
+        $copy = FixedArray::fromItems($this);
 
         if ($callback) {
             $copy->mergeSort($callback);
@@ -257,7 +258,7 @@ trait Sequenceable
 
         $copy->arraySort();
 
-        return new static($copy);
+        return static::fromItems($copy);
     }
 
     /**
@@ -269,11 +270,25 @@ trait Sequenceable
      * @param SplHeap $heap The heap to run for sorting
      * @return SequenceableInterface
      */
-    public function heapSort(SplHeap $heap): SequenceableInterface
+    public function heapSorted(SplHeap $heap): SequenceableInterface
     {
         foreach ($this as $item) {
             $heap->insert($item);
         }
         return static::fromItems($heap);
+    }
+
+    /**
+     * Sort by applying a CallbackHeap and building a new heap
+     * Can be efficient for sorting large stored objects.
+     *
+     * @param callable $callback The comparison callback
+     * @return SequenceableInterface
+     */
+    public function heapSort(SplHeap $heap): SequenceableInterface
+    {
+        $this->setTraversable($this->heapSorted($heap));
+
+        return $this;
     }
 }

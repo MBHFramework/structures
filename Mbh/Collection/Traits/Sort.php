@@ -10,6 +10,7 @@
 
 use Mbh\Collection\FixedArray;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
+use Traversable;
 use SplFixedArray;
 use SplStack;
 use LimitIterator;
@@ -73,6 +74,20 @@ trait Sort
      */
     public function heapSort(callable $callback): SequenceableInterface
     {
+        $this->setTraversable($this->heapSortedWithCallback($callback));
+
+        return $this;
+    }
+
+    /**
+     * Sort by applying a CallbackHeap and building a new heap
+     * Can be efficient for sorting large stored objects.
+     *
+     * @param callable $callback The comparison callback
+     * @return SequenceableInterface
+     */
+    public function heapSorted(callable $callback): SequenceableInterface
+    {
         $h = new CallbackHeap($callback);
         foreach ($this as $elem) {
             $h->insert($elem);
@@ -87,5 +102,20 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return SequenceableInterface
      */
-    abstract public function arraySort(callable $callback = null): SequenceableInterface;
+    public function arraySort(callable $callback = null): SequenceableInterface
+    {
+        $array = $this->toArray();
+
+        if ($callback) {
+            usort($array, $callback);
+        } else {
+            sort($array);
+        }
+
+        $this->setTraversable(static::fromArray($array));
+
+        return $this;
+    }
+
+    abstract protected function setTraversable(Traversable $traversable);
 }
