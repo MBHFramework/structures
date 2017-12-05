@@ -74,7 +74,12 @@ trait Sort
      */
     public function heapSort(callable $callback): SequenceableInterface
     {
-        $this->setTraversable($this->heapSortedWithCallback($callback));
+        $h = new CallbackHeap($callback);
+        foreach ($this as $elem) {
+            $h->insert($elem);
+        }
+
+        $this->setTraversable(static::fromItems($h));
 
         return $this;
     }
@@ -120,12 +125,7 @@ trait Sort
      */
     public function heapSorted(callable $callback): SequenceableInterface
     {
-        $h = new CallbackHeap($callback);
-        foreach ($this as $elem) {
-            $h->insert($elem);
-        }
-
-        return static::fromItems($h);
+        return $this->copy()->heapSort($callback);
     }
 
     /**

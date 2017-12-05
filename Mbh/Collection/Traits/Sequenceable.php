@@ -272,10 +272,7 @@ trait Sequenceable
      */
     public function heapSorted(SplHeap $heap): SequenceableInterface
     {
-        foreach ($this as $item) {
-            $heap->insert($item);
-        }
-        return static::fromItems($heap);
+        return $this->copy()->heapSort($heap);
     }
 
     /**
@@ -287,8 +284,14 @@ trait Sequenceable
      */
     public function heapSort(SplHeap $heap): SequenceableInterface
     {
-        $this->setTraversable($this->heapSorted($heap));
+        foreach ($this as $item) {
+            $heap->insert($item);
+        }
+
+        $this->setTraversable(static::fromItems($heap));
 
         return $this;
     }
+
+    abstract protected function setTraversable(Traversable $traversable);
 }
