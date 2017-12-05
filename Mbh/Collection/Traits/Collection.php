@@ -43,10 +43,7 @@ trait Collection
      *
      * @return CollectionInterface a shallow copy of the collection.
      */
-    public function copy(): CollectionInterface
-    {
-        return new self($this);
-    }
+    abstract public function copy(): CollectionInterface;
 
     /**
      * Returns an array representation of the collection.
