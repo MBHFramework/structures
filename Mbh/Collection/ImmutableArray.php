@@ -8,6 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use RuntimeException;
 
 /**
@@ -24,6 +25,11 @@ use RuntimeException;
 
 class ImmutableArray extends FixedArray
 {
+    public function sort(callable $callback = null): SequenceableInterface
+    {
+        throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
+    }
+
     public function offsetSet($offset, $value)
     {
         throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');

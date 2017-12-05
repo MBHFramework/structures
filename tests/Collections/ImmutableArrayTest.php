@@ -143,10 +143,10 @@ class ImmutableArrayTest extends TestCase
         $this->assertSame([1, 2, 3, 4, 5, 6], $concatted->toArray());
     }
 
-    public function testSort()
+    public function testSorted()
     {
         $unsorted = ImmutableArray::fromArray(['f', 'c', 'a', 'b', 'e', 'd']);
-        $sorted = $unsorted->sort(function ($a, $b) {
+        $sorted = $unsorted->sorted(function ($a, $b) {
             return strcmp($a, $b);
         });
 

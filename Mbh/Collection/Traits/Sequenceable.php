@@ -226,12 +226,29 @@ trait Sequenceable
     }
 
     /**
-     * Return a new sorted Sequenceable
+     * Sorts the collection
      *
      * @param callable $callback The sort callback
      * @return SequenceableInterface
      */
     public function sort(callable $callback = null): SequenceableInterface
+    {
+        if ($callback) {
+            $this->mergeSort($callback);
+        }
+
+        $this->arraySort();
+
+        return $this;
+    }
+
+    /**
+     * Return a new sorted Sequenceable
+     *
+     * @param callable $callback The sort callback
+     * @return SequenceableInterface
+     */
+    public function sorted(callable $callback = null): SequenceableInterface
     {
         if ($callback) {
             return $this->mergeSort($callback);

@@ -41,14 +41,14 @@ EOT;
 // </article>
 ```
 
-### Sort with a callback
+### Sorted with a callback
 
 ```php
 <?php
 
 echo 'Ordered ascending: ' .
     $yelling
-        ->sort(function ($a, $b) { return strcmp($a, $b); })
+        ->sorted(function ($a, $b) { return strcmp($a, $b); })
         ->join(' ');
 
 // "Ordered ascending: DON'T MUTATE ONCE SET"
