@@ -9,6 +9,7 @@
  */
 
 use Mbh\Collection\FixedArray;
+use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use SplFixedArray;
 use SplStack;
 use LimitIterator;
@@ -21,9 +22,9 @@ trait Sort
      * since PHP isn't well optimized for large recursion stacks.
      *
      * @param callable $callback The callback for comparison
-     * @return ImmutableArray
+     * @return SequenceableInterface
      */
-    public function mergeSort(callable $callback)
+    public function mergeSort(callable $callback): SequenceableInterface
     {
         $count = count($this);
         $sfa = FixedArray::fromItems($this);
@@ -68,9 +69,9 @@ trait Sort
      * A classic quickSort - great for inplace sorting a big fixed array
      *
      * @param callable $callback The callback for comparison
-     * @return ImmutableArray
+     * @return SequenceableInterface
      */
-    public function quickSort(callable $callback): self
+    public function quickSort(callable $callback): SequenceableInterface
     {
         $sfa = new SplFixedArray(count($this));
 
@@ -137,9 +138,9 @@ trait Sort
      * Can be efficient for sorting large stored objects.
      *
      * @param callable $callback The comparison callback
-     * @return ImmutableArray
+     * @return SequenceableInterface
      */
-    public function heapSort(callable $callback): self
+    public function heapSort(callable $callback): SequenceableInterface
     {
         $h = new CallbackHeap($callback);
         foreach ($this as $elem) {
@@ -153,9 +154,9 @@ trait Sort
      * Fallback behaviour to use the builtin array sort functions
      *
      * @param callable $callback The callback for comparison
-     * @return ImmutableArray
+     * @return SequenceableInterface
      */
-    public function arraySort(callable $callback = null)
+    public function arraySort(callable $callback = null): SequenceableInterface
     {
         $array = $this->toArray();
 
