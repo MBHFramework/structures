@@ -27,14 +27,14 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     /**
      * Factory for building FixedArrays from any traversable
      *
-     * @return FixedArray
+     * @return Sequenceable
      */
     public static function fromItems(Traversable $array): self;
 
     /**
      * Build from an array
      *
-     * @return FixedArray
+     * @return Sequenceable
      */
     public static function fromArray(array $array): self;
 
