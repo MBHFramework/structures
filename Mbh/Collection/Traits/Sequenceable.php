@@ -36,7 +36,7 @@ trait Sequenceable
     /**
      * Factory for building FixedArrays from any traversable
      *
-     * @return FixedArray
+     * @return SequenceableInterface
      */
     public static function fromItems(Traversable $array): SequenceableInterface
     {
@@ -58,7 +58,7 @@ trait Sequenceable
     /**
      * Build from an array
      *
-     * @return FixedArray
+     * @return SequenceableInterface
      */
     public static function fromArray(array $array): SequenceableInterface
     {
@@ -79,7 +79,7 @@ trait Sequenceable
      * Map elements to a new Sequenceable via a callback
      *
      * @param callable $callback Function to map new data
-     * @return Sequenceable
+     * @return SequenceableInterface
      */
     public function map(callable $callback): SequenceableInterface
     {
@@ -100,7 +100,7 @@ trait Sequenceable
      * Named walk for historic reasons - forEach is reserved in PHP
      *
      * @param callable $callback Function to call on each element
-     * @return Sequenceable
+     * @return SequenceableInterface
      */
     public function walk(callable $callback): SequenceableInterface
     {
@@ -115,7 +115,7 @@ trait Sequenceable
      * Filter out elements
      *
      * @param callable $callback Function to filter out on false
-     * @return Sequenceable
+     * @return SequenceableInterface
      */
     public function filter(callable $callback): SequenceableInterface
     {
@@ -183,7 +183,7 @@ trait Sequenceable
      *
      * @param int $begin Start index of slice
      * @param int $end End index of slice
-     * @return Sequenceable
+     * @return SequenceableInterface
      */
     public function slice(int $begin = 0, int $end = null): SequenceableInterface
     {
@@ -195,7 +195,7 @@ trait Sequenceable
      * Concat to the end of this array
      *
      * @param Traversable,...
-     * @return Sequenceable
+     * @return SequenceableInterface
      */
     public function concat(): SequenceableInterface
     {
@@ -229,7 +229,7 @@ trait Sequenceable
      * Return a new sorted Sequenceable
      *
      * @param callable $callback The sort callback
-     * @return Sequenceable
+     * @return SequenceableInterface
      */
     public function sort(callable $callback = null)
     {
@@ -247,7 +247,7 @@ trait Sequenceable
      * optimized space.
      *
      * @param SplHeap $heap The heap to run for sorting
-     * @return Sequenceable
+     * @return SequenceableInterface
      */
     public function heapSort(SplHeap $heap): SequenceableInterface
     {
