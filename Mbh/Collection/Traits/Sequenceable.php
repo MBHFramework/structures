@@ -2,6 +2,7 @@
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
+use Mbh\Collection\FixedArray;
 use Mbh\Collection\CallbackHeap;
 use Mbh\Iterator\SliceIterator;
 use Mbh\Iterator\ConcatIterator;
@@ -250,11 +251,15 @@ trait Sequenceable
      */
     public function sorted(callable $callback = null): SequenceableInterface
     {
+        $copy = FixedArray::fromArray($this->toArray());
+
         if ($callback) {
-            return $this->mergeSort($callback);
+            $copy->mergeSort($callback);
         }
 
-        return $this->arraySort();
+        $copy->arraySort();
+
+        return new static($copy);
     }
 
     /**
