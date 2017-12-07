@@ -27,7 +27,7 @@ trait Builder
      */
     public function getNode()
     {
-        return $this->getNodeAt(count($this->nodeStack) - 1);
+        return $this->peekStack();
     }
 
     /**
@@ -89,7 +89,7 @@ trait Builder
         return $this;
     }
 
-    abstract protected function getNodeAt(int $index): NodeInterface;
+    abstract protected function peekStack(): NodeInterface;
 
     abstract protected function emptyStack();
 

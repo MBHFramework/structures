@@ -28,9 +28,9 @@ class Builder
         $this->setNode($node ?: $this->nodeInstanceByValue());
     }
 
-    protected function getNodeAt(int $index): NodeInterface
+    protected function peekStack(): NodeInterface
     {
-        return $this->nodeStack($index);
+        return $this->nodeStack[count($this->nodeStack) - 1];
     }
 
     protected function emptyStack()
