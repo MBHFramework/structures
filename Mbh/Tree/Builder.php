@@ -13,7 +13,7 @@ use Mbh\Tree\Interfaces\Builder as BuilderInterface;
 
 class Builder
 {
-    use Traits\Builder;
+    use \Mbh\Tree\Traits\Builder;
 
     /**
      * @var NodeInterface[]
