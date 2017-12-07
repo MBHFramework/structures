@@ -9,6 +9,7 @@
  */
 
 use Mbh\Tree\Interfaces\Node as NodeInterface;
+use Mbh\Tree\Node;
 
 trait Builder
 {
@@ -38,6 +39,7 @@ trait Builder
         $this->getNode()->addChild(
             $this->nodeInstanceByValue($value)
         );
+
         return $this;
     }
 
@@ -49,6 +51,7 @@ trait Builder
         foreach (func_get_args() as $value) {
             $this->leaf($value);
         }
+
         return $this;
     }
 
@@ -60,6 +63,7 @@ trait Builder
         $node = $this->nodeInstanceByValue($value);
         $this->getNode()->addChild($node);
         $this->pushNode($node);
+
         return $this;
     }
 
@@ -69,6 +73,7 @@ trait Builder
     public function end()
     {
         $this->popNode();
+
         return $this;
     }
 
