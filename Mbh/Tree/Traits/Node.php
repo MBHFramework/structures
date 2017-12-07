@@ -9,7 +9,7 @@
  */
 
 use Mbh\Tree\Interfaces\Node as NodeInterface;
-use Mbh\Tree\Visitor;
+use Mbh\Tree\Interfaces\Visitor as VisitorInterface;
 
 trait Node
 {
@@ -273,14 +273,14 @@ trait Node
         foreach ($this->getChildren() as $child) {
             $size += $child->getSize();
         }
-        
+
         return $size;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function accept(Visitor $visitor)
+    public function accept(VisitorInterface $visitor)
     {
         return $visitor->visit($this);
     }
