@@ -8,8 +8,8 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-    use Mbh\Tree\Interfaces\Builder as BuilderInterface;
+use Mbh\Tree\Interfaces\Builder as BuilderInterface;
 
-    class Builder
-    {
-    }
+class Builder
+{
+}
