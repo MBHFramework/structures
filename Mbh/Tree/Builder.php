@@ -8,8 +8,45 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Tree\Interfaces\Node as NodeInterface;
 use Mbh\Tree\Interfaces\Builder as BuilderInterface;
 
 class Builder
 {
+    use Traits\Builder;
+
+    /**
+     * @var NodeInterface[]
+     */
+    protected $nodeStack = [];
+
+    /**
+     * @param NodeInterface $node
+     */
+    public function __construct(NodeInterface $node = null)
+    {
+        $this->setNode($node ?: $this->nodeInstanceByValue());
+    }
+
+    protected function getNodeAt(int $index): NodeInterface
+    {
+        return $this->nodeStack($index);
+    }
+
+    protected function emptyStack()
+    {
+        $this->nodeStack = [];
+        return $this;
+    }
+
+    protected function pushNode(NodeInterface $node)
+    {
+        array_push($this->nodeStack, $node);
+        return $this;
+    }
+
+    protected function popNode()
+    {
+        return array_pop($this->nodeStack);
+    }
 }

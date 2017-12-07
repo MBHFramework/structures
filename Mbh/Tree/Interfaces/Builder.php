@@ -18,7 +18,6 @@ use Mbh\Tree\Interfaces\Node as NodeInterface;
  */
 interface Builder
 {
-
     /**
      * Set the node the builder will manage
      *
