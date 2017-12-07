@@ -13,7 +13,7 @@ use Mbh\Tree\Node;
 use Mbh\Tree\Builder;
 
 /**
- * Test cases for verifying each Tree method
+ * Test cases for verifying each Builder method
  *
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
