@@ -9,7 +9,6 @@ On the other hand, the `Mbh\Tree\Node` gives a straight implementation for that 
 ```php
 <?php
 
-
 use Mbh\Tree\Node;
 
 $node = new Node('foo');
