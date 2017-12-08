@@ -33,8 +33,7 @@ $builder
             ->end()
         ->leaf('E')
         ->leaf('F')
-        ->end()
-;
+        ->end();
 
 $nodeA = $builder->getNode();
 ```
