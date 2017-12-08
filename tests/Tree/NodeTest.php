@@ -28,6 +28,7 @@ class NodeTest extends TestCase
         $object->foo = 'bar';
         $this->assertSame($object, $node->getValue());
     }
+    
     public function testAddAndGetChildren()
     {
         $root = new Node;
@@ -38,6 +39,7 @@ class NodeTest extends TestCase
 
         $this->assertSame([$child1, $child2, $child3], $root->getChildren());
     }
+    
     public function testAddChildSetParent()
     {
         $root = new Node;
@@ -48,6 +50,7 @@ class NodeTest extends TestCase
         $this->assertSame($root, $child1->getParent());
         $this->assertSame($root, $child2->getParent());
     }
+    
     public function testSetAndGetParent()
     {
         $root = new Node;
@@ -55,6 +58,7 @@ class NodeTest extends TestCase
         $child->setParent($root);
         $this->assertSame($root, $child->getParent());
     }
+    
     public function testSetChildren()
     {
         $children = [new Node('child1'), new Node('child2'), new Node('child3')];
@@ -62,6 +66,7 @@ class NodeTest extends TestCase
         $root->setChildren($children);
         $this->assertSame($children, $root->getChildren());
     }
+    
     public function testSetChildrenSetParentsReferences()
     {
         $root = new Node;
@@ -72,6 +77,7 @@ class NodeTest extends TestCase
         $this->assertSame($root, $child1->getParent());
         $this->assertSame($root, $child2->getParent());
     }
+    
     public function testRemoveChild()
     {
         $root = new Node;
@@ -83,6 +89,7 @@ class NodeTest extends TestCase
 
         $this->assertSame([$child1, $child3], $root->getChildren());
     }
+    
     public function testRemoveChildRemoveParentReference()
     {
         $root = new Node;
@@ -92,6 +99,7 @@ class NodeTest extends TestCase
 
         $this->assertNull($child1->getParent());
     }
+    
     public function testRemoveAllChildrenRemoveParentReferences()
     {
         $root = new Node;
@@ -101,6 +109,7 @@ class NodeTest extends TestCase
 
         $this->assertNull($child1->getParent());
     }
+    
     public function testRemoveAllChildren()
     {
         $root = new Node;
@@ -112,6 +121,7 @@ class NodeTest extends TestCase
 
         $this->assertEmpty($root->getChildren());
     }
+    
     public function testGetAncestors()
     {
         $root = new Node('r');
@@ -120,6 +130,7 @@ class NodeTest extends TestCase
         $b->addChild($c = new Node('c'));
         $this->assertSame([$root, $a, $b], $c->getAncestors());
     }
+    
     public function testGetAncestorsAndSelf()
     {
         $root = new Node('r');
@@ -127,6 +138,7 @@ class NodeTest extends TestCase
         $a->addChild($b = new Node('b'));
         $this->assertSame([$root, $a, $b], $b->getAncestorsAndSelf());
     }
+    
     public function testGetNeighbors()
     {
         $root = new Node('r');
@@ -136,6 +148,7 @@ class NodeTest extends TestCase
             ->addChild($c = new Node('c'));
         $this->assertSame([$b, $c], $a->getNeighbors());
     }
+    
     public function testGetNeighborsAndSelf()
     {
         $root = new Node('r');
@@ -145,6 +158,7 @@ class NodeTest extends TestCase
             ->addChild($c = new Node('c'));
         $this->assertSame([$a, $b, $c], $a->getNeighborsAndSelf());
     }
+    
     public function testIsLeaf()
     {
         $root = new Node;
@@ -152,6 +166,7 @@ class NodeTest extends TestCase
         $root->addChild(new Node('child'));
         $this->assertFalse($root->isLeaf());
     }
+    
     public function testRoot()
     {
         $root = (new Node('root'))
@@ -160,6 +175,7 @@ class NodeTest extends TestCase
             );
         $this->assertSame($root, $grandchild->root());
     }
+    
     public function testIsRoot()
     {
         $root = new Node('root');
@@ -167,6 +183,7 @@ class NodeTest extends TestCase
         $this->assertTrue($root->isRoot());
         $this->assertFalse($child->isRoot());
     }
+    
     public function testIsChild()
     {
         $root = new Node('root');
@@ -174,6 +191,7 @@ class NodeTest extends TestCase
         $this->assertTrue($child->isChild());
         $this->assertFalse($root->isChild());
     }
+    
     public function testGetDepth()
     {
         $root = new Node;
@@ -190,6 +208,7 @@ class NodeTest extends TestCase
         $this->assertSame(0, $root->getDepth());
         $this->assertSame(2, $child4->getDepth());
     }
+    
     public function testGetHeight()
     {
         $root = new Node;
@@ -206,6 +225,7 @@ class NodeTest extends TestCase
         $this->assertSame(2, $root->getHeight());
         $this->assertSame(1, $child3->getHeight());
     }
+    
     public function testGetSize()
     {
         $root = new Node;
