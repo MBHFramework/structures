@@ -10,7 +10,7 @@ Collections, with filter, map, join, sort, slice, and other methods. Well-suited
 
 You can read the following [file](./docs/COLLECTIONS.md) to learn how the structure works.
 
-# Tree
+## Tree
 
 In Tree you can find a basic but flexible tree data structure for php together with and an handful Builder class, that enables you to build tree in a fluent way.
 
