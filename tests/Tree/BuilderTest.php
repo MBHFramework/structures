@@ -18,7 +18,6 @@ use Mbh\Tree\Builder;
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-
 class BuilderTest extends TestCase
 {
     /** @var Builder */
