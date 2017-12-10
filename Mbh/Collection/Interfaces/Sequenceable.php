@@ -12,6 +12,8 @@ use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Traversable;
 use ArrayAccess;
 use SplHeap;
+use UnderflowException;
+use OutOfRangeException;
 
 /**
  * Sequenceable Collection is the base interface which covers functionality common to
@@ -39,11 +41,107 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public static function fromArray(array $array): self;
 
     /**
+     * Concat to the end of this array
+     *
+     * @param Traversable,...
+     * @return self
+     */
+    public function concat(): self;
+
+    /**
+     * Determines whether the sequence contains all of zero or more values.
+     *
+     * @param mixed ...$values
+     *
+     * @return bool true if at least one value was provided and the sequence
+     *              contains all given values, false otherwise.
+     */
+    public function contains(...$values): bool;
+
+    /**
      * Creates a shallow copy of the collection.
      *
      * @return CollectionInterface a shallow copy of the collection.
      */
     public function copy(): CollectionInterface;
+
+    /**
+     * Join a set of strings together.
+     *
+     * @param string $token Main token to put between elements
+     * @param string $secondToken If set, $token on left $secondToken on right
+     * @return string
+     */
+    public function join(string $token = ',', string $secondToken = null): string;
+
+    /**
+     * Filter out elements
+     *
+     * @param callable $callback Function to filter out on false
+     * @return self
+     */
+    public function filter(callable $callback): self;
+
+    /**
+     * Find a single element
+     *
+     * @param callable $callback The test to run on each element
+     * @return mixed The element we found
+     */
+    public function find(callable $callback);
+
+    /**
+     * Returns the first value in the sequence.
+     *
+     * @return mixed
+     *
+     * @throws UnderflowException if the sequence is empty.
+     */
+    public function first();
+
+    /**
+     * Returns the value at a given index (position) in the sequence.
+     *
+     * @param int $index
+     *
+     * @return mixed
+     *
+     * @throws OutOfRangeException if the index is not in the range [0, size-1]
+     */
+    public function get(int $index);
+
+    /**
+     * Sort a new Sequenceable by filtering through a heap.
+     * Tends to run much faster than array or merge sorts, since you're only
+     * sorting the pointers, and the sort function is running in a highly
+     * optimized space.
+     *
+     * @param SplHeap $heap The heap to run for sorting
+     * @return self
+     */
+    public function heapSort(SplHeap $heap): self;
+
+    /**
+     * Inserts zero or more values at a given index.
+     *
+     * Each value after the index will be moved one position to the right.
+     * Values may be inserted at an index equal to the size of the sequence.
+     *
+     * @param int   $index
+     * @param mixed ...$values
+     *
+     * @throws OutOfRangeException if the index is not in the range [0, n]
+     */
+    public function insert(int $index, ...$values);
+
+    /**
+     * Returns the last value in the sequence.
+     *
+     * @return mixed
+     *
+     * @throws UnderflowException if the sequence is empty.
+     */
+    public function last();
 
     /**
      * Map elements to a new Sequenceable via a callback
@@ -54,23 +152,20 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function map(callable $callback): self;
 
     /**
-     * forEach, or "walk" the data
-     * Exists primarily to provide a consistent interface, though it's seldom
-     * any better than a simple php foreach. Mainly useful for chaining.
-     * Named walk for historic reasons - forEach is reserved in PHP
+     * Removes the last value in the sequence, and returns it.
      *
-     * @param callable $callback Function to call on each element
-     * @return self
+     * @return mixed what was the last value in the sequence.
+     *
+     * @throws UnderflowException if the sequence is empty.
      */
-    public function walk(callable $callback): self;
+    public function pop();
 
     /**
-     * Filter out elements
+     * Adds zero or more values to the end of the sequence.
      *
-     * @param callable $callback Function to filter out on false
-     * @return self
+     * @param mixed ...$values
      */
-    public function filter(callable $callback): self;
+    public function push(...$values);
 
     /**
      * Reduce to a single value
@@ -83,38 +178,13 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function reduce(callable $callback, $accumulator = null);
 
     /**
-     * Join a set of strings together.
-     *
-     * @param string $token Main token to put between elements
-     * @param string $secondToken If set, $token on left $secondToken on right
-     * @return string
-     */
-    public function join(string $token = ',', string $secondToken = null): string;
-
-    /**
-     * Take a slice of the array
-     *
-     * @param int $begin Start index of slice
-     * @param int $end End index of slice
-     * @return self
-     */
+    * Take a slice of the array
+    *
+    * @param int $begin Start index of slice
+    * @param int $end End index of slice
+    * @return self
+    */
     public function slice(int $begin = 0, int $end = null): self;
-
-    /**
-     * Concat to the end of this array
-     *
-     * @param Traversable,...
-     * @return self
-     */
-    public function concat(): self;
-
-    /**
-     * Find a single element
-     *
-     * @param callable $callback The test to run on each element
-     * @return mixed The element we found
-     */
-    public function find(callable $callback);
 
     /**
      * Return a new sorted Sequenceable
@@ -125,13 +195,13 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function sort(callable $callback = null);
 
     /**
-     * Sort a new Sequenceable by filtering through a heap.
-     * Tends to run much faster than array or merge sorts, since you're only
-     * sorting the pointers, and the sort function is running in a highly
-     * optimized space.
-     *
-     * @param SplHeap $heap The heap to run for sorting
-     * @return self
-     */
-    public function heapSort(SplHeap $heap): self;
+    * forEach, or "walk" the data
+    * Exists primarily to provide a consistent interface, though it's seldom
+    * any better than a simple php foreach. Mainly useful for chaining.
+    * Named walk for historic reasons - forEach is reserved in PHP
+    *
+    * @param callable $callback Function to call on each element
+    * @return self
+    */
+    public function walk(callable $callback): self;
 }
