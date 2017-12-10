@@ -18,6 +18,8 @@ use JsonSerializable;
 use RuntimeException;
 use Traversable;
 use ReflectionClass;
+use UnderflowException;
+use OverflowException;
 
 /**
  * MBHFramework
@@ -69,6 +71,100 @@ trait Sequenceable
     public function copy(): CollectionInterface
     {
         return static::fromArray($this->toArray());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function contains(...$values): bool
+    {
+        foreach ($values as $value) {
+            if (!$this->find($value)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+    * @inheritDoc
+    */
+    public function first()
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        return $this[0];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get(int $index)
+    {
+        if (! $this->validIndex($index)) {
+            throw new OutOfRangeException();
+        }
+
+        return $this[$index];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function insert(int $index, ...$values)
+    {
+        if (! $this->validIndex($index) && $index !== count($this)) {
+            throw new OutOfRangeException();
+        }
+
+        // next implementation
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function last()
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        return $this[count($this) - 1];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function pop()
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        // next impplementation
+    }
+
+    /**
+     * Pushes all values of either an array or traversable object.
+     */
+    private function pushAll($values)
+    {
+        foreach ($values as $value) {
+            $this[] = $value;
+        }
+
+        $this->checkCapacity();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function push(...$values)
+    {
+        $this->pushAll($values);
     }
 
     /**
