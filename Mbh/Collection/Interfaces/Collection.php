@@ -41,7 +41,7 @@ interface Collection extends Iterator, Countable, JsonSerializable
      *
      * @return Collection a copy of the collection.
      */
-    public function copy(): Collection;
+    public function copy();
 
     /**
      * Returns whether the collection is empty.

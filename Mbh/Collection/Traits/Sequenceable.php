@@ -68,7 +68,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function copy(): CollectionInterface
+    public function copy()
     {
         return static::fromArray($this->toArray());
     }

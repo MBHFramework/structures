@@ -43,7 +43,7 @@ trait Collection
      *
      * @return CollectionInterface a shallow copy of the collection.
      */
-    abstract public function copy(): CollectionInterface;
+    abstract public function copy();
 
     /**
      * Returns an array representation of the collection.
