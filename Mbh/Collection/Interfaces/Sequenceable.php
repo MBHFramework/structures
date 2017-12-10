@@ -63,7 +63,7 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      *
      * @return CollectionInterface a shallow copy of the collection.
      */
-    public function copy(): CollectionInterface;
+    public function copy();
 
     /**
      * Join a set of strings together.
