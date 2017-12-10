@@ -31,10 +31,6 @@ use OutOfRangeException;
 
 trait Sequenceable
 {
-    use Collection;
-    use Functional;
-
-
     protected $sfa = null;
 
     /**

@@ -40,5 +40,7 @@ use ReflectionClass;
 
 class FixedArray implements SequenceableInterface
 {
+    use Traits\Collection;
     use Traits\Sequenceable;
+    use Traits\Functional;
 }
