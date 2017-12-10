@@ -40,7 +40,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public static function fromItems(Traversable $array): SequenceableInterface
+    public static function fromItems(Traversable $array)
     {
         // We can only do it this way if we can count it
         if ($array instanceof Countable) {
@@ -60,7 +60,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public static function fromArray(array $array): SequenceableInterface
+    public static function fromArray(array $array)
     {
         return new static(SplFixedArray::fromArray($array));
     }
@@ -154,7 +154,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function map(callable $callback): SequenceableInterface
+    public function map(callable $callback)
     {
         $count = count($this);
         $sfa = new SplFixedArray($count);
@@ -169,7 +169,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function walk(callable $callback): SequenceableInterface
+    public function walk(callable $callback)
     {
         foreach ($this as $i => $elem) {
             $callback($elem, $i, $this);
@@ -181,7 +181,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function filter(callable $callback): SequenceableInterface
+    public function filter(callable $callback)
     {
         $count = count($this);
         $sfa = new SplFixedArray($count);
@@ -236,7 +236,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function slice(int $begin = 0, int $end = null): SequenceableInterface
+    public function slice(int $begin = 0, int $end = null)
     {
         $it = new SliceIterator($this, $begin, $end);
         return new static($it);
@@ -245,7 +245,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function concat(): SequenceableInterface
+    public function concat()
     {
         $args = func_get_args();
         array_unshift($args, $this);
@@ -273,7 +273,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function sort(callable $callback = null): SequenceableInterface
+    public function sort(callable $callback = null)
     {
         if ($callback) {
             return $this->mergeSort($callback);
@@ -285,7 +285,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function sorted(callable $callback = null): SequenceableInterface
+    public function sorted(callable $callback = null)
     {
         $copy = FixedArray::fromItems($this);
 
@@ -301,7 +301,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function heapSorted(SplHeap $heap): SequenceableInterface
+    public function heapSorted(SplHeap $heap)
     {
         return $this->copy()->heapSort($heap);
     }
@@ -309,7 +309,7 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function heapSort(SplHeap $heap): SequenceableInterface
+    public function heapSort(SplHeap $heap)
     {
         foreach ($this as $item) {
             $heap->insert($item);
