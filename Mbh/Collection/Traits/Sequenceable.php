@@ -19,7 +19,7 @@ use RuntimeException;
 use Traversable;
 use ReflectionClass;
 use UnderflowException;
-use OverflowException;
+use OutOfRangeException;
 
 /**
  * MBHFramework
@@ -141,8 +141,6 @@ trait Sequenceable
         foreach ($values as $value) {
             $this[] = $value;
         }
-
-        $this->checkCapacity();
     }
 
     /**
@@ -323,4 +321,6 @@ trait Sequenceable
     }
 
     abstract protected function setTraversable(Traversable $traversable);
+
+    abstract protected function validIndex(int $index);
 }

@@ -60,7 +60,7 @@ class FixedArray implements SequenceableInterface
         return $this->sfa->toArray();
     }
 
-    private function validIndex(int $index)
+    protected function validIndex(int $index)
     {
         return $index >= 0 && $index < count($this);
     }
