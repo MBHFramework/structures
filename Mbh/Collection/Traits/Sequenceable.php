@@ -37,6 +37,109 @@ trait Sequenceable
         Sort::heapSorted as heapSortedWithCallback;
     }
 
+
+    protected $sfa = null;
+
+    /**
+     * Create an fixed array
+     *
+     * @param Traversable $array data
+     */
+    protected function __construct(Traversable $array)
+    {
+        $this->sfa = $array;
+    }
+
+    public function toArray(): array
+    {
+        return $this->sfa->toArray();
+    }
+
+    protected function validIndex(int $index)
+    {
+        return $index >= 0 && $index < count($this);
+    }
+
+    /**
+     * Countable
+     */
+    public function count(): int
+    {
+        return count($this->sfa);
+    }
+
+    /**
+     * Iterator
+     */
+    public function current()
+    {
+        return $this->sfa->current();
+    }
+
+    public function key(): int
+    {
+        return $this->sfa->key();
+    }
+
+    public function next()
+    {
+        return $this->sfa->next();
+    }
+
+    public function rewind()
+    {
+        return $this->sfa->rewind();
+    }
+
+    public function valid()
+    {
+        return $this->sfa->valid();
+    }
+
+    /**
+     * ArrayAccess
+     */
+    public function offsetExists($offset): bool
+    {
+        return is_integer($offset)
+            && $this->validIndex($offset)
+            && $this->sfa->offsetExists($offset);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->sfa->offsetGet($offset);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        return is_integer($offset)
+            && $this->validIndex($offset)
+            && $this->sfa->offsetSet($offset, $value);
+    }
+
+    public function offsetUnset($offset)
+    {
+        return is_integer($offset)
+            && $this->validIndex($offset)
+            && $this->sfa->offsetUnset($offset);
+    }
+
+    public function clear()
+    {
+        return $this->sfa->clear();
+    }
+
+    protected function getMainTraversable(): Traversable
+    {
+        return $this->sfa;
+    }
+
+    protected function setTraversable(Traversable $traversable)
+    {
+        $this->sfa = $traversable;
+    }
+
     /**
      * @inheritDoc
      */
@@ -319,16 +422,4 @@ trait Sequenceable
 
         return $this;
     }
-
-    abstract protected function setTraversable(Traversable $traversable);
-
-    abstract protected function validIndex(int $index);
-
-    abstract public function valid();
-
-    abstract public function current();
-
-    abstract public function next();
-
-    abstract public function rewind();
 }
