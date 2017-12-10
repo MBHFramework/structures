@@ -36,9 +36,7 @@ trait Sequenceable
     }
 
     /**
-     * Factory for building FixedArrays from any traversable
-     *
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public static function fromItems(Traversable $array): SequenceableInterface
     {
@@ -58,9 +56,7 @@ trait Sequenceable
     }
 
     /**
-     * Build from an array
-     *
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public static function fromArray(array $array): SequenceableInterface
     {
@@ -68,9 +64,7 @@ trait Sequenceable
     }
 
     /**
-     * Creates a shallow copy of the collection.
-     *
-     * @return CollectionInterface a shallow copy of the collection.
+     * @inheritDoc
      */
     public function copy(): CollectionInterface
     {
@@ -78,10 +72,7 @@ trait Sequenceable
     }
 
     /**
-     * Map elements to a new Sequenceable via a callback
-     *
-     * @param callable $callback Function to map new data
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function map(callable $callback): SequenceableInterface
     {
@@ -96,13 +87,7 @@ trait Sequenceable
     }
 
     /**
-     * forEach, or "walk" the data
-     * Exists primarily to provide a consistent interface, though it's seldom
-     * any better than a simple php foreach. Mainly useful for chaining.
-     * Named walk for historic reasons - forEach is reserved in PHP
-     *
-     * @param callable $callback Function to call on each element
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function walk(callable $callback): SequenceableInterface
     {
@@ -114,10 +99,7 @@ trait Sequenceable
     }
 
     /**
-     * Filter out elements
-     *
-     * @param callable $callback Function to filter out on false
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function filter(callable $callback): SequenceableInterface
     {
@@ -136,12 +118,7 @@ trait Sequenceable
     }
 
     /**
-     * Reduce to a single value
-     *
-     * @param callable $callback Callback(
-     *     mixed $previous, mixed $current[, mixed $index, mixed $immArray]
-     * ):mixed Callback to run reducing function
-     * @param mixed $accumulator Initial value for first argument
+     * @inheritDoc
      */
     public function reduce(callable $callback, $accumulator = null)
     {
@@ -153,11 +130,7 @@ trait Sequenceable
     }
 
     /**
-     * Join a set of strings together.
-     *
-     * @param string $token Main token to put between elements
-     * @param string $secondToken If set, $token on left $secondToken on right
-     * @return string
+     * @inheritDoc
      */
     public function join(string $token = ',', string $secondToken = null): string
     {
@@ -181,11 +154,7 @@ trait Sequenceable
     }
 
     /**
-     * Take a slice of the array
-     *
-     * @param int $begin Start index of slice
-     * @param int $end End index of slice
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function slice(int $begin = 0, int $end = null): SequenceableInterface
     {
@@ -194,10 +163,7 @@ trait Sequenceable
     }
 
     /**
-     * Concat to the end of this array
-     *
-     * @param Traversable,...
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function concat(): SequenceableInterface
     {
@@ -213,10 +179,7 @@ trait Sequenceable
     }
 
     /**
-     * Find a single element
-     *
-     * @param callable $callback The test to run on each element
-     * @return mixed The element we found
+     * @inheritDoc
      */
     public function find(callable $callback)
     {
@@ -228,10 +191,7 @@ trait Sequenceable
     }
 
     /**
-     * Sorts the collection
-     *
-     * @param callable $callback The sort callback
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function sort(callable $callback = null): SequenceableInterface
     {
@@ -243,10 +203,7 @@ trait Sequenceable
     }
 
     /**
-     * Return a new sorted Sequenceable
-     *
-     * @param callable $callback The sort callback
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function sorted(callable $callback = null): SequenceableInterface
     {
@@ -262,13 +219,7 @@ trait Sequenceable
     }
 
     /**
-     * Sort a new Sequenceable by filtering through a heap.
-     * Tends to run much faster than array or merge sorts, since you're only
-     * sorting the pointers, and the sort function is running in a highly
-     * optimized space.
-     *
-     * @param SplHeap $heap The heap to run for sorting
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function heapSorted(SplHeap $heap): SequenceableInterface
     {
@@ -276,11 +227,7 @@ trait Sequenceable
     }
 
     /**
-     * Sort by applying a CallbackHeap and building a new heap
-     * Can be efficient for sorting large stored objects.
-     *
-     * @param callable $callback The comparison callback
-     * @return SequenceableInterface
+     * @inheritDoc
      */
     public function heapSort(SplHeap $heap): SequenceableInterface
     {
