@@ -323,4 +323,12 @@ trait Sequenceable
     abstract protected function setTraversable(Traversable $traversable);
 
     abstract protected function validIndex(int $index);
+
+    abstract public function valid();
+
+    abstract public function current();
+
+    abstract public function next();
+
+    abstract public function rewind();
 }
