@@ -119,8 +119,6 @@ trait Sequenceable
         if (! $this->validIndex($index) && $index !== count($this)) {
             throw new OutOfRangeException();
         }
-
-        // next implementation
     }
 
     /**
@@ -133,18 +131,6 @@ trait Sequenceable
         }
 
         return $this[count($this) - 1];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function pop()
-    {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
-        // next impplementation
     }
 
     /**

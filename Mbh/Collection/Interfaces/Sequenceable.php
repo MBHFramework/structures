@@ -152,15 +152,6 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function map(callable $callback): self;
 
     /**
-     * Removes the last value in the sequence, and returns it.
-     *
-     * @return mixed what was the last value in the sequence.
-     *
-     * @throws UnderflowException if the sequence is empty.
-     */
-    public function pop();
-
-    /**
      * Adds zero or more values to the end of the sequence.
      *
      * @param mixed ...$values
