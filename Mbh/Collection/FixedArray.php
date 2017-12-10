@@ -43,4 +43,23 @@ class FixedArray implements SequenceableInterface
     use Traits\Collection;
     use Traits\Sequenceable;
     use Traits\Functional;
+    use Traits\Capacity;
+
+    const MIN_CAPACITY = 8;
+
+    /**
+     * @inheritDoc
+     */
+    protected function getGrowthFactor(): float
+    {
+        return 1.5;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function shouldIncreaseCapacity(): bool
+    {
+        return count($this) > $this->capacity;
+    }
 }

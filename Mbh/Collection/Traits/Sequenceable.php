@@ -237,6 +237,8 @@ trait Sequenceable
         foreach ($values as $value) {
             $this[] = $value;
         }
+
+        $this->checkCapacity();
     }
 
     /**
