@@ -248,4 +248,6 @@ trait Sequenceable
     {
         $this->pushAll($values);
     }
+
+    abstract protected function checkCapacity();
 }
