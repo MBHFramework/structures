@@ -273,12 +273,27 @@ trait Sequenceable
         $this->sfa = $traversable;
     }
 
-    public function getSize(): int
+    /**
+     * Gets the size of the array.
+     *
+     * @return int
+     */
+    protected function getSize(): int
     {
         return $this->sfa->getSize();
     }
 
-    public function setSize(int $size): bool
+    /**
+     * Change the size of an array to the new size of size.
+     * If size is less than the current array size, any values after the
+     * new size will be discarded. If size is greater than the current
+     * array size, the array will be padded with NULL values.
+     *
+     * @param int $size The new array size. This should be a value between 0
+     * and PHP_INT_MAX.
+     * @return bool Returns TRUE on success or FALSE on failure.
+     */
+    protected function setSize(int $size): bool
     {
         return $this->sfa->setSize($size);
     }

@@ -102,7 +102,7 @@ trait Capacity
      *
      * @return int
      */
-    abstract public function getSize(): int;
+    abstract protected function getSize(): int;
 
     /**
      * Change the size of an array to the new size of size.
@@ -114,5 +114,5 @@ trait Capacity
      * and PHP_INT_MAX.
      * @return bool Returns TRUE on success or FALSE on failure.
      */
-    abstract public function setSize(int $size): bool;
+    abstract protected function setSize(int $size): bool;
 }
