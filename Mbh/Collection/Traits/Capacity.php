@@ -11,9 +11,7 @@
 trait Capacity
 {
     /**
-     * Returns the current capacity.
-     *
-     * @return int
+     * @inheritDoc
      */
     public function capacity(): int
     {
@@ -21,12 +19,7 @@ trait Capacity
     }
 
     /**
-     * Ensures that enough memory is allocated for a specified capacity. This
-     * potentially reduces the number of reallocations as the size increases.
-     *
-     * @param int $capacity The number of values for which capacity should be
-     *                      allocated. Capacity will stay the same if this value
-     *                      is less than or equal to the current capacity.
+     * @inheritDoc
      */
     public function allocate(int $capacity)
     {

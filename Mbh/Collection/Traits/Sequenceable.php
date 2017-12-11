@@ -46,6 +46,14 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
+    public static function fromArray(array $array)
+    {
+        return new static(SplFixedArray::fromArray($array));
+    }
+
+    /**
+     * @inheritDoc
+     */
     public static function fromItems(Traversable $array)
     {
         // We can only do it this way if we can count it
@@ -61,14 +69,6 @@ trait Sequenceable
 
         // If we can't count it, it's simplest to iterate into an array first
         return static::fromArray(iterator_to_array($array));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromArray(array $array)
-    {
-        return new static(SplFixedArray::fromArray($array));
     }
 
     /**
