@@ -100,7 +100,7 @@ trait Functional
     public function join(string $token = ',', string $secondToken = null): string
     {
         $str = "";
-        if ($secondToken) {
+        if ($secondToken !== null) {
             foreach ($this as $i => $elem) {
                 $str .= $token . (string) $elem . $secondToken;
             }
@@ -206,4 +206,12 @@ trait Functional
     }
 
     abstract public function count(): int;
+
+    abstract public function current();
+
+    abstract public function next();
+
+    abstract public function rewind();
+
+    abstract public function valid();
 }
