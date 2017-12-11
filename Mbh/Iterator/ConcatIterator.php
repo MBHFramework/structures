@@ -20,7 +20,7 @@ use InvalidArgumentException;
  * Iterator to allow multiple iterators to be concatenated
  */
 
-class ConcatIterator extends AppendIterator implements Iterator, Countable
+class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, Iterator
 {
     const INVALID_INDEX = 'Index invalid or out of range';
 

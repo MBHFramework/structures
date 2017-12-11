@@ -20,7 +20,7 @@ use RuntimeException;
 * Iterator to allow a slice to be used like an array
 */
 
-class SliceIterator extends LimitIterator implements Iterator, Countable
+class SliceIterator extends LimitIterator implements ArrayAccess, Countable, Iterator
 {
     protected $count = 0;
     protected $begin = 0;
