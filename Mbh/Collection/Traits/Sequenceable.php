@@ -122,7 +122,7 @@ trait Sequenceable
      */
     public function insert(int $index, ...$values)
     {
-        if (! $this->validIndex($index) && $index !== count($this)) {
+        if (! $this->validIndex($index) && $index !== $this->count()) {
             throw new OutOfRangeException();
         }
 
@@ -138,7 +138,7 @@ trait Sequenceable
             throw new UnderflowException();
         }
 
-        return $this[count($this) - 1];
+        return $this[$this->count() - 1];
     }
 
     /**
@@ -151,7 +151,7 @@ trait Sequenceable
         }
 
         $value = $this->last();
-        unset($this[count($this) - 1]);
+        unset($this[$this->count() - 1]);
 
         $this->checkCapacity();
 
