@@ -176,7 +176,7 @@ trait Functional
      */
     public function sorted(callable $callback = null)
     {
-        $copy = FixedArray::fromItems($this);
+        $copy = FixedArray::fromItems($this->copy());
 
         if ($callback) {
             $copy->mergeSort($callback);
