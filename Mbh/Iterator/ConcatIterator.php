@@ -80,12 +80,12 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
 
     public function offsetGet($offset)
     {
-        if ($this->offsetExists($offset)) {
-            list($it, $idx) = $this->getIteratorByIndex($offset);
-            return $it->offsetGet($idx);
-        } else {
+        if (!$this->offsetExists($offset)) {
             throw new RuntimeException(self::INVALID_INDEX);
         }
+        
+        list($it, $idx) = $this->getIteratorByIndex($offset);
+        return $it->offsetGet($idx);
     }
 
     public function offsetSet($offset, $value)
