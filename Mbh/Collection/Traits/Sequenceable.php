@@ -158,7 +158,6 @@ trait Sequenceable
         return $value;
     }
 
-
     /**
      * Pushes all values of either an array or traversable object.
      */
