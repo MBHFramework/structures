@@ -128,7 +128,7 @@ trait Functional
     public function slice(int $begin = 0, int $end = null)
     {
         $it = new SliceIterator($this->getMainTraversable(), $begin, $end);
-        return new static($it);
+        return static::fromArray($it->toArray());
     }
 
     /**
@@ -208,6 +208,8 @@ trait Functional
 
         return $this;
     }
+
+    abstract public static function fromItems(Traversable $array);
 
     abstract protected function getMainTraversable(): Traversable;
 

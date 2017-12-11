@@ -122,11 +122,21 @@ trait Sequenceable
      */
     public function insert(int $index, ...$values)
     {
-        if (! $this->validIndex($index) && $index !== $this->count()) {
+        if (!$this->validIndex($index) && $index !== $this->count()) {
             throw new OutOfRangeException();
         }
 
-        // array_splice($this->array, $index, 0, $values);
+        $slice = $this->slice($index, $this->count());
+        var_dump($slice);
+        $this->setSize($this->count() + count($values));
+
+        foreach ($values as &$item) {
+            $this[$index++] = $item;
+        }
+
+        foreach ($slice->toArray() as &$item) {
+            $this[$index++] = $item;
+        }
     }
 
     /**
