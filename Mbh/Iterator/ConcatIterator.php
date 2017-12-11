@@ -73,7 +73,7 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
     /**
      * ArrayAccess
      */
-    public function offsetExists($offset): boolean
+    public function offsetExists($offset): bool
     {
         return $offset >= 0 && $offset < $this->count;
     }
