@@ -139,9 +139,11 @@ trait Sort
         return $this->copy()->arraySort($callback);
     }
 
-    abstract protected function setTraversable(Traversable $traversable);
+    abstract protected function __construct(Traversable $array);
+
+    abstract public static function fromItems(Traversable $array);
 
     abstract public function count(): int;
 
-    abstract public static function fromItems(Traversable $array);
+    abstract protected function setTraversable(Traversable $traversable);
 }
