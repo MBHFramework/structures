@@ -127,7 +127,7 @@ trait Functional
      */
     public function slice(int $begin = 0, int $end = null)
     {
-        $it = new SliceIterator($this, $begin, $end);
+        $it = new SliceIterator($this->getMainTraversable(), $begin, $end);
         return new static($it);
     }
 
@@ -208,6 +208,8 @@ trait Functional
 
         return $this;
     }
+
+    abstract protected function getMainTraversable(): Traversable;
 
     abstract public function count(): int;
 
