@@ -36,13 +36,18 @@ trait Functional
         Sort::heapSorted as heapSortedWithCallback;
     }
 
+    protected function getSplFixedArrayAndSize()
+    {
+        $count = $this->count();
+        return [new SplFixedArray($count), $count];
+    }
+
     /**
      * @inheritDoc
      */
     public function map(callable $callback)
     {
-        $count = $this->count();
-        $sfa = new SplFixedArray($count);
+        list($sfa, $count) = $this->getSplFixedArrayAndSize();
 
         for ($i = 0; $i < $count; $i++) {
             $sfa[$i] = $callback($this[$i], $i, $this);
@@ -68,10 +73,9 @@ trait Functional
      */
     public function filter(callable $callback)
     {
-        $count = $this->count();
-        $sfa = new SplFixedArray($count);
-        $newCount = 0;
+        list($sfa, $count) = $this->getSplFixedArrayAndSize();
 
+        $newCount = 0;
         foreach ($this as $elem) {
             if ($callback($elem)) {
                 $sfa[$newCount++] = $elem;
