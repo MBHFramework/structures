@@ -27,18 +27,18 @@ use OutOfRangeException;
 interface Sequenceable extends CollectionInterface, ArrayAccess
 {
     /**
-     * Factory for building FixedArrays from any traversable
-     *
-     * @return Sequenceable
-     */
-    public static function fromItems(Traversable $array);
-
-    /**
      * Build from an array
      *
      * @return Sequenceable
      */
     public static function fromArray(array $array);
+
+    /**
+     * Factory for building FixedArrays from any traversable
+     *
+     * @return Sequenceable
+     */
+    public static function fromItems(Traversable $array);
 
     /**
      * Concat to the end of this array
