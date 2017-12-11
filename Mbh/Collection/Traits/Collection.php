@@ -22,7 +22,7 @@ trait Collection
      */
     public function isEmpty(): bool
     {
-        return count($this) === 0;
+        return $this->count() === 0;
     }
 
     /**
@@ -74,4 +74,6 @@ trait Collection
     {
         return 'object(' . get_class($this) . ')';
     }
+
+    abstract public function count(): int;
 }
