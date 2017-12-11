@@ -9,7 +9,6 @@
  */
 
 use Mbh\Tree\Interfaces\Node as NodeInterface;
-use Mbh\Tree\Node;
 
 trait Builder
 {
@@ -82,7 +81,7 @@ trait Builder
      */
     public function nodeInstanceByValue($value = null)
     {
-        return new Node($value);
+        return new \Mbh\Tree\Node($value);
     }
 
     /**
