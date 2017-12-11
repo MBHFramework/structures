@@ -79,7 +79,7 @@ trait Sort
             $h->insert($elem);
         }
 
-        $this->setTraversable(SplFixedArray::fromItems($h));
+        $this->setTraversable(static::fromItems($h));
 
         return $this;
     }
@@ -142,4 +142,6 @@ trait Sort
     abstract protected function setTraversable(Traversable $traversable);
 
     abstract public function count(): int;
+
+    abstract public static function fromItems(Traversable $array);
 }
