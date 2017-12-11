@@ -143,6 +143,8 @@ trait Sort
 
     abstract public static function fromItems(Traversable $array);
 
+    abstract public function copy();
+
     abstract public function count(): int;
 
     abstract protected function setTraversable(Traversable $traversable);
