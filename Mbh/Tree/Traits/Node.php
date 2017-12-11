@@ -264,8 +264,7 @@ trait Node
     }
 
     /**
-     * Return the number of nodes in a tree
-     * @return int
+     * {@inheritdoc}
      */
     public function getSize()
     {

@@ -152,6 +152,12 @@ interface Node
     public function getHeight();
 
     /**
+     * Return the number of nodes in a tree
+     * @return int
+     */
+    public function getSize();
+
+    /**
      * Accept method for the visitor pattern (see http://en.wikipedia.org/wiki/Visitor_pattern)
      *
      * @param Visitor $visitor
