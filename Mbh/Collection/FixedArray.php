@@ -58,6 +58,6 @@ class FixedArray implements SequenceableInterface
      */
     protected function shouldIncreaseCapacity(): bool
     {
-        return count($this) > $this->capacity;
+        return count($this) > $this->getSize();
     }
 }

@@ -120,6 +120,18 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
+    public function insert(int $index, ...$values)
+    {
+        if (! $this->validIndex($index) && $index !== count($this)) {
+            throw new OutOfRangeException();
+        }
+
+        // array_splice($this->array, $index, 0, $values);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function last()
     {
         if ($this->isEmpty()) {
@@ -129,6 +141,46 @@ trait Sequenceable
         return $this[count($this) - 1];
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function pop()
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        $value = $this->last();
+        unset($this[count($this) - 1]);
+
+        $this->checkCapacity();
+
+        return $value;
+    }
+
+
+    /**
+     * Pushes all values of either an array or traversable object.
+     */
+    private function pushAll($values)
+    {
+        foreach ($values as $value) {
+            $size = $this->getSize();
+            $this->setSize($size + 1);
+            $this[$size] = $value;
+        }
+
+        $this->checkCapacity();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function push(...$values)
+    {
+        $this->pushAll($values);
+    }
+
     public function toArray(): array
     {
         return $this->sfa->toArray();
@@ -136,7 +188,7 @@ trait Sequenceable
 
     protected function validIndex(int $index)
     {
-        return $index >= 0 && $index < count($this);
+        return $index >= 0 && $index < $this->getSize();
     }
 
     /**
@@ -192,9 +244,11 @@ trait Sequenceable
 
     public function offsetSet($offset, $value)
     {
-        return is_integer($offset)
-            && $this->validIndex($offset)
-            && $this->sfa->offsetSet($offset, $value);
+        if ($offset === null) {
+            $this->push($value);
+        } elseif (is_integer($offset) && $this->validIndex($offset)) {
+            $this->sfa->offsetSet($offset, $value);
+        }
     }
 
     public function offsetUnset($offset)

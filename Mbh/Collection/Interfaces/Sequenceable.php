@@ -129,6 +129,19 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function heapSort(SplHeap $heap);
 
     /**
+     * Inserts zero or more values at a given index.
+     *
+     * Each value after the index will be moved one position to the right.
+     * Values may be inserted at an index equal to the size of the sequence.
+     *
+     * @param int   $index
+     * @param mixed ...$values
+     *
+     * @throws OutOfRangeException if the index is not in the range [0, n]
+     */
+    public function insert(int $index, ...$values);
+
+    /**
      * Returns the last value in the sequence.
      *
      * @return mixed
@@ -144,6 +157,22 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * @return Sequenceable
      */
     public function map(callable $callback);
+
+    /**
+     * Removes the last value in the sequence, and returns it.
+     *
+     * @return mixed what was the last value in the sequence.
+     *
+     * @throws UnderflowException if the sequence is empty.
+     */
+    public function pop();
+
+    /**
+     * Adds zero or more values to the end of the sequence.
+     *
+     * @param mixed ...$values
+     */
+    public function push(...$values);
 
     /**
      * Reduce to a single value
