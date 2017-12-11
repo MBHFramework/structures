@@ -106,13 +106,9 @@ trait Sequenceable
 
     public function offsetSet($offset, $value)
     {
-        if ($offset === null) {
-            $this->push($value);
-        } else {
-            return is_integer($offset)
+        return is_integer($offset)
             && $this->validIndex($offset)
             && $this->sfa->offsetSet($offset, $value);
-        }
     }
 
     public function offsetUnset($offset)
@@ -214,16 +210,6 @@ trait Sequenceable
     /**
      * @inheritDoc
      */
-    public function insert(int $index, ...$values)
-    {
-        if (! $this->validIndex($index) && $index !== count($this)) {
-            throw new OutOfRangeException();
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function last()
     {
         if ($this->isEmpty()) {
@@ -231,27 +217,6 @@ trait Sequenceable
         }
 
         return $this[count($this) - 1];
-    }
-
-    /**
-     * Pushes all values of either an array or traversable object.
-     */
-    private function pushAll($values)
-    {
-        foreach ($values as $value) {
-            $this->sfa->setSize(count($this) + 1);
-            $this->sfa[count($this) - 1] = $value;
-        }
-
-        $this->checkCapacity();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function push(...$values)
-    {
-        $this->pushAll($values);
     }
 
     abstract protected function checkCapacity();
