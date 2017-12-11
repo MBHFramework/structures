@@ -20,7 +20,7 @@ use RuntimeException;
 * Iterator to allow a slice to be used like an array
 */
 
-class SliceIterator extends LimitIterator implements ArrayAccess, Countable, Iterator
+class SliceIterator extends LimitIterator implements Countable, Iterator
 {
     protected $count = 0;
     protected $begin = 0;
@@ -77,43 +77,12 @@ class SliceIterator extends LimitIterator implements ArrayAccess, Countable, Ite
         }
     }
 
-    public function clear()
-    {
-    }
-
     /**
      * Countable
      */
     public function count(): int
     {
         return $this->count;
-    }
-
-    /**
-     * ArrayAccess
-     */
-    public function offsetExists($offset)
-    {
-        return $offset >= 0 && $offset < $this->count;
-    }
-
-    public function offsetGet($offset)
-    {
-        if ($this->offsetExists($offset)) {
-            return $this->getInnerIterator()->offsetGet($offset + $this->begin);
-        } else {
-            throw new RuntimeException(self::INVALID_INDEX);
-        }
-    }
-
-    public function offsetSet($offset, $value)
-    {
-        return $this->getInnerIterator()->offsetSet($offset + $this->begin, $value);
-    }
-
-    public function offsetUnset($offset)
-    {
-        return $this->getInnerIterator()->offsetUnset($offset + $this->begin);
     }
 
     public function toArray(): array
