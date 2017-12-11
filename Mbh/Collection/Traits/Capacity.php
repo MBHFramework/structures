@@ -27,7 +27,7 @@ trait Capacity
     }
 
     /**
-     * @return the structures growth factor.
+     * @return float The structures growth factor.
      */
     protected function getGrowthFactor(): float
     {
@@ -43,7 +43,7 @@ trait Capacity
     }
 
     /**
-     * @return float the ratio between size and capacity when capacity should be
+     * @return float The ratio between size and capacity when capacity should be
      *               decreased.
      */
     protected function getTruncateThreshold(): float
@@ -90,7 +90,7 @@ trait Capacity
     }
 
     /**
-     * @return whether capacity should be increased.
+     * @return bool whether capacity should be increased.
      */
     protected function shouldIncreaseCapacity(): bool
     {
