@@ -129,8 +129,7 @@ trait Sequenceable
         $slice = $this->slice($index, $this->count());
         $this->setSize($index);
 
-        $this->pushAll($values);
-        $this->pushAll($slice);
+        $this->pushAll($values, $slice);
     }
 
     /**
@@ -165,13 +164,15 @@ trait Sequenceable
     /**
      * Pushes all values of either an array or traversable object.
      */
-    private function pushAll($values)
+    private function pushAll()
     {
         $size = $this->getSize();
 
-        foreach ($values as $value) {
-            $this->setSize(++$size);
-            $this[$size - 1] = $value;
+        foreach (func_get_args() as &$values) {
+            foreach ($values as $value) {
+                $this->setSize(++$size);
+                $this[$size - 1] = $value;
+            }
         }
 
         $this->checkCapacity();
