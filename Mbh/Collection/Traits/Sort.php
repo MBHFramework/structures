@@ -25,10 +25,11 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return SequenceableInterface
      */
-    public function mergeSort(callable $callback): SequenceableInterface
+    public function mergeSort(callable $callback)
     {
         $count = $this->count();
         $result = new SplFixedArray($count);
+
         for ($k = 1; $k < $count; $k = $k << 1) {
             for ($left = 0; ($left + $k) < $count; $left += $k << 1) {
                 $right = $left + $k;
@@ -72,14 +73,14 @@ trait Sort
      * @param callable $callback The comparison callback
      * @return SequenceableInterface
      */
-    public function heapSort(callable $callback): SequenceableInterface
+    public function heapSort(callable $callback)
     {
         $h = new CallbackHeap($callback);
         foreach ($this as $elem) {
             $h->insert($elem);
         }
 
-        $this->setTraversable(static::fromItems($h));
+        $this->setTraversable(SplFixedArray::fromArray($h->toArray()));
 
         return $this;
     }
@@ -90,7 +91,7 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return SequenceableInterface
      */
-    public function arraySort(callable $callback = null): SequenceableInterface
+    public function arraySort(callable $callback = null)
     {
         $array = $this->toArray();
 
@@ -111,7 +112,7 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return SequenceableInterface
      */
-    public function mergeSorted(callable $callback = null): SequenceableInterface
+    public function mergeSorted(callable $callback = null)
     {
         return $this->copy()->mergeSort($callback);
     }
@@ -123,7 +124,7 @@ trait Sort
      * @param callable $callback The comparison callback
      * @return SequenceableInterface
      */
-    public function heapSorted(callable $callback): SequenceableInterface
+    public function heapSorted(callable $callback)
     {
         return $this->copy()->heapSort($callback);
     }
@@ -134,7 +135,7 @@ trait Sort
      * @param callable $callback The callback for comparison
      * @return SequenceableInterface
      */
-    public function arraySorted(callable $callback = null): SequenceableInterface
+    public function arraySorted(callable $callback = null)
     {
         return $this->copy()->arraySort($callback);
     }
