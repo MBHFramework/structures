@@ -41,7 +41,7 @@ trait Functional
      */
     public function map(callable $callback)
     {
-        $count = count($this);
+        $count = $this->count();
         $sfa = new SplFixedArray($count);
 
         for ($i = 0; $i < $count; $i++) {
@@ -68,7 +68,7 @@ trait Functional
      */
     public function filter(callable $callback)
     {
-        $count = count($this);
+        $count = $this->count();
         $sfa = new SplFixedArray($count);
         $newCount = 0;
 
@@ -204,4 +204,6 @@ trait Functional
 
         return $this;
     }
+
+    abstract public function count(): int;
 }

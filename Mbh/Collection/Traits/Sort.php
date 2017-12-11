@@ -27,7 +27,7 @@ trait Sort
      */
     public function mergeSort(callable $callback): SequenceableInterface
     {
-        $count = count($this);
+        $count = $this->count();
         $result = new SplFixedArray($count);
         for ($k = 1; $k < $count; $k = $k << 1) {
             for ($left = 0; ($left + $k) < $count; $left += $k << 1) {
@@ -79,7 +79,7 @@ trait Sort
             $h->insert($elem);
         }
 
-        $this->setTraversable(static::fromItems($h));
+        $this->setTraversable(SplFixedArray::fromItems($h));
 
         return $this;
     }
@@ -100,7 +100,7 @@ trait Sort
             sort($array);
         }
 
-        $this->setTraversable(static::fromArray($array));
+        $this->setTraversable(SplFixedArray::fromArray($array));
 
         return $this;
     }
@@ -140,4 +140,6 @@ trait Sort
     }
 
     abstract protected function setTraversable(Traversable $traversable);
+
+    abstract public function count(): int;
 }
