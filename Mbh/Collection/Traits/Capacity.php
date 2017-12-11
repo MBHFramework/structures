@@ -11,11 +11,16 @@
 trait Capacity
 {
     /**
+     * @var integer internal capacity
+     */
+    protected $capacity = self::MIN_CAPACITY;
+
+    /**
      * @inheritDoc
      */
     public function capacity(): int
     {
-        return $this->getSize();
+        return $this->capacity;
     }
 
     /**
@@ -23,7 +28,7 @@ trait Capacity
      */
     public function allocate(int $capacity)
     {
-        $this->setSize(max($capacity, $this->getSize()));
+        $this->capacity = max($capacity, $this->capacity);
     }
 
     /**
@@ -70,7 +75,7 @@ trait Capacity
      */
     protected function increaseCapacity()
     {
-        $this->setSize(max($this->count(), $this->getSize() * $this->getGrowthFactor()));
+        $this->capacity = max($this->count(), $this->capacity * $this->getGrowthFactor());
     }
 
     /**
@@ -78,7 +83,7 @@ trait Capacity
      */
     protected function decreaseCapacity()
     {
-        $this->setSize(max(self::MIN_CAPACITY, $this->getSize()  * $this->getDecayFactor()));
+        $this->capacity = max(self::MIN_CAPACITY, $this->capacity  * $this->getDecayFactor());
     }
 
     /**
@@ -86,7 +91,7 @@ trait Capacity
      */
     protected function shouldDecreaseCapacity(): bool
     {
-        return count($this) <= $this->getSize() * $this->getTruncateThreshold();
+        return $this->count() <= $this->capacity * $this->getTruncateThreshold();
     }
 
     /**
@@ -94,7 +99,7 @@ trait Capacity
      */
     protected function shouldIncreaseCapacity(): bool
     {
-        return count($this) >= $this->getSize();
+        return $this->count() >= $this->capacity;
     }
 
     /**
@@ -102,17 +107,5 @@ trait Capacity
      *
      * @return int
      */
-    abstract protected function getSize(): int;
-
-    /**
-     * Change the size of an array to the new size of size.
-     * If size is less than the current array size, any values after the
-     * new size will be discarded. If size is greater than the current
-     * array size, the array will be padded with NULL values.
-     *
-     * @param int $size The new array size. This should be a value between 0
-     * and PHP_INT_MAX.
-     * @return bool Returns TRUE on success or FALSE on failure.
-     */
-    abstract protected function setSize(int $size): bool;
+    abstract protected function count(): int;
 }

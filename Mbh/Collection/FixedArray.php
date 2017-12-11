@@ -45,6 +45,8 @@ class FixedArray implements SequenceableInterface
     use Traits\Functional;
     use Traits\Capacity;
 
+    const MIN_CAPACITY = 8.0;
+
     /**
      * @inheritDoc
      */
