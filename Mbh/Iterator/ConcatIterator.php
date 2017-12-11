@@ -33,10 +33,10 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, I
      *
      * @param Iterator $iterator,... Concat iterators in order
      */
-    public function __construct()
+    public function __construct(...$args)
     {
         parent::__construct();
-        foreach (func_get_args() as $i => $iterator) {
+        foreach ($args as $i => $iterator) {
             if (
                 $iterator instanceof ArrayAccess &&
                 $iterator instanceof Countable

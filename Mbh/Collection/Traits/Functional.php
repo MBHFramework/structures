@@ -134,9 +134,8 @@ trait Functional
     /**
      * @inheritDoc
      */
-    public function concat()
+    public function concat(...$args)
     {
-        $args = func_get_args();
         array_unshift($args, $this);
 
         // Concat this iterator, and variadic args
@@ -144,7 +143,7 @@ trait Functional
         $concatIt = $class->newInstanceArgs($args);
 
         // Create as new immutable's iterator
-        return new static($concatIt);
+        return static::fromArray($concatIt->toArray());
     }
 
     /**
