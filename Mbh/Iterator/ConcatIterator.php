@@ -20,7 +20,7 @@ use InvalidArgumentException;
  * Iterator to allow multiple iterators to be concatenated
  */
 
-class ConcatIterator extends AppendIterator implements Countable, Iterator
+class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, JsonSerializable
 {
     const INVALID_INDEX = 'Index invalid or out of range';
 
@@ -68,6 +68,44 @@ class ConcatIterator extends AppendIterator implements Countable, Iterator
     public function count(): int
     {
         return $this->count;
+    }
+
+    /**
+     * ArrayAccess
+     */
+    public function offsetExists($offset): boolean
+    {
+        return $offset >= 0 && $offset < $this->count;
+    }
+
+    public function offsetGet($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            list($it, $idx) = $this->getIteratorByIndex($offset);
+            return $it->offsetGet($idx);
+        } else {
+            throw new RuntimeException(self::INVALID_INDEX);
+        }
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        list($it, $idx) = $this->getIteratorByIndex($offset);
+        $it->offsetSet($idx, $value);
+    }
+
+    public function offsetUnset($offset)
+    {
+        list($it, $idx) = $this->getIteratorByIndex($offset);
+        $it->offsetUnset($idx);
+    }
+
+    /**
+     * JsonSerializable
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 
     public function toArray(): array

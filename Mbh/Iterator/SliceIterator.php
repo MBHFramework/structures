@@ -20,7 +20,7 @@ use RuntimeException;
 * Iterator to allow a slice to be used like an array
 */
 
-class SliceIterator extends LimitIterator implements Countable, Iterator
+class SliceIterator extends LimitIterator implements ArrayAccess, Countable, JsonSerializable
 {
     protected $count = 0;
     protected $begin = 0;
@@ -85,7 +85,42 @@ class SliceIterator extends LimitIterator implements Countable, Iterator
         return $this->count;
     }
 
-    public function toArray(): array
+    /**
+     * ArrayAccess
+     */
+    public function offsetExists($offset)
+    {
+        return $offset >= 0 && $offset < $this->count;
+    }
+    
+    public function offsetGet($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            return $this->getInnerIterator()->offsetGet($offset + $this->begin);
+        } else {
+            throw new RuntimeException(self::INVALID_INDEX);
+        }
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        return $this->getInnerIterator()->offsetSet($offset + $this->begin, $value);
+    }
+
+    public function offsetUnset($offset)
+    {
+        return $this->getInnerIterator()->offsetUnset($offset + $this->begin);
+    }
+
+    /**
+     * JsonSerializable
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    public function toArray()
     {
         return iterator_to_array($this, false);
     }
