@@ -164,11 +164,11 @@ trait Sequenceable
     /**
      * Pushes all values of either an array or traversable object.
      */
-    private function pushAll()
+    private function pushAll(...$args)
     {
         $size = $this->getSize();
 
-        foreach (func_get_args() as &$values) {
+        foreach ($args as &$values) {
             foreach ($values as $value) {
                 $this->setSize(++$size);
                 $this[$size - 1] = $value;
