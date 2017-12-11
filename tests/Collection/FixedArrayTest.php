@@ -22,6 +22,20 @@ use ArrayIterator;
 
 class FixedArrayTest extends TestCase
 {
+    public function testAdd()
+    {
+        $base = [1, 2, 3, 4];
+        $other = [1, 2, 3, 4, 5];
+
+        $numberSet = FixedArray::fromArray($base);
+
+        $numberSet->push(5);
+
+        foreach ($other as $i => $v) {
+            $this->assertEquals($v, $numberSet[$i]);
+        }
+    }
+
     public function testMap()
     {
         $base = [1, 2, 3, 4];

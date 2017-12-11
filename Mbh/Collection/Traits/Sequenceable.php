@@ -106,9 +106,13 @@ trait Sequenceable
 
     public function offsetSet($offset, $value)
     {
-        return is_integer($offset)
+        if ($offset === null) {
+            $this->push($value);
+        } else {
+            return is_integer($offset)
             && $this->validIndex($offset)
             && $this->sfa->offsetSet($offset, $value);
+        }
     }
 
     public function offsetUnset($offset)
@@ -235,7 +239,8 @@ trait Sequenceable
     private function pushAll($values)
     {
         foreach ($values as $value) {
-            $this[] = $value;
+            $this->sfa->setSize(count($this) + 1);
+            $this->sfa[count($this) - 1] = $value;
         }
 
         $this->checkCapacity();
