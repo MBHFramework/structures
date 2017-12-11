@@ -92,11 +92,11 @@ class SliceIterator extends LimitIterator implements ArrayAccess, Countable, Jso
     {
         return $offset >= 0 && $offset < $this->count;
     }
-    
+
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {
-            return $this->getInnerIterator()->offsetGet($offset + $this->begin);
+            return iterator_to_array($this)->offsetGet($offset + $this->begin);
         } else {
             throw new RuntimeException(self::INVALID_INDEX);
         }
@@ -104,12 +104,12 @@ class SliceIterator extends LimitIterator implements ArrayAccess, Countable, Jso
 
     public function offsetSet($offset, $value)
     {
-        return $this->getInnerIterator()->offsetSet($offset + $this->begin, $value);
+        return iterator_to_array($this)->offsetSet($offset + $this->begin, $value);
     }
 
     public function offsetUnset($offset)
     {
-        return $this->getInnerIterator()->offsetUnset($offset + $this->begin);
+        return iterator_to_array($this)->offsetUnset($offset + $this->begin);
     }
 
     /**
