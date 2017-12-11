@@ -41,7 +41,7 @@ interface Builder
      *
      * @return Builder The current instance
      */
-    public function value($value);
+    public function value($value = null);
 
     /**
      * Add a leaf to the node
@@ -64,7 +64,7 @@ interface Builder
     /**
      * Add a child to the node enter in its scope
      *
-     * @param null $value
+     * @param mixed $value
      *
      * @return Builder A Builder instance linked to the child node
      */

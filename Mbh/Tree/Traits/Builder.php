@@ -87,7 +87,7 @@ trait Builder
     /**
      * {@inheritdoc}
      */
-    public function value($value)
+    public function value($value = null)
     {
         $this->getNode()->setValue($value);
         return $this;
