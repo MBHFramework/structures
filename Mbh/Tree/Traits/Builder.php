@@ -58,7 +58,7 @@ trait Builder
     /**
      * {@inheritdoc}
      */
-    public function tree($value = null)
+    public function tree($value)
     {
         $node = $this->nodeInstanceByValue($value);
         $this->getNode()->addChild($node);

@@ -68,7 +68,7 @@ interface Builder
      *
      * @return Builder A Builder instance linked to the child node
      */
-    public function tree($value = null);
+    public function tree($value);
 
     /**
      * Goes up to the parent node context
