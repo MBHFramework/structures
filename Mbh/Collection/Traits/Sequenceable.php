@@ -127,7 +127,6 @@ trait Sequenceable
         }
 
         $slice = $this->slice($index, $this->count());
-        var_dump($slice);
         $this->setSize($this->count() + count($values));
 
         foreach ($values as &$item) {
@@ -137,6 +136,8 @@ trait Sequenceable
         foreach ($slice->toArray() as &$item) {
             $this[$index++] = $item;
         }
+
+        $this->checkCapacity();
     }
 
     /**
