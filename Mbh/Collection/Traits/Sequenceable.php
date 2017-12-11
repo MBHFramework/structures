@@ -43,6 +43,92 @@ trait Sequenceable
         $this->sfa = $array;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public static function fromItems(Traversable $array)
+    {
+        // We can only do it this way if we can count it
+        if ($array instanceof Countable) {
+            $sfa = new SplFixedArray(count($array));
+
+            foreach ($array as $i => $elem) {
+                $sfa[$i] = $elem;
+            }
+
+            return new static($sfa);
+        }
+
+        // If we can't count it, it's simplest to iterate into an array first
+        return static::fromArray(iterator_to_array($array));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function fromArray(array $array)
+    {
+        return new static(SplFixedArray::fromArray($array));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function contains(...$values): bool
+    {
+        foreach ($values as $value) {
+            if (!$this->find($value)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function copy()
+    {
+        return static::fromArray($this->toArray());
+    }
+
+    /**
+    * @inheritDoc
+    */
+    public function first()
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        return $this[0];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get(int $index)
+    {
+        if (! $this->validIndex($index)) {
+            throw new OutOfRangeException();
+        }
+
+        return $this[$index];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function last()
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        return $this[count($this) - 1];
+    }
+
     public function toArray(): array
     {
         return $this->sfa->toArray();
@@ -131,92 +217,6 @@ trait Sequenceable
     protected function setTraversable(Traversable $traversable)
     {
         $this->sfa = $traversable;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromItems(Traversable $array)
-    {
-        // We can only do it this way if we can count it
-        if ($array instanceof Countable) {
-            $sfa = new SplFixedArray(count($array));
-
-            foreach ($array as $i => $elem) {
-                $sfa[$i] = $elem;
-            }
-
-            return new static($sfa);
-        }
-
-        // If we can't count it, it's simplest to iterate into an array first
-        return static::fromArray(iterator_to_array($array));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromArray(array $array)
-    {
-        return new static(SplFixedArray::fromArray($array));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function copy()
-    {
-        return static::fromArray($this->toArray());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function contains(...$values): bool
-    {
-        foreach ($values as $value) {
-            if (!$this->find($value)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-    * @inheritDoc
-    */
-    public function first()
-    {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
-        return $this[0];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function get(int $index)
-    {
-        if (! $this->validIndex($index)) {
-            throw new OutOfRangeException();
-        }
-
-        return $this[$index];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function last()
-    {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
-        return $this[count($this) - 1];
     }
 
     public function getSize(): int
