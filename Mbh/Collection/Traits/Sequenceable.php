@@ -219,5 +219,15 @@ trait Sequenceable
         return $this[count($this) - 1];
     }
 
+    public function getSize(): int
+    {
+        return $this->sfa->getSize();
+    }
+
+    public function setSize(int $size): bool
+    {
+        return $this->sfa->setSize($size);
+    }
+
     abstract protected function checkCapacity();
 }

@@ -111,6 +111,13 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function get(int $index);
 
     /**
+     * Gets the size of the array.
+     *
+     * @return int
+     */
+    public function getSize(): int;
+
+    /**
      * Sort a new Sequenceable by filtering through a heap.
      * Tends to run much faster than array or merge sorts, since you're only
      * sorting the pointers, and the sort function is running in a highly
@@ -149,12 +156,24 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function reduce(callable $callback, $accumulator = null);
 
     /**
-    * Take a slice of the array
-    *
-    * @param int $begin Start index of slice
-    * @param int $end End index of slice
-    * @return Sequenceable
-    */
+     * Change the size of an array to the new size of size.
+     * If size is less than the current array size, any values after the
+     * new size will be discarded. If size is greater than the current
+     * array size, the array will be padded with NULL values.
+     *
+     * @param int $size The new array size. This should be a value between 0
+     * and PHP_INT_MAX.
+     * @return bool Returns TRUE on success or FALSE on failure.
+     */
+    public function setSize(int $size): bool;
+
+    /**
+     * Take a slice of the array
+     *
+     * @param int $begin Start index of slice
+     * @param int $end End index of slice
+     * @return Sequenceable
+     */
     public function slice(int $begin = 0, int $end = null);
 
     /**
@@ -166,13 +185,13 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function sort(callable $callback = null);
 
     /**
-    * forEach, or "walk" the data
-    * Exists primarily to provide a consistent interface, though it's seldom
-    * any better than a simple php foreach. Mainly useful for chaining.
-    * Named walk for historic reasons - forEach is reserved in PHP
-    *
-    * @param callable $callback Function to call on each element
-    * @return Sequenceable
-    */
+     * forEach, or "walk" the data
+     * Exists primarily to provide a consistent interface, though it's seldom
+     * any better than a simple php foreach. Mainly useful for chaining.
+     * Named walk for historic reasons - forEach is reserved in PHP
+     *
+     * @param callable $callback Function to call on each element
+     * @return Sequenceable
+     */
     public function walk(callable $callback);
 }
