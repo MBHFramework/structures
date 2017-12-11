@@ -298,5 +298,7 @@ trait Sequenceable
         return $this->sfa->setSize($size);
     }
 
+    abstract public function find(callable $callback);
+
     abstract protected function checkCapacity();
 }
