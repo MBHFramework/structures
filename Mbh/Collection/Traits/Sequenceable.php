@@ -56,19 +56,17 @@ trait Sequenceable
      */
     public static function fromItems(Traversable $array)
     {
-        // We can only do it this way if we can count it
-        if ($array instanceof Countable) {
-            $sfa = new SplFixedArray(count($array));
-
-            foreach ($array as $i => $elem) {
-                $sfa[$i] = $elem;
-            }
-
-            return new static($sfa);
+        if (!$array instanceof Countable) {
+            return static::fromArray(iterator_to_array($array));
         }
 
-        // If we can't count it, it's simplest to iterate into an array first
-        return static::fromArray(iterator_to_array($array));
+        $sfa = new SplFixedArray(count($array));
+
+        foreach ($array as $i => $elem) {
+            $sfa[$i] = $elem;
+        }
+
+        return new static($sfa);
     }
 
     /**
