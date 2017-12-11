@@ -163,10 +163,11 @@ trait Sequenceable
      */
     private function pushAll($values)
     {
+        $size = $this->getSize();
+
         foreach ($values as $value) {
-            $size = $this->getSize();
-            $this->setSize($size + 1);
-            $this[$size] = $value;
+            $this->setSize(++$size);
+            $this[$size - 1] = $value;
         }
 
         $this->checkCapacity();

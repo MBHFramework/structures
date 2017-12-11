@@ -25,11 +25,13 @@ class FixedArrayTest extends TestCase
     public function testAdd()
     {
         $base = [1, 2, 3, 4];
-        $other = [1, 2, 3, 4, 5];
+        $other = [1, 2, 3, 4, 5, 6, 7];
 
         $numberSet = FixedArray::fromArray($base);
 
         $numberSet->push(5);
+        $numberSet->push(6);
+        $numberSet->push(7);
 
         foreach ($other as $i => $v) {
             $this->assertEquals($v, $numberSet[$i]);
