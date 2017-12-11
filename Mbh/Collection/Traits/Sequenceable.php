@@ -127,17 +127,10 @@ trait Sequenceable
         }
 
         $slice = $this->slice($index, $this->count());
-        $this->setSize($this->count() + count($values));
+        $this->setSize($index);
 
-        foreach ($values as &$item) {
-            $this[$index++] = $item;
-        }
-
-        foreach ($slice->toArray() as &$item) {
-            $this[$index++] = $item;
-        }
-
-        $this->checkCapacity();
+        $this->pushAll($values);
+        $this->pushAll($slice);
     }
 
     /**
