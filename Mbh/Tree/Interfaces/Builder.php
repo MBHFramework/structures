@@ -39,7 +39,7 @@ interface Builder
      *
      * @param mixed $value
      *
-     * @return NodebuilderInterface The current instance
+     * @return Builder The current instance
      */
     public function value($value);
 
