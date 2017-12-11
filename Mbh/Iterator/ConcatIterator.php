@@ -43,7 +43,7 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
             ) {
                 // Unroll other ConcatIterators, so we avoid deep iterator stacks
                 if ($iterator instanceof self) {
-                    foreach ($iterator->getArrayIterator() as $innerIt) {
+                    foreach ($iterator as $innerIt) {
                         $this->append($innerIt);
                     }
                 } else {
@@ -122,7 +122,7 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
     protected function getIteratorByIndex($index = 0)
     {
         $runningCount = 0;
-        foreach ($this->getArrayIterator() as $innerIt) {
+        foreach ($this as $innerIt) {
             $count = count($innerIt);
             if ($index < $runningCount + $count) {
                 return [$innerIt, $index - $runningCount];
