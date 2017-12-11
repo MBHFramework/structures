@@ -149,4 +149,6 @@ trait Sort
     abstract public function count(): int;
 
     abstract protected function setTraversable(Traversable $traversable);
+
+    abstract public function toArray(): array;
 }
