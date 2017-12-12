@@ -92,8 +92,8 @@ trait Sequenceable
     }
 
     /**
-    * @inheritDoc
-    */
+     * @inheritDoc
+     */
     public function first()
     {
         if ($this->isEmpty()) {
@@ -108,7 +108,7 @@ trait Sequenceable
      */
     public function get(int $index)
     {
-        if (! $this->validIndex($index)) {
+        if (!$this->validIndex($index)) {
             throw new OutOfRangeException();
         }
 
