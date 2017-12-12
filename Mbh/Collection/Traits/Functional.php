@@ -153,6 +153,18 @@ trait Functional
     {
         foreach ($this as $i => $elem) {
             if ($callback($elem, $i, $this)) {
+                return $elem;
+            }
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function search($value)
+    {
+        foreach ($this as $i => $elem) {
+            if ($value === $elem) {
                 return $i;
             }
         }

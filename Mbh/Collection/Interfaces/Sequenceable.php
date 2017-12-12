@@ -103,7 +103,7 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * Find a single element
      *
      * @param callable $callback The test to run on each element
-     * @return mixed The key for the element we found
+     * @return mixed The element we found
      */
     public function find(callable $callback);
 
@@ -193,6 +193,14 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * @param mixed $accumulator Initial value for first argument
      */
     public function reduce(callable $callback, $accumulator = null);
+
+    /**
+     * Find a single element key
+     *
+     * @param mixed The value to search
+     * @return mixed The key for the element we found
+     */
+    public function search($value);
 
     /**
      * Take a slice of the array

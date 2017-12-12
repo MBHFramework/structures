@@ -75,7 +75,7 @@ trait Sequenceable
     public function contains(...$values): bool
     {
         foreach ($values as $value) {
-            if ($this->find($value) !== null) {
+            if ($this->search($value) !== null) {
                 return false;
             }
         }
@@ -305,5 +305,5 @@ trait Sequenceable
 
     abstract public function isEmpty(): bool;
 
-    abstract public function find(callable $callback);
+    abstract public function search($value);
 }

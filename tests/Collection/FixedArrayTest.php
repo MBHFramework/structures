@@ -83,6 +83,18 @@ class FixedArrayTest extends TestCase
         }
     }
 
+    public function testContains()
+    {
+        $base = [1, 2, 3, 4, 5, 6, 7];
+        $other = [1, 2, 3, 4, 7];
+
+        $numberSet = FixedArray::fromArray($base);
+
+        $contains = $numberSet->contains($other);
+
+        $this->assertEquals(true, $contains);
+    }
+
     public function testFilter()
     {
         $oddArr = [1, 3, 5, 7, 9];
