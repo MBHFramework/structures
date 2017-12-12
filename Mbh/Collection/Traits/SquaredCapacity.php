@@ -16,6 +16,11 @@ trait SquaredCapacity
     use Capacity;
 
     /**
+     * @var integer internal capacity
+     */
+    protected $capacity = self::MIN_CAPACITY;
+
+    /**
      * Rounds an integer to the next power of two if not already a power of two.
      *
      * @param int $capacity
