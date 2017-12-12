@@ -224,6 +224,15 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function set(int $index, $value);
 
     /**
+     * Removes and returns the first value in the sequence.
+     *
+     * @return mixed what was the first value in the sequence.
+     *
+     * @throws UnderflowException if the sequence was empty.
+     */
+    public function shift();
+
+    /**
      * Take a slice of the array
      *
      * @param int $begin Start index of slice
@@ -239,6 +248,13 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * @return Sequenceable
      */
     public function sort(callable $callback = null);
+
+    /**
+     * Adds zero or more values to the front of the sequence.
+     *
+     * @param mixed ...$values
+     */
+    public function unshift(...$values);
 
     /**
      * forEach, or "walk" the data

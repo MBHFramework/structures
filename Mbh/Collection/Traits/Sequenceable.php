@@ -213,9 +213,36 @@ trait Sequenceable
         $this->sfa->offsetSet($index, $value);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function shift()
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        $value = $this->first();
+        unset($this[0]);
+
+        $this->checkCapacity();
+
+        return $value;
+    }
+
     public function toArray(): array
     {
         return $this->sfa->toArray();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function unshift(...$values)
+    {
+        $this->insert(0, ...$values);
+
+        return $this->count();
     }
 
     protected function validIndex(int $index)
