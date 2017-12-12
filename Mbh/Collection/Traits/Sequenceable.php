@@ -286,7 +286,6 @@ trait Sequenceable
     public function offsetUnset($offset)
     {
         return is_integer($offset)
-            && $this->validIndex($offset)
             && $this->remove($offset);
     }
 
