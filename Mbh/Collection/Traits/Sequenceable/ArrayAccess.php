@@ -56,12 +56,25 @@ trait ArrayAccess
             && $this->remove($offset);
     }
 
+    abstract protected function checkCapacity();
+
     /**
      * Adds zero or more values to the end of the sequence.
      *
      * @param mixed ...$values
      */
     abstract public function push(...$values);
+
+    /**
+     * Removes and returns the value at a given index in the sequence.
+     *
+     * @param int $index this index to remove.
+     *
+     * @return mixed the removed value.
+     *
+     * @throws OutOfRangeException if the index is not in the range [0, size-1]
+     */
+    abstract public function remove(int $index);
 
     /**
      * Replaces the value at a given index in the sequence with a new value.
@@ -73,5 +86,5 @@ trait ArrayAccess
      */
     abstract public function set(int $index, $value);
 
-    abstract protected function checkCapacity();
+    abstract protected function validIndex(int $index);
 }
