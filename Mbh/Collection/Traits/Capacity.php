@@ -28,7 +28,7 @@ trait Capacity
      */
     public function allocate(int $capacity)
     {
-        $this->capacity = max($capacity, $this->capacity);
+        return $this->setSize($this->capacity = max($capacity, $this->capacity));
     }
 
     /**
@@ -75,7 +75,7 @@ trait Capacity
      */
     protected function increaseCapacity()
     {
-        $this->capacity = max($this->count(), $this->capacity * $this->getGrowthFactor());
+        $this->allocate(max($this->count(), $this->capacity * $this->getGrowthFactor()));
     }
 
     /**
@@ -83,7 +83,7 @@ trait Capacity
      */
     protected function decreaseCapacity()
     {
-        $this->capacity = max(self::MIN_CAPACITY, $this->capacity * $this->getDecayFactor());
+        $this->allocate(max(self::MIN_CAPACITY, $this->capacity * $this->getDecayFactor()));
     }
 
     /**
@@ -108,4 +108,16 @@ trait Capacity
      * @return int
      */
     abstract protected function count(): int;
+
+    /**
+     * Change the size of an array to the new size of size.
+     * If size is less than the current array size, any values after the
+     * new size will be discarded. If size is greater than the current
+     * array size, the array will be padded with NULL values.
+     *
+     * @param int $size The new array size. This should be a value between 0
+     * and PHP_INT_MAX.
+     * @return bool Returns TRUE on success or FALSE on failure.
+     */
+    abstract protected function setSize(int $size): bool
 }
