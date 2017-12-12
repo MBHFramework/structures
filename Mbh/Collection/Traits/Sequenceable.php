@@ -189,7 +189,7 @@ trait Sequenceable
      */
     public function remove(int $index)
     {
-        if (! $this->validIndex($index)) {
+        if (!$this->validIndex($index)) {
             throw new OutOfRangeException();
         }
         $value = array_splice($this->array, $index, 1, null)[0];
@@ -202,7 +202,7 @@ trait Sequenceable
      */
     public function set(int $index, $value)
     {
-        if (! $this->validIndex($index)) {
+        if (!$this->validIndex($index)) {
             throw new OutOfRangeException();
         }
 
