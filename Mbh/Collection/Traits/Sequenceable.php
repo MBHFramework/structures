@@ -167,9 +167,10 @@ trait Sequenceable
         $size = $this->getSize();
 
         foreach ($args as &$values) {
+            $this->setSize($size + count($values));
+            
             foreach ($values as $value) {
-                $this->setSize(++$size);
-                $this[$size - 1] = $value;
+                $this[$size++] = $value;
             }
         }
 
@@ -192,7 +193,9 @@ trait Sequenceable
         if (!$this->validIndex($index)) {
             throw new OutOfRangeException();
         }
-        $value = array_splice($this->array, $index, 1, null)[0];
+
+
+
         $this->checkCapacity();
         return $value;
     }
