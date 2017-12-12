@@ -38,6 +38,22 @@ class FixedArrayTest extends TestCase
         }
     }
 
+    public function testPop()
+    {
+        $base = [1, 2, 3, 4, 5, 6, 7];
+        $other = [1, 2, 3, 4];
+
+        $numberSet = FixedArray::fromArray($base);
+
+        $numberSet->pop();
+        $numberSet->pop();
+        $numberSet->pop();
+
+        foreach ($other as $i => $v) {
+            $this->assertEquals($v, $numberSet[$i]);
+        }
+    }
+
     public function testInsert()
     {
         $base = [1, 2, 3, 4, 7];
