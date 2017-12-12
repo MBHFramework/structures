@@ -103,7 +103,7 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * Find a single element
      *
      * @param callable $callback The test to run on each element
-     * @return mixed The element we found
+     * @return mixed The key for the element we found
      */
     public function find(callable $callback);
 

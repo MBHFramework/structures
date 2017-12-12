@@ -75,7 +75,7 @@ trait Sequenceable
     public function contains(...$values): bool
     {
         foreach ($values as $value) {
-            if (!$this->find($value)) {
+            if ($this->find($value) !== null) {
                 return false;
             }
         }

@@ -153,7 +153,7 @@ trait Functional
     {
         foreach ($this as $i => $elem) {
             if ($callback($elem, $i, $this)) {
-                return $elem;
+                return $i;
             }
         }
     }
