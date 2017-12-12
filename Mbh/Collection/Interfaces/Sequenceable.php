@@ -185,6 +185,17 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
     public function push(...$values);
 
     /**
+     * Removes and returns the value at a given index in the sequence.
+     *
+     * @param int $index this index to remove.
+     *
+     * @return mixed the removed value.
+     *
+     * @throws OutOfRangeException if the index is not in the range [0, size-1]
+     */
+    public function remove(int $index);
+
+    /**
      * Reduce to a single value
      *
      * @param callable $callback Callback(
@@ -201,6 +212,16 @@ interface Sequenceable extends CollectionInterface, ArrayAccess
      * @return mixed The key for the element we found
      */
     public function search($value);
+
+    /**
+     * Replaces the value at a given index in the sequence with a new value.
+     *
+     * @param int   $index
+     * @param mixed $value
+     *
+     * @throws OutOfRangeException if the index is not in the range [0, size-1]
+     */
+    public function set(int $index, $value);
 
     /**
      * Take a slice of the array

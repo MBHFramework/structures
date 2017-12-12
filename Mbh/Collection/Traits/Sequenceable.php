@@ -184,6 +184,31 @@ trait Sequenceable
         $this->pushAll($values);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function remove(int $index)
+    {
+        if (! $this->validIndex($index)) {
+            throw new OutOfRangeException();
+        }
+        $value = array_splice($this->array, $index, 1, null)[0];
+        $this->checkCapacity();
+        return $value;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function set(int $index, $value)
+    {
+        if (! $this->validIndex($index)) {
+            throw new OutOfRangeException();
+        }
+
+        $this->sfa->offsetSet($index, $value);
+    }
+
     public function toArray(): array
     {
         return $this->sfa->toArray();
@@ -249,8 +274,8 @@ trait Sequenceable
     {
         if ($offset === null) {
             $this->push($value);
-        } elseif (is_integer($offset) && $this->validIndex($offset)) {
-            $this->sfa->offsetSet($offset, $value);
+        } elseif (is_integer($offset)) {
+            $this->set($offset, $value);
         }
     }
 
