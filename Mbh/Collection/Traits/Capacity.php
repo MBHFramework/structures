@@ -28,7 +28,7 @@ trait Capacity
      */
     public function allocate(int $capacity)
     {
-        return $this->setSize($this->capacity = max($capacity, $this->capacity));
+        $this->capacity = max($capacity, $this->capacity);
     }
 
     /**
@@ -75,7 +75,7 @@ trait Capacity
      */
     protected function increaseCapacity()
     {
-        $this->allocate(max($this->count(), $this->capacity * $this->getGrowthFactor()));
+        $this->capacity = max($this->count(), $this->capacity * $this->getGrowthFactor());
     }
 
     /**
@@ -83,7 +83,7 @@ trait Capacity
      */
     protected function decreaseCapacity()
     {
-        $this->allocate(max(self::MIN_CAPACITY, $this->capacity * $this->getDecayFactor()));
+        $this->capacity = max(self::MIN_CAPACITY, $this->capacity * $this->getDecayFactor());
     }
 
     /**

@@ -33,9 +33,7 @@ class FixedArrayTest extends TestCase
         $numberSet->push(6);
         $numberSet->push(7);
 
-        foreach ($other as $i => $v) {
-            $this->assertEquals($v, $numberSet[$i]);
-        }
+        $this->assertEquals($other, $numberSet->toArray());
     }
 
     public function testPop()
@@ -49,9 +47,7 @@ class FixedArrayTest extends TestCase
         $numberSet->pop();
         $numberSet->pop();
 
-        foreach ($other as $i => $v) {
-            $this->assertEquals($v, $numberSet[$i]);
-        }
+        $this->assertEquals($other, $numberSet->toArray());
     }
 
     public function testInsert()
@@ -63,9 +59,7 @@ class FixedArrayTest extends TestCase
 
         $numberSet->insert(4, 5, 6);
 
-        foreach ($other as $i => $v) {
-            $this->assertEquals($v, $numberSet[$i]);
-        }
+        $this->assertEquals($other, $numberSet->toArray());
     }
 
     public function testMap()

@@ -152,7 +152,9 @@ trait Sequenceable
         }
 
         $value = $this->last();
-        unset($this[$this->count() - 1]);
+        $count = $this->count();
+        unset($this[--$count]);
+        $this->setSize($count);
 
         $this->checkCapacity();
 

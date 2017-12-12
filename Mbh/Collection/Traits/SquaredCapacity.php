@@ -42,7 +42,7 @@ trait SquaredCapacity
      */
     public function allocate(int $capacity)
     {
-        $this->setSize($this->capacity = max($this->square($capacity), $this->capacity));
+        $this->capacity = max($this->square($capacity), $this->capacity);
     }
 
     /**
@@ -50,7 +50,7 @@ trait SquaredCapacity
      */
     protected function increaseCapacity()
     {
-        $this->allocate($this->square(max($this->count() + 1, $this->capacity * $this->getGrowthFactor())));
+        $this->capacity = $this->square(max($this->count() + 1, $this->capacity * $this->getGrowthFactor()));
     }
 
     /**
