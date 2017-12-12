@@ -11,7 +11,7 @@
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 
 /**
- * A Deque (pronounced "deck") is a sequence of values in a contiguous buffer
+ * A Deque is a sequence of values in a contiguous buffer
  * that grows and shrinks automatically. The name is a common abbreviation of
  * "double-ended queue".
  *
