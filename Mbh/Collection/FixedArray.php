@@ -8,23 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
-use Mbh\Collection\CallbackHeap;
-use Mbh\Iterator\SliceIterator;
-use Mbh\Iterator\ConcatIterator;
-use SplFixedArray;
-use SplHeap;
-use SplStack;
-use LimitIterator;
-use Iterator;
-use ArrayAccess;
-use Countable;
-use CallbackFilterIterator;
-use JsonSerializable;
-use RuntimeException;
-use Traversable;
-use ReflectionClass;
 
 /**
  * The Fixed Array
@@ -37,7 +21,6 @@ use ReflectionClass;
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-
 class FixedArray implements SequenceableInterface
 {
     use Traits\Collection;
