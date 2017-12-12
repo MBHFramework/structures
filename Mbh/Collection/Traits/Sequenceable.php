@@ -31,6 +31,10 @@ use OutOfRangeException;
 
 trait Sequenceable
 {
+    use Sequenceable\Countable;
+    use Sequenceable\ArrayAccess;
+    use Sequenceable\Iterator;
+
     protected $sfa = null;
 
     /**
@@ -144,6 +148,25 @@ trait Sequenceable
     }
 
     /**
+     * Converts negative or large rotations into the minimum positive number
+     * of rotations required to rotate the sequence by a given $r.
+     */
+    private function normalizeRotations(int $r)
+    {
+        $n = $this->count();
+
+        if ($n < 2) {
+            return 0;
+        }
+
+        if ($r < 0) {
+            return $n - (abs($r) % $n);
+        }
+
+        return $r % $n;
+    }
+
+    /**
      * @inheritDoc
      */
     public function pop()
@@ -251,72 +274,6 @@ trait Sequenceable
     protected function validIndex(int $index)
     {
         return $index >= 0 && $index < $this->getSize();
-    }
-
-    /**
-     * Countable
-     */
-    public function count(): int
-    {
-        return count($this->sfa);
-    }
-
-    /**
-     * Iterator
-     */
-    public function current()
-    {
-        return $this->sfa->current();
-    }
-
-    public function key(): int
-    {
-        return $this->sfa->key();
-    }
-
-    public function next()
-    {
-        return $this->sfa->next();
-    }
-
-    public function rewind()
-    {
-        return $this->sfa->rewind();
-    }
-
-    public function valid()
-    {
-        return $this->sfa->valid();
-    }
-
-    /**
-     * ArrayAccess
-     */
-    public function offsetExists($offset): bool
-    {
-        return is_integer($offset)
-            && $this->validIndex($offset)
-            && $this->sfa->offsetExists($offset);
-    }
-
-    public function offsetGet($offset)
-    {
-        return $this->sfa->offsetGet($offset);
-    }
-
-    public function offsetSet($offset, $value)
-    {
-        if ($offset === null) {
-            $this->push($value);
-        } elseif (is_integer($offset)) {
-            $this->set($offset, $value);
-        }
-    }
-
-    public function offsetUnset($offset)
-    {
-        return is_integer($offset)
-            && $this->remove($offset);
     }
 
     public function clear()
