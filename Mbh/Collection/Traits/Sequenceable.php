@@ -168,7 +168,7 @@ trait Sequenceable
 
         foreach ($args as &$values) {
             $this->setSize($size + count($values));
-            
+
             foreach ($values as $value) {
                 $this[$size++] = $value;
             }
@@ -194,7 +194,8 @@ trait Sequenceable
             throw new OutOfRangeException();
         }
 
-
+        $value = $this[$index];
+        $this->sfa->offsetUnset($index);
 
         $this->checkCapacity();
         return $value;
@@ -286,7 +287,7 @@ trait Sequenceable
     {
         return is_integer($offset)
             && $this->validIndex($offset)
-            && $this->sfa->offsetUnset($offset);
+            && $this->remove($offset);
     }
 
     public function clear()
