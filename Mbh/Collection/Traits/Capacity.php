@@ -119,5 +119,5 @@ trait Capacity
      * and PHP_INT_MAX.
      * @return bool Returns TRUE on success or FALSE on failure.
      */
-    abstract protected function setSize(int $size): bool
+    abstract protected function setSize(int $size): bool;
 }
