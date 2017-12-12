@@ -321,7 +321,8 @@ trait Sequenceable
 
     public function clear()
     {
-        return $this->sfa->clear();
+        $this->sfa->clear();
+        $this->checkCapacity();
     }
 
     protected function getMainTraversable(): Traversable
