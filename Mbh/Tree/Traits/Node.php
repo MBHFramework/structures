@@ -44,8 +44,8 @@ trait Node
     }
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function setValue($value)
     {
         $this->value = $value;
@@ -172,7 +172,7 @@ trait Node
         return array_values(
             array_filter(
                 $neighbors,
-                function ($item) use ($current) {
+                function($item) use ($current) {
                     return $item != $current;
                 }
             )

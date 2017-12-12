@@ -83,7 +83,7 @@ trait Capacity
      */
     protected function decreaseCapacity()
     {
-        $this->capacity = max(self::MIN_CAPACITY, $this->capacity  * $this->getDecayFactor());
+        $this->capacity = max(self::MIN_CAPACITY, $this->capacity * $this->getDecayFactor());
     }
 
     /**
