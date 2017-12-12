@@ -72,4 +72,6 @@ trait ArrayAccess
      * @throws OutOfRangeException if the index is not in the range [0, size-1]
      */
     abstract public function set(int $index, $value);
+
+    abstract protected function checkCapacity();
 }

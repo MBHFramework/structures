@@ -52,4 +52,6 @@ trait Iterator
     {
         return $this->sfa->valid();
     }
+
+    abstract protected function checkCapacity();
 }
