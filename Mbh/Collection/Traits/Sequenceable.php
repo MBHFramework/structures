@@ -292,6 +292,11 @@ trait Sequenceable
         return $this->sfa->setSize($size);
     }
 
+    public function __clone()
+    {
+        return $this->copy();
+    }
+
     abstract protected function checkCapacity();
 
     abstract public function isEmpty(): bool;
