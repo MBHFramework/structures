@@ -12,6 +12,7 @@ use Iterator;
 use Countable;
 use JsonSerializable;
 use Traversable;
+use Serializable;
 
 /**
  * Collection is the base interface which covers functionality common to all the
@@ -22,12 +23,12 @@ use Traversable;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-interface Collection extends Iterator, Countable, JsonSerializable
+interface Collection extends Countable, Iterator, JsonSerializable, Serializable
 {
     /**
      * Removes all values from the collection.
      */
-    // public function clear();
+    public function clear();
 
     /**
      * Returns the size of the collection.

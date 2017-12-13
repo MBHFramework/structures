@@ -246,6 +246,12 @@ trait Sequenceable
         return $this->count();
     }
 
+    public function unserialize($values)
+    {
+        $values = unserialize($values);
+        $this->setTraversable(SplFixedArray::fromArray($values));
+    }
+
     protected function validIndex(int $index)
     {
         return $index >= 0 && $index < $this->getSize();

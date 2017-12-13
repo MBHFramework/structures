@@ -38,23 +38,10 @@ trait Collection
         return $this->toArray();
     }
 
-    /**
-     * Creates a shallow copy of the collection.
-     *
-     * @return CollectionInterface a shallow copy of the collection.
-     */
-    abstract public function copy();
-
-    /**
-     * Returns an array representation of the collection.
-     *
-     * The format of the returned array is implementation-dependent. Some
-     * implementations may throw an exception if an array representation
-     * could not be created (for example when object are used as keys).
-     *
-     * @return array
-     */
-    abstract public function toArray(): array;
+    public function serialize()
+    {
+        return serialize($this->toArray());
+    }
 
     /**
      * Invoked when calling var_dump.
@@ -75,5 +62,25 @@ trait Collection
         return 'object(' . get_class($this) . ')';
     }
 
+    /**
+     * Creates a shallow copy of the collection.
+     *
+     * @return CollectionInterface a shallow copy of the collection.
+     */
+    abstract public function copy();
+
     abstract public function count(): int;
+
+    /**
+     * Returns an array representation of the collection.
+     *
+     * The format of the returned array is implementation-dependent. Some
+     * implementations may throw an exception if an array representation
+     * could not be created (for example when object are used as keys).
+     *
+     * @return array
+     */
+    abstract public function toArray(): array;
+
+    abstract public function unserialize($values);
 }
