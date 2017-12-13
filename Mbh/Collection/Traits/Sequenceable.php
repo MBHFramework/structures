@@ -34,6 +34,7 @@ trait Sequenceable
     use Sequenceable\Countable;
     use Sequenceable\ArrayAccess;
     use Sequenceable\Iterator;
+    use Sequenceable\Builder;
 
     protected $sfa = null;
 
@@ -46,32 +47,6 @@ trait Sequenceable
     {
         $this->sfa = $array;
         $this->checkCapacity();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromArray(array $array)
-    {
-        return new static(SplFixedArray::fromArray($array));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromItems(Traversable $array)
-    {
-        if (!$array instanceof Countable) {
-            return static::fromArray(iterator_to_array($array));
-        }
-
-        $sfa = new SplFixedArray(count($array));
-
-        foreach ($array as $i => $elem) {
-            $sfa[$i] = $elem;
-        }
-
-        return new static($sfa);
     }
 
     /**
