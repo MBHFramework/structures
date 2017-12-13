@@ -263,7 +263,7 @@ trait Sequenceable
         $this->checkCapacity();
     }
 
-    protected function getMainTraversable(): Traversable
+    protected function getSfa(): Traversable
     {
         return $this->sfa;
     }

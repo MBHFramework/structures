@@ -127,7 +127,7 @@ trait Functional
      */
     public function slice(int $begin = 0, int $end = null)
     {
-        $it = new SliceIterator($this->getMainTraversable(), $begin, $end);
+        $it = new SliceIterator($this->getSfa(), $begin, $end);
         return static::fromArray($it->toArray());
     }
 
@@ -222,7 +222,7 @@ trait Functional
 
     abstract public static function fromItems(Traversable $array);
 
-    abstract protected function getMainTraversable(): Traversable;
+    abstract protected function getSfa(): Traversable;
 
     abstract public function count(): int;
 
