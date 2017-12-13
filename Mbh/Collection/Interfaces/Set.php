@@ -8,13 +8,11 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\Interfaces\Collection as CollectionInterface;
-
 /**
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-interface Set extends CollectionInterface
+interface Set extends Collection
 {
     /**
      * Check if the given value exists.

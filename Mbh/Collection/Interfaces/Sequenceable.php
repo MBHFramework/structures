@@ -8,7 +8,6 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Traversable;
 use ArrayAccess;
 use SplHeap;
@@ -24,7 +23,7 @@ use OutOfRangeException;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-interface Sequenceable extends CollectionInterface, ArrayAccess
+interface Sequenceable extends Collection, ArrayAccess
 {
     /**
      * Build from an array
