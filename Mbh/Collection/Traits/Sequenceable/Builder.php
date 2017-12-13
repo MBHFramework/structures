@@ -10,7 +10,7 @@
 
 use SplFixedArray;
 use Traversable;
-use Countable;
+use Countable as CountableInterface;
 
 trait Builder
 {
@@ -40,7 +40,7 @@ trait Builder
      */
     public static function fromItems(Traversable $array)
     {
-        if (!$array instanceof Countable) {
+        if (!$array instanceof CountableInterface) {
             return static::fromArray(iterator_to_array($array));
         }
 
