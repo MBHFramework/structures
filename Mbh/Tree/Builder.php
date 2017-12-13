@@ -17,7 +17,7 @@ class Builder
     use \Mbh\Tree\Traits\Builder;
 
     /**
-     * @var NodeInterface[]
+     * @var FixedArray
      */
     protected $nodeStack = null;
 
@@ -37,7 +37,7 @@ class Builder
 
     protected function emptyStack()
     {
-        $this->nodeStack = FixedArray::fromArray([]);
+        $this->nodeStack->clear();
         return $this;
     }
 

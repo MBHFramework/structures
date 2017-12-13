@@ -278,7 +278,7 @@ trait Sequenceable
 
     public function clear()
     {
-        $this->sfa->clear();
+        $this->sfa->setSize(0);
         $this->checkCapacity();
     }
 
