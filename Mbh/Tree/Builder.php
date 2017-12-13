@@ -10,6 +10,7 @@
 
 use Mbh\Tree\Interfaces\Node as NodeInterface;
 use Mbh\Tree\Interfaces\Builder as BuilderInterface;
+use Mbh\Collection\FixedArray;
 
 class Builder
 {
@@ -18,35 +19,36 @@ class Builder
     /**
      * @var NodeInterface[]
      */
-    protected $nodeStack = [];
+    protected $nodeStack = null;
 
     /**
      * @param NodeInterface $node
      */
     public function __construct(NodeInterface $node = null)
     {
+        $this->nodeStack = FixedArray::fromArray([]);
         $this->setNode($node ?: $this->nodeInstanceByValue());
     }
 
     protected function peekStack(): NodeInterface
     {
-        return $this->nodeStack[count($this->nodeStack) - 1];
+        return $this->nodeStack->last();
     }
 
     protected function emptyStack()
     {
-        $this->nodeStack = [];
+        $this->nodeStack = FixedArray::fromArray([]);
         return $this;
     }
 
     protected function pushNode(NodeInterface $node)
     {
-        array_push($this->nodeStack, $node);
+        $this->nodeStack->push($node);
         return $this;
     }
 
     protected function popNode()
     {
-        return array_pop($this->nodeStack);
+        return $this->nodeStack->pop();
     }
 }
