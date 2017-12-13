@@ -10,6 +10,7 @@
 
 use SplFixedArray;
 use Traversable;
+use Countable;
 
 trait Builder
 {
