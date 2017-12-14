@@ -215,7 +215,7 @@ trait Functional
             $heap->insert($item);
         }
 
-        $this->setTraversable(static::fromItems($heap));
+        $this->setSfa(static::fromItems($heap));
 
         return $this;
     }

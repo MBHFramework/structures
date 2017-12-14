@@ -18,6 +18,80 @@ use LimitIterator;
 trait Sort
 {
     /**
+     * Fallback behaviour to use the builtin array sort functions
+     *
+     * @param callable $callback The callback for comparison
+     * @return SequenceableInterface
+     */
+    public function arraySort(callable $callback = null)
+    {
+        $array = $this->toArray();
+
+        if ($callback) {
+            usort($array, $callback);
+        } else {
+            sort($array);
+        }
+
+        $this->setSfa(SplFixedArray::fromArray($array));
+
+        return $this;
+    }
+
+    /**
+     * Sorts the collection
+     *
+     * @param callable $callback The callback for comparison
+     * @return SequenceableInterface
+     */
+    public function arraySorted(callable $callback = null)
+    {
+        return $this->copy()->arraySort($callback);
+    }
+
+    /**
+     * Sort by applying a CallbackHeap and building a new heap
+     * Can be efficient for sorting large stored objects.
+     *
+     * @param callable $callback The comparison callback
+     * @return SequenceableInterface
+     */
+    public function heapSort(callable $callback)
+    {
+        $h = new CallbackHeap($callback);
+        foreach ($this as $elem) {
+            $h->insert($elem);
+        }
+
+        $this->setSfa(SplFixedArray::fromArray($h->toArray()));
+
+        return $this;
+    }
+
+    /**
+     * Sort by applying a CallbackHeap and building a new heap
+     * Can be efficient for sorting large stored objects.
+     *
+     * @param callable $callback The comparison callback
+     * @return SequenceableInterface
+     */
+    public function heapSorted(callable $callback)
+    {
+        return $this->copy()->heapSort($callback);
+    }
+
+    /**
+     * Sorts the collection with mergeSort
+     *
+     * @param callable $callback The callback for comparison
+     * @return SequenceableInterface
+     */
+    public function mergeSorted(callable $callback = null)
+    {
+        return $this->copy()->mergeSort($callback);
+    }
+
+    /**
      * Perform a bottom-up, non-recursive, in-place mergesort.
      * Efficient for very-large objects, and written without recursion
      * since PHP isn't well optimized for large recursion stacks.
@@ -66,80 +140,6 @@ trait Sort
         return $this;
     }
 
-    /**
-     * Sort by applying a CallbackHeap and building a new heap
-     * Can be efficient for sorting large stored objects.
-     *
-     * @param callable $callback The comparison callback
-     * @return SequenceableInterface
-     */
-    public function heapSort(callable $callback)
-    {
-        $h = new CallbackHeap($callback);
-        foreach ($this as $elem) {
-            $h->insert($elem);
-        }
-
-        $this->setTraversable(SplFixedArray::fromArray($h->toArray()));
-
-        return $this;
-    }
-
-    /**
-     * Fallback behaviour to use the builtin array sort functions
-     *
-     * @param callable $callback The callback for comparison
-     * @return SequenceableInterface
-     */
-    public function arraySort(callable $callback = null)
-    {
-        $array = $this->toArray();
-
-        if ($callback) {
-            usort($array, $callback);
-        } else {
-            sort($array);
-        }
-
-        $this->setTraversable(SplFixedArray::fromArray($array));
-
-        return $this;
-    }
-
-    /**
-     * Sorts the collection with mergeSort
-     *
-     * @param callable $callback The callback for comparison
-     * @return SequenceableInterface
-     */
-    public function mergeSorted(callable $callback = null)
-    {
-        return $this->copy()->mergeSort($callback);
-    }
-
-    /**
-     * Sort by applying a CallbackHeap and building a new heap
-     * Can be efficient for sorting large stored objects.
-     *
-     * @param callable $callback The comparison callback
-     * @return SequenceableInterface
-     */
-    public function heapSorted(callable $callback)
-    {
-        return $this->copy()->heapSort($callback);
-    }
-
-    /**
-     * Sorts the collection
-     *
-     * @param callable $callback The callback for comparison
-     * @return SequenceableInterface
-     */
-    public function arraySorted(callable $callback = null)
-    {
-        return $this->copy()->arraySort($callback);
-    }
-
     abstract protected function __construct(Traversable $array);
 
     abstract public static function fromItems(Traversable $array);
@@ -148,7 +148,7 @@ trait Sort
 
     abstract public function count(): int;
 
-    abstract protected function setTraversable(Traversable $traversable);
+    abstract protected function setSfa(Traversable $traversable);
 
     abstract public function toArray(): array;
 }

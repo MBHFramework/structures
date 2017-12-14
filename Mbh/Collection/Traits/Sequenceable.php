@@ -249,7 +249,7 @@ trait Sequenceable
     public function unserialize($values)
     {
         $values = unserialize($values);
-        $this->setTraversable(SplFixedArray::fromArray($values));
+        $this->setSfa(SplFixedArray::fromArray($values));
     }
 
     protected function validIndex(int $index)
@@ -268,7 +268,7 @@ trait Sequenceable
         return $this->sfa;
     }
 
-    protected function setTraversable(Traversable $traversable)
+    protected function setSfa(Traversable $traversable)
     {
         $this->sfa = $traversable;
     }
