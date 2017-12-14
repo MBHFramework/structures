@@ -24,7 +24,7 @@ use UnderflowException;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-class Stack implements ArrayAccess, CollectionInterface
+class Stack implements ArrayAccess, CollectionInterface, IteratorAggregate
 {
     use Traits\Collection;
 
@@ -212,33 +212,5 @@ class Stack implements ArrayAccess, CollectionInterface
     public function offsetExists($offset)
     {
         throw new Error();
-    }
-
-    /**
-     * Iterator
-     */
-    public function current()
-    {
-        return $this->sfa->current();
-    }
-
-    public function key(): int
-    {
-        return $this->sfa->key();
-    }
-
-    public function next()
-    {
-        return $this->sfa->next();
-    }
-
-    public function rewind()
-    {
-        return $this->sfa->rewind();
-    }
-
-    public function valid()
-    {
-        return $this->sfa->valid();
     }
 }

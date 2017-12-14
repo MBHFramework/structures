@@ -8,7 +8,6 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Iterator;
 use Countable;
 use JsonSerializable;
 use Traversable;
@@ -23,7 +22,7 @@ use Serializable;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-interface Collection extends Countable, Iterator, JsonSerializable, Serializable
+interface Collection extends Countable, JsonSerializable, Serializable
 {
     /**
      * Removes all values from the collection.

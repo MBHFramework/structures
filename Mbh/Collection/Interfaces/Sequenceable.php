@@ -10,6 +10,7 @@
 
 use Traversable;
 use ArrayAccess;
+use Iterator;
 use SplHeap;
 use UnderflowException;
 use OutOfRangeException;
@@ -23,7 +24,7 @@ use OutOfRangeException;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-interface Sequenceable extends Collection, ArrayAccess
+interface Sequenceable extends ArrayAccess, Collection, Iterator
 {
     /**
      * Build from an array
