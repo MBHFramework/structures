@@ -67,6 +67,32 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
     }
 
     /**
+     * Returns the value associated with a key, or an optional default if the
+     * key is not associated with a value.
+     *
+     * @param mixed $key
+     * @param mixed $default
+     *
+     * @return mixed The associated value or fallback default if provided.
+     *
+     * @throws OutOfBoundsException if no default was provided and the key is
+     *                               not associated with a value.
+     */
+    public function get($key, $default = null)
+    {
+        if (($pair = $this->lookupKey($key))) {
+            return $pair->value;
+        }
+
+        // Check if a default was provided.
+        if (func_num_args() === 1) {
+            throw new OutOfBoundsException();
+        }
+
+        return $default;
+    }
+
+    /**
      * Returns whether an association a given key exists.
      *
      * @param mixed $key
@@ -152,6 +178,18 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
     }
 
     /**
+     * Returns a sequence of pairs representing all associations.
+     *
+     * @return SequenceableInterface
+     */
+    public function pairs(): SequenceableInterface
+    {
+        return $this->pairs->map(function ($pair) {
+            return $pair->copy();
+        });
+    }
+
+    /**
      * Associates a key with a value, replacing a previous association if there
      * was one.
      *
@@ -192,5 +230,61 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
         return $this->pairs->map(function ($pair) {
             return $pair->value;
         });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIterator()
+    {
+        foreach ($this->pairs as $pair) {
+            yield $pair->key => $pair->value;
+        }
+    }
+
+    /**
+     * Returns a representation to be used for var_dump and print_r.
+     */
+    public function __debugInfo()
+    {
+        return $this->pairs()->toArray();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->put($offset, $value);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @throws OutOfBoundsException
+     */
+    public function &offsetGet($offset)
+    {
+        $pair = $this->lookupKey($offset);
+        if ($pair) {
+            return $pair->value;
+        }
+        throw new OutOfBoundsException();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function offsetUnset($offset)
+    {
+        $this->remove($offset, null);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function offsetExists($offset)
+    {
+        return $this->get($offset, null) !== null;
     }
 }
