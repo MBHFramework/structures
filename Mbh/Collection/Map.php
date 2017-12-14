@@ -16,6 +16,7 @@ use ArrayAccess;
 use IteratorAggregate;
 use OutOfBoundsException;
 use OutOfRangeException;
+use UnderflowException;
 
 /**
  * A Map is a sequential collection of key-value pairs, almost identical to an
@@ -64,6 +65,22 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
     public function count(): int
     {
         return count($this->pairs);
+    }
+
+    /**
+     * Return the first Pair from the Map
+     *
+     * @return Pair
+     *
+     * @throws UnderflowException
+     */
+    public function first(): Pair
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        return $this->pairs->first();
     }
 
     /**
@@ -144,6 +161,23 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
 
         return $a === $b;
     }
+
+    /**
+     * Return the last Pair from the Map
+     *
+     * @return Pair
+     *
+     * @throws UnderflowException
+     */
+    public function last(): Pair
+    {
+        if ($this->isEmpty()) {
+            throw new UnderflowException();
+        }
+
+        return $this->pairs->last();
+    }
+
 
     /**
      * Attempts to look up a key in the table.
