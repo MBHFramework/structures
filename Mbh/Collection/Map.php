@@ -255,6 +255,37 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
     }
 
     /**
+     * Return the pair at a specified position in the Map
+     *
+     * @param int $position
+     *
+     * @return Pair
+     *
+     * @throws OutOfRangeException
+     */
+    public function skip(int $position): Pair
+    {
+        if ($position < 0 || $position >= count($this->pairs)) {
+            throw new OutOfRangeException();
+        }
+
+        return $this->pairs[$position]->copy();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray(): array
+    {
+        $array = [];
+        foreach ($this->pairs as $pair) {
+            $array[$pair->key] = $pair->value;
+        }
+
+        return $array;
+    }
+
+    /**
      * Returns a sequence of all the associated values in the Map.
      *
      * @return SequenceableInterface
