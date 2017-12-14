@@ -68,6 +68,18 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
     }
 
     /**
+     * Completely removes a pair from the internal array by position. It is
+     * important to remove it from the array and not just use 'unset'.
+     */
+    private function delete(int $position)
+    {
+        $pair  = $this->pairs->remove($position);
+
+        $this->checkCapacity();
+        return $pair->value;
+    }
+
+    /**
      * Return the first Pair from the Map
      *
      * @return Pair
@@ -252,6 +264,34 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
         foreach ($values as $key => $value) {
             $this->put($key, $value);
         }
+    }
+
+    /**
+     * Removes a key's association from the map and returns the associated value
+     * or a provided default if provided.
+     *
+     * @param mixed $key
+     * @param mixed $default
+     *
+     * @return mixed The associated value or fallback default if provided.
+     *
+     * @throws OutOfBoundsException if no default was provided and the key is
+     *                               not associated with a value.
+     */
+    public function remove($key, $default = null)
+    {
+        foreach ($this->pairs as $position => $pair) {
+            if ($this->keysAreEqual($pair->key, $key)) {
+                return $this->delete($position);
+            }
+        }
+
+        // Check if a default was provided
+        if (func_num_args() === 1) {
+            throw new OutOfBoundsException();
+        }
+
+        return $default;
     }
 
     /**
