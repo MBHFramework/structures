@@ -14,10 +14,11 @@ use ArrayAccess;
 use IteratorAggregate;
 use Error;
 use OutOfBoundsException;
+use UnderflowException;
 
 /**
- * A “first in, first out” or “FIFO” collection that only allows access to the
- * value at the front of the queue and iterates in that order, destructively.
+ * A “last in, first out” or “LIFO” collection that only allows access to the
+ * value at the top of the structure and iterates in that order, destructively.
  *
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
@@ -30,20 +31,46 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
     const MIN_CAPACITY = 8;
 
     /**
-     * @var Deque internal deque to store values.
+     * @var FixedArray internal sfa to store values of the stack.
      */
-    private $deque;
+    private $sfa;
 
     /**
      * Creates an instance using the values of an array or Traversable object.
      *
-     * @param array|Traversable $values
+     * @param array|\Traversable $values
      */
-    public function __construct($values = [])
+    public function __construct($values = null)
     {
-        $this->deque = Deque::fromArray([]);
+        $this->sfa = FixedArray::fromArray([]);
 
-        $this->pushAll($values);
+        $this->pushAll($pairs);
+    }
+
+    /**
+     * Clear all elements in the Stack
+     */
+    public function clear()
+    {
+        $this->sfa->clear();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function copy()
+    {
+        return new self($this->sfa);
+    }
+
+    /**
+     * Returns the number of elements in the Stack
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return count($this->sfa);
     }
 
     /**
@@ -56,71 +83,51 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function allocate(int $capacity)
     {
-        $this->deque->allocate($capacity);
+        $this->sfa->allocate($capacity);
     }
 
     /**
-     * Returns the current capacity of the queue.
+     * Returns the current capacity of the stack.
      *
      * @return int
      */
     public function capacity(): int
     {
-        return $this->deque->capacity();
+        return $this->sfa->capacity();
     }
 
     /**
-     * @inheritDoc
-     */
-    public function clear()
-    {
-        $this->deque->clear();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function copy()
-    {
-        return new self($this->deque);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function count(): int
-    {
-        return count($this->deque);
-    }
-
-    /**
-     * Returns the value at the front of the queue without removing it.
+     * Returns the value at the top of the stack without removing it.
      *
-     * @return
+     * @return mixed
+     *
+     * @throws UnderflowException if the stack is empty.
      */
     public function peek()
     {
-        return $this->deque->first();
+        return $this->sfa->last();
     }
 
     /**
-     * Returns and removes the value at the front of the Queue.
+     * Returns and removes the value at the top of the stack.
      *
      * @return mixed
+     *
+     * @throws UnderflowException if the stack is empty.
      */
     public function pop()
     {
-        return $this->deque->shift();
+        return $this->sfa->pop();
     }
 
     /**
-     * Pushes zero or more values into the front of the queue.
+     * Pushes zero or more values onto the top of the stack.
      *
      * @param mixed ...$values
      */
     public function push(...$values)
     {
-        $this->deque->push(...$values);
+        $this->sfa->push(...$values);
     }
 
     /**
@@ -141,15 +148,15 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function toArray(): array
     {
-        return $this->deque->toArray();
+        return array_reverse($this->sfa->toArray());
     }
 
     /**
-     * Get iterator
+     *
      */
     public function getIterator()
     {
-        while (!$this->isEmpty()) {
+        while (! $this->isEmpty()) {
             yield $this->pop();
         }
     }
