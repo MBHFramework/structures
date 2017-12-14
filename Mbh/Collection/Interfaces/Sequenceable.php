@@ -77,7 +77,7 @@ interface Sequenceable extends Collection, ArrayAccess
     /**
      * Creates a shallow copy of the collection.
      *
-     * @return CollectionInterface a shallow copy of the collection.
+     * @return Collection a shallow copy of the collection.
      */
     public function copy();
 
