@@ -171,6 +171,18 @@ class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
     }
 
     /**
+     * Removes zero or more values from the set.
+     *
+     * @param mixed ...$values
+     */
+    public function remove(...$values)
+    {
+        foreach ($values as $value) {
+            $this->table->remove($value, null);
+        }
+    }
+
+    /**
      * @inheritDoc
      */
     public function toArray(): array
