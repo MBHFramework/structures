@@ -102,7 +102,7 @@ class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
     public function contains(...$values): bool
     {
         foreach ($values as $value) {
-            if (! $this->table->hasKey($value)) {
+            if (!$this->table->hasKey($value)) {
                 return false;
             }
         }
