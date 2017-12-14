@@ -123,7 +123,7 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function keys(): Set
     {
-        return new static($this->pairs->map(function ($pair) {
+        return new Set($this->pairs->map(function ($pair) {
             return $pair->key;
         }));
     }
