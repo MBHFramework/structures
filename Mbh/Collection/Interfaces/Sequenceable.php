@@ -207,7 +207,7 @@ interface Sequenceable extends Collection, ArrayAccess
     /**
      * Find a single element key
      *
-     * @param mixed The value to search
+     * @param mixed $value The value to search
      * @return mixed The key for the element we found
      */
     public function search($value);
