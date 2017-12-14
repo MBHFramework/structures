@@ -10,6 +10,7 @@
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Collection\Interfaces\Hashable as HashableInterface;
+use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use Traversable;
 use ArrayAccess;
 use IteratorAggregate;
@@ -29,6 +30,8 @@ class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
     use Traits\Functional;
     use Traits\SquaredCapacity;
 
+    const MIN_CAPACITY = 8.0;
+
     /**
      * @var FixedArray internal array to store pairs
      */
@@ -44,6 +47,59 @@ class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
         FixedArray::fromArray([]);
 
         $this->pushAll($pairs);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function clear()
+    {
+        $this->pairs->clear();
+        $this->capacity = self::MIN_CAPACITY;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function count(): int
+    {
+        return count($this->pairs);
+    }
+
+    /**
+     * Returns whether an association a given key exists.
+     *
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    public function hasKey($key): bool
+    {
+        return $this->lookupKey($key) !== null;
+    }
+
+    /**
+     * Returns whether an association for a given value exists.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function hasValue($value): bool
+    {
+        return $this->lookupValue($value) !== null;
+    }
+
+    /**
+     * Returns a set of all the keys in the map.
+     *
+     * @return Set
+     */
+    public function keys(): Set
+    {
+        return new static($this->pairs->map(function ($pair) {
+            return $pair->key;
+        }));
     }
 
     /**
@@ -108,6 +164,7 @@ class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
         if ($pair) {
             $pair->value = $value;
         } else {
+            $this->checkCapacity();
             $this->pairs[] = new Pair($key, $value);
         }
     }
@@ -123,5 +180,17 @@ class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
         foreach ($values as $key => $value) {
             $this->put($key, $value);
         }
+    }
+
+    /**
+     * Returns a sequence of all the associated values in the Map.
+     *
+     * @return SequenceInterface
+     */
+    public function values(): SequenceInterface
+    {
+        return $this->pairs->map(function ($pair) {
+            return $pair->key;
+        });
     }
 }
