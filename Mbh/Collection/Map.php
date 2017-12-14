@@ -24,7 +24,7 @@ use OutOfRangeException;
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
+class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
 {
     use Traits\Collection;
     use Traits\Functional;
