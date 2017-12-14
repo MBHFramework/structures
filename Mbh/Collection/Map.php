@@ -185,9 +185,9 @@ class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
     /**
      * Returns a sequence of all the associated values in the Map.
      *
-     * @return SequenceInterface
+     * @return SequenceableInterface
      */
-    public function values(): SequenceInterface
+    public function values(): SequenceableInterface
     {
         return $this->pairs->map(function ($pair) {
             return $pair->value;
