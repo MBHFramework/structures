@@ -46,7 +46,7 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
     {
         FixedArray::fromArray([]);
 
-        $this->pushAll($pairs);
+        $this->putAll($pairs);
     }
 
     /**
