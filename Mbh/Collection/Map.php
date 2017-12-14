@@ -190,7 +190,7 @@ class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
     public function values(): SequenceInterface
     {
         return $this->pairs->map(function ($pair) {
-            return $pair->key;
+            return $pair->value;
         });
     }
 }
