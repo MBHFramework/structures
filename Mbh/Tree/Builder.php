@@ -10,7 +10,7 @@
 
 use Mbh\Tree\Interfaces\Node as NodeInterface;
 use Mbh\Tree\Interfaces\Builder as BuilderInterface;
-use Mbh\Collection\FixedArray;
+use Mbh\Collection\Stack;
 
 class Builder
 {
@@ -26,13 +26,13 @@ class Builder
      */
     public function __construct(NodeInterface $node = null)
     {
-        $this->nodeStack = FixedArray::fromArray([]);
+        $this->nodeStack = new Stack;
         $this->setNode($node ?: $this->nodeInstanceByValue());
     }
 
     protected function peekStack(): NodeInterface
     {
-        return $this->nodeStack->last();
+        return $this->nodeStack->peek();
     }
 
     protected function emptyStack()

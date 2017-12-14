@@ -23,7 +23,7 @@ use OutOfBoundsException;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
+class Queue implements ArrayAccess, CollectionInterface
 {
     use Traits\Collection;
 
@@ -145,6 +145,15 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
     }
 
     /**
+     * @inheritDoc
+     */
+    public function unserialize($values)
+    {
+        $values = unserialize($values);
+        $this->deque = Deque::fromArray($values);
+    }
+
+    /**
      * Get iterator
      */
     public function getIterator()
@@ -196,5 +205,33 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
     public function offsetExists($offset)
     {
         throw new Error();
+    }
+
+    /**
+     * Iterator
+     */
+    public function current()
+    {
+        return $this->deque->current();
+    }
+
+    public function key(): int
+    {
+        return $this->deque->key();
+    }
+
+    public function next()
+    {
+        return $this->deque->next();
+    }
+
+    public function rewind()
+    {
+        return $this->deque->rewind();
+    }
+
+    public function valid()
+    {
+        return $this->deque->valid();
     }
 }

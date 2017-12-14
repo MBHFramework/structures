@@ -24,7 +24,7 @@ use UnderflowException;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
+class Stack implements ArrayAccess, CollectionInterface
 {
     use Traits\Collection;
 
@@ -40,11 +40,11 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
      *
      * @param array|\Traversable $values
      */
-    public function __construct($values = null)
+    public function __construct($values = [])
     {
         $this->sfa = FixedArray::fromArray([]);
 
-        $this->pushAll($pairs);
+        $this->pushAll($values);
     }
 
     /**
@@ -152,6 +152,15 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
     }
 
     /**
+     * @inheritDoc
+     */
+    public function unserialize($values)
+    {
+        $values = unserialize($values);
+        $this->sfa = FixedArray::fromArray($values);
+    }
+
+    /**
      *
      */
     public function getIterator()
@@ -203,5 +212,33 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
     public function offsetExists($offset)
     {
         throw new Error();
+    }
+
+    /**
+     * Iterator
+     */
+    public function current()
+    {
+        return $this->sfa->current();
+    }
+
+    public function key(): int
+    {
+        return $this->sfa->key();
+    }
+
+    public function next()
+    {
+        return $this->sfa->next();
+    }
+
+    public function rewind()
+    {
+        return $this->sfa->rewind();
+    }
+
+    public function valid()
+    {
+        return $this->sfa->valid();
     }
 }
