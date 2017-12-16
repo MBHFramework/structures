@@ -174,8 +174,9 @@ trait Functional
     /**
      * @inheritDoc
      */
-    public function slice(int $begin = 0, int $end = null)
+    public function slice(int $begin = 0, int $length = null)
     {
+        $end = $begin + $length;
         $it = new SliceIterator($this->getSfa(), $begin, $end);
         return static::fromArray($it->toArray());
     }
@@ -183,9 +184,11 @@ trait Functional
     /**
      * @inheritDoc
      */
-    public function splice(int $begin = 0, int $end = null, mixed $replacement = null)
+    public function splice(int $begin = 0, int $length = null, $replacement = [])
     {
-        $slice = $this->slice($begin, $end);
+        $input = $this->toArray();
+        array_splice($input, $begin, $length, $replacement);
+        return static::fromArray($input);
     }
 
     /**

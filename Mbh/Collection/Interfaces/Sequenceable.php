@@ -239,7 +239,7 @@ interface Sequenceable extends ArrayAccess, Collection, Iterator
      * @param int $end End index of slice
      * @return Sequenceable
      */
-    public function slice(int $begin = 0, int $end = null);
+    public function slice(int $begin = 0, int $length = null);
 
     /**
      * Return a new sorted Sequenceable

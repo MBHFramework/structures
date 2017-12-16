@@ -92,9 +92,9 @@ class FixedArrayTest extends TestCase
     public function testFilter()
     {
         $oddArr = [1, 3, 5, 7, 9];
-        $immArr = FixedArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $fixedArr = FixedArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-        $odds = $immArr->filter(function ($num) {
+        $odds = $fixedArr->filter(function ($num) {
             return $num % 2;
         });
 
@@ -134,9 +134,9 @@ class FixedArrayTest extends TestCase
 
     public function testSlice()
     {
-        $immArr = FixedArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $fixedArr = FixedArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-        $firstThree = $immArr->slice(0, 3);
+        $firstThree = $fixedArr->slice(0, 3);
 
         $this->assertCount(3, $firstThree);
         $this->assertSame([1, 2, 3], $firstThree->toArray());

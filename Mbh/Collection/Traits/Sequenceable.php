@@ -104,10 +104,10 @@ trait Sequenceable
             throw new OutOfRangeException();
         }
 
-        $slice = $this->slice($index, $this->count());
-        $this->setSize($index);
+        $splice = $this->splice($index, 0, $values);
+        $this->clear();
 
-        $this->pushAll($values, $slice);
+        $this->pushAll($splice);
     }
 
     /**
@@ -196,13 +196,10 @@ trait Sequenceable
         }
 
         $value = $this[$index];
+        $splice = $this->splice($index + 1, 1, null);
+        $this->clear();
 
-        $slice = $this->slice($index + 1, $this->count());
-        $this->setSize($index);
-
-        $this->pushAll($slice);
-
-        $this->checkCapacity();
+        $this->pushAll($splice);
         return $value;
     }
 
