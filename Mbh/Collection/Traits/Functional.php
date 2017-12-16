@@ -183,7 +183,7 @@ trait Functional
     /**
      * @inheritDoc
      */
-    public function splice(int $begin = 0, int $end = null, mixed $replacement = [])
+    public function splice(int $begin = 0, int $end = null, mixed $replacement = null)
     {
         $slice = $this->slice($begin, $end);
     }
