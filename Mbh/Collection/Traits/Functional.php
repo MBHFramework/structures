@@ -45,27 +45,28 @@ trait Functional
     /**
      * @inheritDoc
      */
-    public function map(callable $callback)
+    public function concat(...$args)
     {
-        list($sfa, $count) = $this->getSplFixedArrayAndSize();
+        array_unshift($args, $this);
 
-        for ($i = 0; $i < $count; $i++) {
-            $sfa[$i] = $callback($this[$i], $i, $this);
-        }
+        // Concat this iterator, and variadic args
+        $class = new ReflectionClass('Mbh\Iterator\ConcatIterator');
+        $concatIt = $class->newInstanceArgs($args);
 
-        return new static($sfa);
+        // Create as new immutable's iterator
+        return static::fromArray($concatIt->toArray());
     }
 
     /**
      * @inheritDoc
      */
-    public function walk(callable $callback)
+    public function find(callable $callback)
     {
         foreach ($this as $i => $elem) {
-            $callback($elem, $i, $this);
+            if ($callback($elem, $i, $this)) {
+                return $elem;
+            }
         }
-
-        return $this;
     }
 
     /**
@@ -89,13 +90,23 @@ trait Functional
     /**
      * @inheritDoc
      */
-    public function reduce(callable $callback, $accumulator = null)
+    public function heapSorted(SplHeap $heap)
     {
-        foreach ($this as $i => $elem) {
-            $accumulator = $callback($accumulator, $elem, $i, $this);
+        return $this->copy()->heapSort($heap);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function heapSort(SplHeap $heap)
+    {
+        foreach ($this as $item) {
+            $heap->insert($item);
         }
 
-        return $accumulator;
+        $this->setSfa(static::fromItems($heap));
+
+        return $this;
     }
 
     /**
@@ -125,37 +136,27 @@ trait Functional
     /**
      * @inheritDoc
      */
-    public function slice(int $begin = 0, int $end = null)
+    public function map(callable $callback)
     {
-        $it = new SliceIterator($this->getSfa(), $begin, $end);
-        return static::fromArray($it->toArray());
+        list($sfa, $count) = $this->getSplFixedArrayAndSize();
+
+        for ($i = 0; $i < $count; $i++) {
+            $sfa[$i] = $callback($this[$i], $i, $this);
+        }
+
+        return new static($sfa);
     }
 
     /**
      * @inheritDoc
      */
-    public function concat(...$args)
-    {
-        array_unshift($args, $this);
-
-        // Concat this iterator, and variadic args
-        $class = new ReflectionClass('Mbh\Iterator\ConcatIterator');
-        $concatIt = $class->newInstanceArgs($args);
-
-        // Create as new immutable's iterator
-        return static::fromArray($concatIt->toArray());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function find(callable $callback)
+    public function reduce(callable $callback, $accumulator = null)
     {
         foreach ($this as $i => $elem) {
-            if ($callback($elem, $i, $this)) {
-                return $elem;
-            }
+            $accumulator = $callback($accumulator, $elem, $i, $this);
         }
+
+        return $accumulator;
     }
 
     /**
@@ -168,6 +169,23 @@ trait Functional
                 return $i;
             }
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function slice(int $begin = 0, int $end = null)
+    {
+        $it = new SliceIterator($this->getSfa(), $begin, $end);
+        return static::fromArray($it->toArray());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function splice(int $begin = 0, int $end = null, mixed $replacement = [])
+    {
+        $slice = $this->slice($begin, $end);
     }
 
     /**
@@ -201,21 +219,11 @@ trait Functional
     /**
      * @inheritDoc
      */
-    public function heapSorted(SplHeap $heap)
+    public function walk(callable $callback)
     {
-        return $this->copy()->heapSort($heap);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function heapSort(SplHeap $heap)
-    {
-        foreach ($this as $item) {
-            $heap->insert($item);
+        foreach ($this as $i => $elem) {
+            $callback($elem, $i, $this);
         }
-
-        $this->setSfa(static::fromItems($heap));
 
         return $this;
     }
