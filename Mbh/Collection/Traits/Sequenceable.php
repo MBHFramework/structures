@@ -196,7 +196,11 @@ trait Sequenceable
         }
 
         $value = $this[$index];
-        $this->sfa->offsetUnset($index);
+
+        $slice = $this->slice($index + 1, $this->count());
+        $this->setSize($index);
+
+        $this->pushAll($slice);
 
         $this->checkCapacity();
         return $value;
