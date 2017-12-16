@@ -73,7 +73,7 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     private function delete(int $position)
     {
-        $pair  = $this->pairs->remove($position);
+        $pair = $this->pairs->remove($position);
 
         $this->checkCapacity();
         return $pair->value;
