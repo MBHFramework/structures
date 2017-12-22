@@ -25,21 +25,41 @@ use Mbh\Collection\Exceptions\ImmutableException;
 
 class ImmutableArray extends FixedArray
 {
+    /**
+     * @inheritDoc
+     */
+    public function set($offset, $value)
+    {
+        throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function sort(callable $callback = null): SequenceableInterface
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function offsetSet($offset, $value)
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function offsetUnset($offset)
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function clear()
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
