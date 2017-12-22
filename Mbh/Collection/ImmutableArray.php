@@ -9,7 +9,7 @@
  */
 
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
-use RuntimeException;
+use Mbh\Collection\ImmutableException;
 
 /**
  * The Immutable Array
@@ -27,21 +27,21 @@ class ImmutableArray extends FixedArray
 {
     public function sort(callable $callback = null): SequenceableInterface
     {
-        throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
+        throw new ImmutableException(__CLASS__, 'sort');
     }
 
     public function offsetSet($offset, $value)
     {
-        throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
+        throw new ImmutableException(__CLASS__, 'offsetSet');
     }
 
     public function offsetUnset($offset)
     {
-        throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
+        throw new ImmutableException(__CLASS__, 'offsetUnset');
     }
 
     public function clear()
     {
-        throw new RuntimeException('Attempt to mutate immutable ' . __CLASS__ . ' object.');
+        throw new ImmutableException(__CLASS__, 'clear');
     }
 }
