@@ -9,7 +9,7 @@
  */
 
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
-use Mbh\Collection\ImmutableException;
+use Mbh\Collection\Exceptions\ImmutableException;
 
 /**
  * The Immutable Array

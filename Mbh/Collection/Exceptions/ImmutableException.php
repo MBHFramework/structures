@@ -1,4 +1,4 @@
-<?php namespace Mbh\Collection\Exception;
+<?php namespace Mbh\Collection\Exceptions;
 
 /**
  * MBHFramework
