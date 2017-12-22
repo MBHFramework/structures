@@ -27,21 +27,21 @@ class ImmutableArray extends FixedArray
 {
     public function sort(callable $callback = null): SequenceableInterface
     {
-        throw new ImmutableException(__CLASS__, 'sort');
+        throw ImmutableException::cannotModify(__CLASS__, 'sort');
     }
 
     public function offsetSet($offset, $value)
     {
-        throw new ImmutableException(__CLASS__, 'offsetSet');
+        throw ImmutableException::cannotModify(__CLASS__, 'offsetSet');
     }
 
     public function offsetUnset($offset)
     {
-        throw new ImmutableException(__CLASS__, 'offsetUnset');
+        throw ImmutableException::cannotModify(__CLASS__, 'offsetUnset');
     }
 
     public function clear()
     {
-        throw new ImmutableException(__CLASS__, 'clear');
+        throw ImmutableException::cannotModify(__CLASS__, 'clear');
     }
 }
