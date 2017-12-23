@@ -93,7 +93,7 @@ echo json_encode($foo);
 // => {"0":1,"1":2,"2":3}
 ```
 
-The internal logic makese sense to a PHP dev here -- you're encoding properties, after all, but this format is undesirable when working in JS. Objects in js are unordered, so you need to loop through a separate counter, and lookup each string property-name by casting the counter back to string, doing a property lookup, and ending the loop once you've reached the length of the object keys. It's a silly PitA we often have to endure, when we'd much rather get back an array in the first place. e.g.
+The internal logic makese sense to a PHP dev here -- you're encoding properties, after all, but this format is undesirable when working in JS. Objects in js are unordered, so you need to loop through a separate counter, and lookup each string property-name by casting the counter back to string, doing a property lookup, and ending the loop once you've reached the length of the object keys. It's a silly we often have to endure, when we'd much rather get back an array in the first place. e.g.
 
 ```php
 <?php
