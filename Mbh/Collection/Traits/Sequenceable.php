@@ -309,4 +309,6 @@ trait Sequenceable
     abstract public function isEmpty(): bool;
 
     abstract public function search($value);
+
+    abstract public function splice(int $begin = 0, int $length = null, $replacement = []);
 }
