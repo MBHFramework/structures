@@ -26,8 +26,8 @@ use Mbh\Collection\Exceptions\ImmutableException;
 class ImmutableArray extends FixedArray
 {
     /**
-    * @inheritDoc
-    */
+     * @inheritDoc
+     */
     public function clear()
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
@@ -82,8 +82,8 @@ class ImmutableArray extends FixedArray
     }
 
     /**
-    * @inheritDoc
-    */
+     * @inheritDoc
+     */
     public function set(int $index, $value)
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
@@ -98,8 +98,8 @@ class ImmutableArray extends FixedArray
     }
 
     /**
-    * @inheritDoc
-    */
+     * @inheritDoc
+     */
     public function sort(callable $callback = null): SequenceableInterface
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
