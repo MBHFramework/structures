@@ -17,7 +17,7 @@ class Builder
     use \Mbh\Tree\Traits\Builder;
 
     /**
-     * @var FixedArray
+     * @var Stack
      */
     protected $nodeStack = null;
 
