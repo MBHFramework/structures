@@ -28,7 +28,7 @@ class ImmutableArray extends FixedArray
     /**
      * @inheritDoc
      */
-    public function set($offset, $value)
+    public function set(int $index, $value)
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
     }
