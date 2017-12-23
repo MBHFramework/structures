@@ -38,7 +38,7 @@ class Stack implements ArrayAccess, CollectionInterface, IteratorAggregate
     /**
      * Creates an instance using the values of an array or Traversable object.
      *
-     * @param array|\Traversable $values
+     * @param array|Traversable $values
      */
     public function __construct($values = [])
     {
