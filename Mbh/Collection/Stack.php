@@ -165,7 +165,7 @@ class Stack implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function getIterator()
     {
-        while (! $this->isEmpty()) {
+        while (!$this->isEmpty()) {
             yield $this->pop();
         }
     }
