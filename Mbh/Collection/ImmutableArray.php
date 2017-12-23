@@ -26,9 +26,9 @@ use Mbh\Collection\Exceptions\ImmutableException;
 class ImmutableArray extends FixedArray
 {
     /**
-     * @inheritDoc
-     */
-    public function set(int $index, $value)
+    * @inheritDoc
+    */
+    public function clear()
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
     }
@@ -36,7 +36,7 @@ class ImmutableArray extends FixedArray
     /**
      * @inheritDoc
      */
-    public function sort(callable $callback = null): SequenceableInterface
+    public function insert(int $index, ...$values)
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
     }
@@ -60,7 +60,60 @@ class ImmutableArray extends FixedArray
     /**
      * @inheritDoc
      */
-    public function clear()
+    public function pop()
+    {
+        throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function push(...$values)
+    {
+        throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function remove(int $index)
+    {
+        throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
+    }
+
+    /**
+    * @inheritDoc
+    */
+    public function set(int $index, $value)
+    {
+        throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function shift()
+    {
+        throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
+    }
+
+    /**
+    * @inheritDoc
+    */
+    public function sort(callable $callback = null): SequenceableInterface
+    {
+        throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
+    }
+
+    public function unserialize($values)
+    {
+        throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function unshift(...$values)
     {
         throw ImmutableException::cannotModify(__CLASS__, __METHOD__);
     }
