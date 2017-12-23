@@ -8,8 +8,9 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\FixedArray;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
+use Mbh\Collection\FixedArray;
+use Mbh\Collection\CallbackHeap;
 use Traversable;
 use SplFixedArray;
 use SplStack;
