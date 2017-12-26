@@ -14,6 +14,7 @@ use ArrayAccess;
 use IteratorAggregate;
 use Error;
 use OutOfBoundsException;
+use UnderflowException;
 
 /**
  * A PriorityQueue is very similar to a Queue. Values are pushed into the queue
