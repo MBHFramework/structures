@@ -1,4 +1,4 @@
-<?php namespace Mbh\Collection\Traits;
+<?php namespace Mbh\Traits;
 
 /**
  * MBHFramework

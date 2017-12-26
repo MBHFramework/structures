@@ -9,6 +9,7 @@
  */
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
+use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Traversable;
 use ArrayAccess;
 use IteratorAggregate;
@@ -22,7 +23,7 @@ use OutOfRangeException;
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-class Set implements ArrayAccess, CollectionInterface, IteratorAggregate
+class Set implements AllocatedInterface, ArrayAccess, CollectionInterface, IteratorAggregate
 {
     use Traits\Collection;
 

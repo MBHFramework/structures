@@ -9,6 +9,8 @@
  */
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
+use Mbh\Interfaces\Allocated as AllocatedInterface;
+use Mbh\Traits\SquaredCapacity;
 use Traversable;
 use ArrayAccess;
 use IteratorAggregate;
@@ -25,10 +27,10 @@ use UnderflowException;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-class PriorityQueue implements ArrayAccess, CollectionInterface, IteratorAggregate
+class PriorityQueue implements AllocatedInterface, ArrayAccess, CollectionInterface, IteratorAggregate
 {
     use Traits\Collection;
-    use Traits\SquaredCapacity;
+    use SquaredCapacity;
 
     /**
      * @var int

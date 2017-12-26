@@ -11,6 +11,8 @@
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Collection\Interfaces\Hashable as HashableInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
+use Mbh\Interfaces\Allocated as AllocatedInterface;
+use Mbh\Traits\SquaredCapacity;
 use Traversable;
 use ArrayAccess;
 use IteratorAggregate;
@@ -25,11 +27,11 @@ use UnderflowException;
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
+class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, IteratorAggregate
 {
     use Traits\Collection;
     use Traits\Functional;
-    use Traits\SquaredCapacity;
+    use SquaredCapacity;
 
     const MIN_CAPACITY = 8.0;
 

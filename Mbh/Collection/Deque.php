@@ -9,6 +9,8 @@
  */
 
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
+use Mbh\Interfaces\Allocated as AllocatedInterface;
+use Mbh\Traits\SquaredCapacity;
 
 /**
  * A Deque is a sequence of values in a contiguous buffer
@@ -21,12 +23,12 @@ use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-class Deque implements SequenceableInterface
+class Deque implements SequenceableInterface, AllocatedInterface
 {
     use Traits\Collection;
     use Traits\Sequenceable;
     use Traits\Functional;
-    use Traits\SquaredCapacity;
+    use SquaredCapacity;
 
     const MIN_CAPACITY = 8.0;
 }

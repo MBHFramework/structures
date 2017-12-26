@@ -9,6 +9,7 @@
  */
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
+use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Traversable;
 use ArrayAccess;
 use IteratorAggregate;
@@ -23,7 +24,7 @@ use OutOfBoundsException;
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
+class Queue implements AllocatedInterface, ArrayAccess, CollectionInterface, IteratorAggregate
 {
     use Traits\Collection;
 
