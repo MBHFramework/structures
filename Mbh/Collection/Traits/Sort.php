@@ -8,7 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
+use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Collection\FixedArray;
 use Mbh\Collection\CallbackHeap;
 use Traversable;
@@ -22,7 +22,7 @@ trait Sort
      * Fallback behaviour to use the builtin array sort functions
      *
      * @param callable $callback The callback for comparison
-     * @return SequenceableInterface
+     * @return CollectionInterface
      */
     public function arraySort(callable $callback = null)
     {
@@ -43,7 +43,7 @@ trait Sort
      * Sorts the collection
      *
      * @param callable $callback The callback for comparison
-     * @return SequenceableInterface
+     * @return CollectionInterface
      */
     public function arraySorted(callable $callback = null)
     {
@@ -55,7 +55,7 @@ trait Sort
      * Can be efficient for sorting large stored objects.
      *
      * @param callable $callback The comparison callback
-     * @return SequenceableInterface
+     * @return CollectionInterface
      */
     public function heapSort(callable $callback)
     {
@@ -74,7 +74,7 @@ trait Sort
      * Can be efficient for sorting large stored objects.
      *
      * @param callable $callback The comparison callback
-     * @return SequenceableInterface
+     * @return CollectionInterface
      */
     public function heapSorted(callable $callback)
     {
@@ -85,7 +85,7 @@ trait Sort
      * Sorts the collection with mergeSort
      *
      * @param callable $callback The callback for comparison
-     * @return SequenceableInterface
+     * @return CollectionInterface
      */
     public function mergeSorted(callable $callback = null)
     {
@@ -98,7 +98,7 @@ trait Sort
      * since PHP isn't well optimized for large recursion stacks.
      *
      * @param callable $callback The callback for comparison
-     * @return SequenceableInterface
+     * @return CollectionInterface
      */
     public function mergeSort(callable $callback)
     {

@@ -1,7 +1,6 @@
 <?php namespace Mbh\Collection\Traits;
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
-use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use Mbh\Collection\FixedArray;
 use Mbh\Collection\CallbackHeap;
 use Mbh\Iterator\SliceIterator;

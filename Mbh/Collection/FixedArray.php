@@ -8,6 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\Interfaces\Functional as FunctionalInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Mbh\Traits\Capacity;
@@ -23,7 +24,7 @@ use Mbh\Traits\Capacity;
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-class FixedArray implements SequenceableInterface, AllocatedInterface
+class FixedArray implements AllocatedInterface, FunctionalInterface, SequenceableInterface
 {
     use Traits\Collection;
     use Traits\Sequenceable;

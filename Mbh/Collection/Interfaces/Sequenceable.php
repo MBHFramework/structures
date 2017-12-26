@@ -41,14 +41,6 @@ interface Sequenceable extends ArrayAccess, Collection, Iterator
     public static function fromItems(Traversable $array);
 
     /**
-     * Concat to the end of this array
-     *
-     * @param Traversable,...
-     * @return Sequenceable
-     */
-    public function concat();
-
-    /**
      * Determines whether the sequence contains all of zero or more values.
      *
      * @param mixed ...$values
@@ -57,38 +49,6 @@ interface Sequenceable extends ArrayAccess, Collection, Iterator
      *              contains all given values, false otherwise.
      */
     public function contains(...$values): bool;
-
-    /**
-     * Creates a shallow copy of the collection.
-     *
-     * @return Collection a shallow copy of the collection.
-     */
-    public function copy();
-
-    /**
-     * Join a set of strings together.
-     *
-     * @param string $token Main token to put between elements
-     * @param string $secondToken If set, $token on left $secondToken on right
-     * @return string
-     */
-    public function join(string $token = ',', string $secondToken = null): string;
-
-    /**
-     * Filter out elements
-     *
-     * @param callable $callback Function to filter out on false
-     * @return Sequenceable
-     */
-    public function filter(callable $callback);
-
-    /**
-     * Find a single element
-     *
-     * @param callable $callback The test to run on each element
-     * @return mixed The element we found
-     */
-    public function find(callable $callback);
 
     /**
      * Returns the first value in the sequence.
@@ -111,17 +71,6 @@ interface Sequenceable extends ArrayAccess, Collection, Iterator
     public function get(int $index);
 
     /**
-     * Sort a new Sequenceable by filtering through a heap.
-     * Tends to run much faster than array or merge sorts, since you're only
-     * sorting the pointers, and the sort function is running in a highly
-     * optimized space.
-     *
-     * @param SplHeap $heap The heap to run for sorting
-     * @return Sequenceable
-     */
-    public function heapSort(SplHeap $heap);
-
-    /**
      * Inserts zero or more values at a given index.
      *
      * Each value after the index will be moved one position to the right.
@@ -142,14 +91,6 @@ interface Sequenceable extends ArrayAccess, Collection, Iterator
      * @throws UnderflowException if the sequence is empty.
      */
     public function last();
-
-    /**
-     * Map elements to a new Sequenceable via a callback
-     *
-     * @param callable $callback Function to map new data
-     * @return Sequenceable
-     */
-    public function map(callable $callback);
 
     /**
      * Removes the last value in the sequence, and returns it.
@@ -179,16 +120,6 @@ interface Sequenceable extends ArrayAccess, Collection, Iterator
     public function remove(int $index);
 
     /**
-     * Reduce to a single value
-     *
-     * @param callable $callback Callback(
-     *     mixed $previous, mixed $current[, mixed $index, mixed $immArray]
-     * ):mixed Callback to run reducing function
-     * @param mixed $accumulator Initial value for first argument
-     */
-    public function reduce(callable $callback, $accumulator = null);
-
-    /**
      * Find a single element key
      *
      * @param mixed $value The value to search
@@ -216,37 +147,9 @@ interface Sequenceable extends ArrayAccess, Collection, Iterator
     public function shift();
 
     /**
-     * Take a slice of the array
-     *
-     * @param int $begin Start index of slice
-     * @param int $end End index of slice
-     * @return Sequenceable
-     */
-    public function slice(int $begin = 0, int $length = null);
-
-    /**
-     * Return a new sorted Sequenceable
-     *
-     * @param callable $callback The sort callback
-     * @return Sequenceable
-     */
-    public function sort(callable $callback = null);
-
-    /**
      * Adds zero or more values to the front of the sequence.
      *
      * @param mixed ...$values
      */
     public function unshift(...$values);
-
-    /**
-     * forEach, or "walk" the data
-     * Exists primarily to provide a consistent interface, though it's seldom
-     * any better than a simple php foreach. Mainly useful for chaining.
-     * Named walk for historic reasons - forEach is reserved in PHP
-     *
-     * @param callable $callback Function to call on each element
-     * @return Sequenceable
-     */
-    public function walk(callable $callback);
 }
