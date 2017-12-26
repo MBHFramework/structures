@@ -50,7 +50,7 @@ class PriorityQueue implements ArrayAccess, CollectionInterface, IteratorAggrega
      */
     public function __construct()
     {
-        $heap = FixedArray::fromArray([]);
+        $this->heap = FixedArray::fromArray([]);
     }
 
     /**
