@@ -36,6 +36,11 @@ class PriorityQueue implements ArrayAccess, CollectionInterface, IteratorAggrega
     const MIN_CAPACITY = 8;
 
     /**
+     * @inheritDoc
+     */
+    protected $capacity = self::MIN_CAPACITY;
+
+    /**
      * @var FixedArray
      */
     private $heap;
