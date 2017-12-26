@@ -30,9 +30,9 @@ use OutOfRangeException;
 
 trait Functional
 {
-    use Sort {
-        Sort::heapSort as heapSortWithCallback;
-        Sort::heapSorted as heapSortedWithCallback;
+    use Functional\Sort {
+        Functional\Sort::heapSort as heapSortWithCallback;
+        Functional\Sort::heapSorted as heapSortedWithCallback;
     }
 
     protected function getSplFixedArrayAndSize()
