@@ -83,7 +83,7 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
         if (!$this->offsetExists($offset)) {
             throw new RuntimeException(self::INVALID_INDEX);
         }
-        
+
         list($it, $idx) = $this->getIteratorByIndex($offset);
         return $it->offsetGet($idx);
     }
@@ -117,7 +117,7 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
      * Find which of the inner iterators an index corresponds to
      *
      * @param int $index
-     * @return [ArrayAccess, int] The iterator and interior index
+     * @return array [ArrayAccess, int] The iterator and interior index
      */
     protected function getIteratorByIndex($index = 0)
     {
