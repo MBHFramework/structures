@@ -36,22 +36,12 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
     public function __construct(...$args)
     {
         parent::__construct();
-        foreach ($args as $i => $iterator) {
-            if (
-                $iterator instanceof ArrayAccess &&
-                $iterator instanceof Countable
-            ) {
-                // Unroll other ConcatIterators, so we avoid deep iterator stacks
-                if ($iterator instanceof self) {
-                    foreach ($iterator as $innerIt) {
-                        $this->append($innerIt);
-                    }
-                } else {
-                    $this->append($iterator);
-                }
 
-                $this->count += count($iterator);
-            } else {
+        foreach ($args as $i => $iterator) {
+            if (!(
+                $iterator instanceof ArrayAccess
+                && $iterator instanceof Countable
+            )) {
                 throw new InvalidArgumentException(
                     'Argument ' . $i .
                     ' passed to ' . __METHOD__ .
@@ -59,6 +49,17 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
                     gettype($iterator) . ' given.'
                 );
             }
+
+            // Unroll other ConcatIterators, so we avoid deep iterator stacks
+            if ($iterator instanceof self) {
+                foreach ($iterator as $innerIt) {
+                    $this->append($innerIt);
+                }
+            } else {
+                $this->append($iterator);
+            }
+
+            $this->count += count($iterator);
         }
     }
 
@@ -122,11 +123,13 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
     protected function getIteratorByIndex($index = 0)
     {
         $runningCount = 0;
+        
         foreach ($this as $innerIt) {
             $count = count($innerIt);
             if ($index < $runningCount + $count) {
                 return [$innerIt, $index - $runningCount];
             }
+
             $runningCount += $count;
         }
 
