@@ -13,7 +13,7 @@ use Mbh\Tree\Visitor\PostOrder as PostOrderVisitor;
 use Mbh\Tree\Node;
 
 /**
- * Test cases for verifying each Builder method
+ * Test cases for verifying each Visitor method
  *
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
