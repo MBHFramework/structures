@@ -41,7 +41,7 @@ class Queue implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function __construct($values = [])
     {
-        $this->deque = Deque::fromArray([]);
+        $this->deque = Deque::empty();
 
         $this->pushAll($values);
     }

@@ -30,6 +30,14 @@ trait Builder
     /**
      * @inheritDoc
      */
+    public static function empty()
+    {
+        return new static(new SplFixedArray(0));
+    }
+
+    /**
+     * @inheritDoc
+     */
     public static function fromArray(array $array)
     {
         return new static(SplFixedArray::fromArray($array));

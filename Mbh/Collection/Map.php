@@ -45,7 +45,7 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function __construct($pairs = [])
     {
-        $this->pairs = FixedArray::fromArray([]);
+        $this->pairs = FixedArray::empty();
 
         $this->putAll($pairs);
     }
@@ -152,7 +152,7 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function keys(): Set
     {
-        return new Set($this->pairs->map(function($pair) {
+        return new Set($this->pairs->map(function ($pair) {
             return $pair->key;
         }));
     }
@@ -230,7 +230,7 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function pairs(): SequenceableInterface
     {
-        return $this->pairs->map(function($pair) {
+        return $this->pairs->map(function ($pair) {
             return $pair->copy();
         });
     }
@@ -332,7 +332,7 @@ class Map implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function values(): SequenceableInterface
     {
-        return $this->pairs->map(function($pair) {
+        return $this->pairs->map(function ($pair) {
             return $pair->value;
         });
     }

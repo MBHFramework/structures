@@ -41,7 +41,7 @@ class Stack implements ArrayAccess, CollectionInterface, IteratorAggregate
      */
     public function __construct($values = [])
     {
-        $this->sfa = FixedArray::fromArray([]);
+        $this->sfa = FixedArray::empty();
 
         $this->pushAll($values);
     }

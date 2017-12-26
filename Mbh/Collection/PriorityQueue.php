@@ -55,7 +55,7 @@ class PriorityQueue implements ArrayAccess, CollectionInterface, IteratorAggrega
      */
     public function __construct()
     {
-        $this->heap = FixedArray::fromArray([]);
+        $this->heap = FixedArray::empty();
     }
 
     /**
@@ -63,7 +63,7 @@ class PriorityQueue implements ArrayAccess, CollectionInterface, IteratorAggrega
      */
     public function clear()
     {
-        $this->heap     = FixedArray::fromArray([]);
+        $this->heap     = FixedArray::empty();
         $this->stamp    = 0;
         $this->capacity = self::MIN_CAPACITY;
     }
