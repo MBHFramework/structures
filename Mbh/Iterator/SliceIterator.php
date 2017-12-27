@@ -38,7 +38,7 @@ class SliceIterator extends LimitIterator implements ArrayAccess, Countable, Jso
     public function __construct(Iterator $iterator, $begin = 0, $end = null)
     {
         if (!(
-          $iterator instanceof ArrayAccess
+            $iterator instanceof ArrayAccess
           && $iterator instanceof Countable
         )) {
             throw new InvalidArgumentException('Iterator must be a Countable ArrayAccess');
