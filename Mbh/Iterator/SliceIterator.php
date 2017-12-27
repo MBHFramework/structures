@@ -37,33 +37,36 @@ class SliceIterator extends LimitIterator implements ArrayAccess, Countable, Jso
      */
     public function __construct(Iterator $iterator, $begin = 0, $end = null)
     {
-        if ($iterator instanceof ArrayAccess && $iterator instanceof Countable) {
-            $count = count($iterator);
-
-            // Negative begin means start from the end
-            if ($begin < 0) {
-                $begin = max(0, $count + $begin);
-            }
-
-            // If no end set, assume whole array
-            if ($end === null) {
-                $end = $count;
-            } elseif ($end < 0) {
-                // Ends counting back from start
-                $end = max($begin, $count + $end);
-            }
-
-            // Set the size of iterable object, for quick-lookup
-            $this->count = max(0, $end - $begin);
-
-            // Need to store the starting offset to adjust by
-            $this->begin = $begin;
-
-            // Init as LimitIterator
-            parent::__construct($iterator, $this->begin, $this->count);
-        } else {
+        if (!(
+          $iterator instanceof ArrayAccess
+          && $iterator instanceof Countable
+        )) {
             throw new InvalidArgumentException('Iterator must be a Countable ArrayAccess');
         }
+
+        $count = count($iterator);
+
+        // Negative begin means start from the end
+        if ($begin < 0) {
+            $begin = max(0, $count + $begin);
+        }
+
+        // If no end set, assume whole array
+        if ($end === null) {
+            $end = $count;
+        } elseif ($end < 0) {
+            // Ends counting back from start
+            $end = max($begin, $count + $end);
+        }
+
+        // Set the size of iterable object, for quick-lookup
+        $this->count = max(0, $end - $begin);
+
+        // Need to store the starting offset to adjust by
+        $this->begin = $begin;
+
+        // Init as LimitIterator
+        parent::__construct($iterator, $this->begin, $this->count);
     }
 
     /**
