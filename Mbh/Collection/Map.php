@@ -53,6 +53,44 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
     }
 
     /**
+     * @throws OutOfBoundsException
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return $this->offsetGet($name);
+    }
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function __isset($name)
+    {
+        return $this->offsetExists($name);
+    }
+    public function __set($name, $value)
+    {
+        $this->offsetSet($name, $value);
+    }
+    public function __unset($name)
+    {
+        $this->offsetUnset($name);
+    }
+
+    /**
+     * You should use this if you want to convert a n object into a map
+     *
+     * @param object $object
+     * @return Map
+     */
+    public static function fromObject($object)
+    {
+        $payloadValue = get_object_vars($object);
+        return static::fromArray($payloadValue);
+    }
+
+    /**
      * @inheritDoc
      */
     public function clear()
@@ -154,7 +192,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
      */
     public function keys(): Set
     {
-        return new Set($this->pairs->map(function($pair) {
+        return new Set($this->pairs->map(function ($pair) {
             return $pair->key;
         }));
     }
@@ -232,7 +270,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
      */
     public function pairs(): SequenceableInterface
     {
-        return $this->pairs->map(function($pair) {
+        return $this->pairs->map(function ($pair) {
             return $pair->copy();
         });
     }
@@ -334,7 +372,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
      */
     public function values(): SequenceableInterface
     {
-        return $this->pairs->map(function($pair) {
+        return $this->pairs->map(function ($pair) {
             return $pair->value;
         });
     }
@@ -376,6 +414,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
         if ($pair) {
             return $pair->value;
         }
+
         throw new OutOfBoundsException();
     }
 
