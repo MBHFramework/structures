@@ -11,6 +11,7 @@
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Collection\Interfaces\Hashable as HashableInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
+use Mbh\Collection\Internal\PriorityNode;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Mbh\Traits\SquaredCapacity;
 use Traversable;
@@ -75,7 +76,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
     {
         $this->offsetSet($name, $value);
     }
-    
+
     public function __unset($name)
     {
         $this->offsetUnset($name);
