@@ -44,6 +44,18 @@ trait Functional
     /**
      * @inheritDoc
      */
+    public function any(callable $callback)
+    {
+        for ($i = 0; $i < $count; $i++) {
+            $this[$i] = $callback($this[$i], $i, $this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function concat(...$args)
     {
         array_unshift($args, $this);
