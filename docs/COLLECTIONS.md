@@ -22,9 +22,9 @@ You can read the following [file](./Collections/FixedArray.md) to learn how the 
 
 ### ImmutableArray
 
-ImmutableArray, with filter, map, join, sort, slice, and other methods. Well-suited for functional programming and memory-intensive applications. Runs especially fast in PHP 7.
+### ImmutableSet
 
-You can read the following [file](./Collections/ImmutableArray.md) to learn how the structure works.
+### ImmutableMap
 
 ## Why didn't we just use Spl Data Structures directly?
 
