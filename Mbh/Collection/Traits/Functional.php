@@ -46,6 +46,8 @@ trait Functional
      */
     public function any(callable $callback)
     {
+        $count = $this->count();
+
         for ($i = 0; $i < $count; $i++) {
             $this[$i] = $callback($this[$i], $i, $this);
         }
