@@ -61,6 +61,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
     {
         return $this->offsetGet($name);
     }
+
     /**
      * @param string $name
      * @return bool
@@ -69,10 +70,12 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
     {
         return $this->offsetExists($name);
     }
+
     public function __set($name, $value)
     {
         $this->offsetSet($name, $value);
     }
+    
     public function __unset($name)
     {
         $this->offsetUnset($name);
