@@ -1,4 +1,4 @@
-<?php namespace Mbh\Collection\Traits;
+<?php namespace Mbh\Collection\Traits\Sequenceable;
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
@@ -29,12 +29,12 @@ use OutOfRangeException;
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-trait Sequenceable
+trait Arrayed
 {
-    use Sequenceable\Countable;
-    use Sequenceable\ArrayAccess;
-    use Sequenceable\Iterator;
-    use Sequenceable\Builder;
+    use Arrayed\Countable;
+    use Arrayed\ArrayAccess;
+    use Arrayed\Iterator;
+    use Arrayed\Builder;
 
     protected $sfa = null;
 

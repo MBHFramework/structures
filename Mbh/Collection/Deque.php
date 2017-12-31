@@ -28,7 +28,7 @@ use Mbh\Traits\EmptyGuard;
 class Deque implements AllocatedInterface, FunctionalInterface, SequenceableInterface
 {
     use Traits\Collection;
-    use Traits\Sequenceable;
+    use Traits\Sequenceable\Arrayed;
     use Traits\Functional;
     use SquaredCapacity;
     use EmptyGuard;

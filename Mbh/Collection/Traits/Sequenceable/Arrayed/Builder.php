@@ -1,4 +1,4 @@
-<?php namespace Mbh\Collection\Traits\Sequenceable;
+<?php namespace Mbh\Collection\Traits\Sequenceable\Arrayed;
 
 /**
  * MBHFramework
