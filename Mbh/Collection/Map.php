@@ -195,7 +195,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
      */
     public function keys(): Set
     {
-        return new Set($this->pairs->map(function ($pair) {
+        return new Set($this->pairs->map(function($pair) {
             return $pair->key;
         }));
     }
@@ -270,7 +270,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
      */
     public function pairs(): SequenceableInterface
     {
-        return $this->pairs->map(function ($pair) {
+        return $this->pairs->map(function($pair) {
             return $pair->copy();
         });
     }
@@ -372,7 +372,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
      */
     public function values(): SequenceableInterface
     {
-        return $this->pairs->map(function ($pair) {
+        return $this->pairs->map(function($pair) {
             return $pair->value;
         });
     }
