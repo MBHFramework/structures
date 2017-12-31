@@ -22,5 +22,5 @@ trait EmptyGuard
         }
     }
 
-    abstract public function isEmpty();
+    abstract public function isEmpty(): bool;
 }
