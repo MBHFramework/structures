@@ -26,9 +26,9 @@ class EmptyException extends UnderflowException
     public static function cannotAccessWhenEmpty($class, $method)
     {
         return new static(sprintf(
-          '`%s` cannot be called when the `%s` structure is empty',
-          $method,
-          $class
-      ));
+            '`%s` cannot be called when the `%s` structure is empty',
+            $method,
+            $class
+        ));
     }
 }
