@@ -8,9 +8,9 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-    /**
-     * Common to structures that require a capacity which is a power of two.
-     */
+/**
+ * Common to structures that require a capacity which is a power of two.
+ */
 trait SquaredCapacity
 {
     use Capacity;
