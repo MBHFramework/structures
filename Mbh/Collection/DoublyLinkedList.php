@@ -10,6 +10,7 @@
 
 use Mbh\Collection\Interfaces\Functional as FunctionalInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
+use Mbh\Collection\Internal\Interfaces\LinkedNode;
 use Mbh\Collection\Internal\LinkedDataNode;
 use Mbh\Collection\Internal\LinkedTerminalNode;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
