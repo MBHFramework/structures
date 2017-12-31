@@ -182,7 +182,7 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
      *
      * @throws OutOfBoundsException
      */
-    public function insertBefore(int $position, mixed $value)
+    public function insertBefore(int $position, $value)
     {
         $n = $this->guardedSeek($position, __METHOD__);
         $this->insertBetween($n->prev(), $n, $value);
@@ -197,7 +197,7 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
      *
      * @throws OutOfBoundsException
      */
-    public function insertAfter(int $position, mixed $value)
+    public function insertAfter(int $position, $value)
     {
         $n = $this->guardedSeek($position, __METHOD__);
         $this->insertBetween($n, $n->next(), $value);
@@ -363,7 +363,7 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
         return $list;
     }
 
-    private function insertBetween(LinkedNode $a, LinkedNode $b, mixed $value)
+    private function insertBetween(LinkedNode $a, LinkedNode $b, $value)
     {
         $n = new LinkedDataNode($value);
 
