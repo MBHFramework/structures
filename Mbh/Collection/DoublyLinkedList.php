@@ -304,7 +304,7 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
     {
         $equal = $f;
 
-        $filter = $this->filter(function ($item) use ($equal, $value) {
+        $filter = $this->filter(function($item) use ($equal, $value) {
             return $equal($item, $value);
         });
 
