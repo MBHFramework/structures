@@ -8,12 +8,17 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\EmptyException;
+
 /**
  * Common to structures that require a capacity which is a power of two.
  */
 trait EmptyGuard
 {
-    public function emptyGuard($method)
+    protected function emptyGuard($method)
     {
+        if ($this->isEmpty()) {
+            throw EmptyException::cannotAccessWhenEmpty(__CLASS__, $method);
+        }
     }
 }

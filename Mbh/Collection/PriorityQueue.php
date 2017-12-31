@@ -11,6 +11,7 @@
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Mbh\Traits\SquaredCapacity;
+use Mbh\Traits\EmptyGuard;
 use Traversable;
 use ArrayAccess;
 use IteratorAggregate;
@@ -31,6 +32,7 @@ class PriorityQueue implements AllocatedInterface, ArrayAccess, CollectionInterf
 {
     use Traits\Collection;
     use SquaredCapacity;
+    use EmptyGuard;
 
     /**
      * @var int

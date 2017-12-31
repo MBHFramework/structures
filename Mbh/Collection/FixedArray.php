@@ -12,6 +12,7 @@ use Mbh\Collection\Interfaces\Functional as FunctionalInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Mbh\Traits\Capacity;
+use Mbh\Traits\EmptyGuard;
 
 /**
  * The Fixed Array

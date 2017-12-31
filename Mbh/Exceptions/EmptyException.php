@@ -1,4 +1,4 @@
-<?php namespace Mbh\Collection\Exceptions;
+<?php namespace Mbh\Exceptions;
 
 /**
  * MBHFramework
@@ -8,14 +8,14 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use RuntimeException;
+use UnderflowException;
 
 /**
  *
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-class ImmutableException extends RuntimeException
+class EmptyException extends UnderflowException
 {
     /**
      * @param string $class
@@ -23,12 +23,12 @@ class ImmutableException extends RuntimeException
      *
      * @return static
      */
-    public static function cannotModify($class, $method)
+    public static function cannotAccessWhenEmpty($class, $method)
     {
         return new static(sprintf(
-            'Cannot modify immutable class `%s` using array `%s` method',
-            $class,
-            $method
-        ));
+          '`%s` cannot be called when the `%s` structure is empty',
+          $method,
+          $class
+      ));
     }
 }

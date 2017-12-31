@@ -14,6 +14,7 @@ use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use Mbh\Collection\Internal\PriorityNode;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Mbh\Traits\SquaredCapacity;
+use Mbh\Traits\EmptyGuard;
 use Traversable;
 use ArrayAccess;
 use IteratorAggregate;
@@ -33,6 +34,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
     use Traits\Collection;
     use Traits\Functional;
     use SquaredCapacity;
+    use EmptyGuard;
 
     const MIN_CAPACITY = 8.0;
 
