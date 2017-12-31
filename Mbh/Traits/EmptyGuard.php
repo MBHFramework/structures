@@ -8,7 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-use Mbh\EmptyException;
+use Mbh\Exceptions\EmptyException;
 
 /**
  * Common to structures that require a capacity which is a power of two.
