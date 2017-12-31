@@ -30,6 +30,7 @@ class FixedArray implements AllocatedInterface, FunctionalInterface, Sequenceabl
     use Traits\Sequenceable;
     use Traits\Functional;
     use Capacity;
+    use EmptyGuard;
 
     const MIN_CAPACITY = 8.0;
 

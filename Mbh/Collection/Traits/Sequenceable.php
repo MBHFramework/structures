@@ -76,10 +76,7 @@ trait Sequenceable
      */
     public function first()
     {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
+        $this->emptyGuard(__METHOD__);
         return $this[0];
     }
 
@@ -115,10 +112,7 @@ trait Sequenceable
      */
     public function last()
     {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
+        $this->emptyGuard(__METHOD__);
         return $this[$this->count() - 1];
     }
 
@@ -146,10 +140,7 @@ trait Sequenceable
      */
     public function pop()
     {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
+        $this->emptyGuard(__METHOD__);
         $value = $this->last();
         $count = $this->count();
         unset($this[--$count]);
@@ -220,10 +211,7 @@ trait Sequenceable
      */
     public function shift()
     {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
+        $this->emptyGuard(__METHOD__);
         $value = $this->first();
         unset($this[0]);
 
@@ -232,6 +220,9 @@ trait Sequenceable
         return $value;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return $this->sfa->toArray();
@@ -247,17 +238,26 @@ trait Sequenceable
         return $this->count();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function unserialize($values)
     {
         $values = unserialize($values);
         $this->setSfa(SplFixedArray::fromArray($values));
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function validIndex(int $index)
     {
         return $index >= 0 && $index < $this->getSize();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function clear()
     {
         $this->sfa->setSize(0);
@@ -305,6 +305,8 @@ trait Sequenceable
     }
 
     abstract protected function checkCapacity();
+
+    abstract protected function emptyGuard($method);
 
     abstract public function isEmpty(): bool;
 

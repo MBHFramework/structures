@@ -98,9 +98,7 @@ class PriorityQueue implements AllocatedInterface, ArrayAccess, CollectionInterf
      */
     public function peek()
     {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
+        $this->emptyGuard(__METHOD__);
         return $this->heap->first()->value;
     }
 
@@ -240,9 +238,7 @@ class PriorityQueue implements AllocatedInterface, ArrayAccess, CollectionInterf
      */
     public function pop()
     {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
+        $this->emptyGuard(__METHOD__);
 
         // Last leaf of the heap to become the new root.
         $leaf = $this->heap->pop();

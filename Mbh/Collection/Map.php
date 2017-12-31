@@ -132,10 +132,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
      */
     public function first(): Pair
     {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
+        $this->emptyGuard(__METHOD__);
         return $this->pairs->first();
     }
 
@@ -227,10 +224,7 @@ class Map implements AllocatedInterface, ArrayAccess, CollectionInterface, Itera
      */
     public function last(): Pair
     {
-        if ($this->isEmpty()) {
-            throw new UnderflowException();
-        }
-
+        $this->emptyGuard(__METHOD__);
         return $this->pairs->last();
     }
 
