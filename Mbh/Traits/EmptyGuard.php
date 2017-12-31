@@ -21,4 +21,6 @@ trait EmptyGuard
             throw EmptyException::cannotAccessWhenEmpty(__CLASS__, $method);
         }
     }
+
+    abstract public function isEmpty();
 }
