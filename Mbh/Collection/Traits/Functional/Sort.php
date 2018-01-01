@@ -141,8 +141,6 @@ trait Sort
         return $this;
     }
 
-    abstract protected function __construct(Traversable $array);
-
     abstract public static function fromItems(Traversable $array);
 
     abstract public function copy();

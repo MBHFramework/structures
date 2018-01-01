@@ -21,6 +21,4 @@ trait Countable
     {
         return count($this->sfa);
     }
-
-    abstract protected function checkCapacity();
 }
