@@ -6,6 +6,7 @@ use Mbh\Collection\FixedArray;
 use Mbh\Collection\CallbackHeap;
 use Mbh\Iterator\SliceIterator;
 use Mbh\Iterator\ConcatIterator;
+use Mbh\Collection\Traits\Builder;
 use SplFixedArray;
 use SplHeap;
 use SplStack;
@@ -34,7 +35,7 @@ trait Arrayed
     use Arrayed\Countable;
     use Arrayed\ArrayAccess;
     use Arrayed\Iterator;
-    use Arrayed\Builder;
+    use Builder;
 
     protected $sfa = null;
 

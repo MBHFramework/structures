@@ -8,6 +8,7 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\Interfaces\Collection as CollectionInterface;
 use Mbh\Collection\Interfaces\Functional as FunctionalInterface;
 use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use Mbh\Collection\Internal\Interfaces\LinkedNode;
@@ -16,6 +17,7 @@ use Mbh\Collection\Internal\LinkedTerminalNode;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Mbh\Traits\Capacity;
 use Mbh\Traits\EmptyGuard;
+use Traversable;
 use OutOfBoundsException;
 use Exception;
 
@@ -27,10 +29,11 @@ use Exception;
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
-final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface, SequenceableInterface
+final class DoublyLinkedList implements AllocatedInterface, SequenceableInterface
 {
     use Traits\Collection;
-    use Traits\Functional;
+    // use Traits\Functional;
+    use Traits\Builder;
     use Capacity;
     use EmptyGuard;
 
@@ -42,7 +45,12 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
     private $current;
     private $offset = -1;
 
-    public function __construct()
+    /**
+     * Create an fixed array
+     *
+     * @param array|Traversable $array data
+     */
+    public function __construct($array = null)
     {
         $this->head = $head = new LinkedTerminalNode();
         $this->tail = $tail = new LinkedTerminalNode();
@@ -51,14 +59,23 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
         $tail->setPrev($head);
 
         $this->current = $this->head;
+
+        if ($array) {
+            $this->pushAll($array);
+        }
     }
 
-    public function isEmpty()
+    public function copy()
+    {
+        return $this->copyFromContext($this->head->next());
+    }
+
+    public function isEmpty(): bool
     {
         return $this->size === 0;
     }
 
-    public function push(...$values)
+    private function pushAll($values)
     {
         foreach ($values as $key => $value) {
             $this->insertBetween($this->tail->prev(), $this->tail, $value);
@@ -66,10 +83,17 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
         }
     }
 
-    public function unshift($value)
+    public function push(...$values)
     {
-        $this->insertBetween($this->head, $this->head->next(), $value);
-        $this->offset = 0;
+        $this->pushAll($values);
+    }
+
+    public function unshift(...$values)
+    {
+        foreach ($values as &$value) {
+            $this->insertBetween($this->head, $this->head->next(), $value);
+            $this->offset = 0;
+        }
     }
 
     public function pop()
@@ -108,9 +132,22 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
      * @link http://php.net/manual/en/countable.count.php
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return $this->size;
+    }
+
+    public function get(int $index)
+    {
+        return $this[$index];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function set(int $index, $value)
+    {
+        $this->offsetSet($index, $value);
     }
 
     /**
@@ -260,6 +297,11 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
         $this->forward();
     }
 
+    public function search($value)
+    {
+        return $this->indexOf($value);
+    }
+
     /**
      * @link http://php.net/manual/en/seekableiterator.seek.php
      * @param int $position
@@ -298,14 +340,16 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
 
     /**
      * @param $value
-     * @param callable $f
+     * @param callable $callback
      * @return int
      */
-    public function indexOf($value, callable $f = null)
+    public function indexOf($value, callable $callback = null)
     {
-        $equal = $f;
+        $equal = $f ?? function ($a, $b) {
+            return $a === $b;
+        };
 
-        $filter = $this->filter(function($item) use ($equal, $value) {
+        $filter = $this->filter(function ($item) use ($equal, $value) {
             return $equal($item, $value);
         });
 
@@ -316,14 +360,9 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
         return -1;
     }
 
-    /**
-     * @param $value
-     * @param callable $f [optional]
-     * @return bool
-     */
-    public function contains($value, callable $f = null)
+    public function contains(...$values): bool
     {
-        return $this->indexOf($value, $f) >= 0;
+        return $this->indexOf($values, $f) >= 0;
     }
 
     /**
@@ -390,6 +429,12 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
         $this->offset--;
     }
 
+    public function remove(int $index)
+    {
+        $this->indexOf($index);
+        return $this->removeNode($this[$index]);
+    }
+
     private function removeNode(LinkedNode $n)
     {
         $prev = $n->prev();
@@ -450,5 +495,28 @@ final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface,
         $this->indexGuard($index, $method);
 
         return $this->seekTo($index);
+    }
+
+    public function toArray(): array
+    {
+        $array = [];
+        $context = $this->head->next();
+
+        for ($n = $context; $n !== $this->tail; $n = $n->next()) {
+            /**
+             * @var LinkedDataNode $n
+             */
+            $array[] = $n->value();
+        }
+
+        return $array;
+    }
+
+    public function unserialize($serialized)
+    {
+    }
+
+    public function clear()
+    {
     }
 }
