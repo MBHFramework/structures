@@ -8,10 +8,12 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\Internal\LinkedDataNode;
 use Traversable;
 
 trait Iterator
 {
+    protected $head;
     protected $current;
     protected $offset = -1;
 

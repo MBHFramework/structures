@@ -404,7 +404,7 @@ trait LinkedList
      */
     protected function validIndex(int $index)
     {
-        return $index >= 0 && $index < $this->count();
+        return $this->offsetExists($index);
     }
 
     abstract public function isEmpty(): bool;

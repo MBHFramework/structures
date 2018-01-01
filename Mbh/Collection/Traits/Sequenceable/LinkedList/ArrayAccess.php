@@ -8,12 +8,17 @@
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
+use Mbh\Collection\Internal\Interfaces\LinkedNode;
+use Mbh\Collection\Internal\LinkedDataNode;
 use Traversable;
 use OutOfBoundsException;
 use OutOfRangeException;
 
 trait ArrayAccess
 {
+    protected $current;
+    protected $offset = -1;
+
     /**
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
      * @param int $offset
