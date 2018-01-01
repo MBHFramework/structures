@@ -47,7 +47,6 @@ trait Arrayed
     protected function __construct(Traversable $array)
     {
         $this->sfa = $array;
-        $this->checkCapacity();
     }
 
     /**

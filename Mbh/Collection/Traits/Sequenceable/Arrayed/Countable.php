@@ -15,17 +15,6 @@ trait Countable
     protected $sfa = null;
 
     /**
-     * Create an fixed array
-     *
-     * @param Traversable $array data
-     */
-    protected function __construct(Traversable $array)
-    {
-        $this->sfa = $array;
-        $this->checkCapacity();
-    }
-
-    /**
      * Countable
      */
     public function count(): int

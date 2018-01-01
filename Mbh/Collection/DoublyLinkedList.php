@@ -52,6 +52,15 @@ final class DoublyLinkedList implements AllocatedInterface, SequenceableInterfac
      */
     public function __construct($array = null)
     {
+        $this->init();
+
+        if ($array) {
+            $this->pushAll($array);
+        }
+    }
+
+    private function init()
+    {
         $this->head = $head = new LinkedTerminalNode();
         $this->tail = $tail = new LinkedTerminalNode();
 
@@ -59,10 +68,6 @@ final class DoublyLinkedList implements AllocatedInterface, SequenceableInterfac
         $tail->setPrev($head);
 
         $this->current = $this->head;
-
-        if ($array) {
-            $this->pushAll($array);
-        }
     }
 
     public function copy()
@@ -528,5 +533,6 @@ final class DoublyLinkedList implements AllocatedInterface, SequenceableInterfac
 
     public function clear()
     {
+        $this->init();
     }
 }
