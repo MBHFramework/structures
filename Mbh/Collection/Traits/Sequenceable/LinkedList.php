@@ -153,24 +153,15 @@ trait LinkedList
 
     /**
      * @param $value
-     * @param callable $callback
      * @return int
      */
-    public function indexOf($value, callable $callback = null)
+    public function indexOf($value)
     {
-        $equal = $f ?? function ($a, $b) {
-            return $a === $b;
-        };
-
-        $filter = $this->filter(function ($item) use ($equal, $value) {
-            return $equal($item, $value);
-        });
-
-        foreach ($filter as $key => $value) {
-            return $key;
+        if (($index = $this->search($value)) === null) {
+            return -1;
         }
 
-        return -1;
+        return $index;
     }
 
     public function insert(int $index, ...$values)
@@ -408,4 +399,6 @@ trait LinkedList
     }
 
     abstract public function isEmpty(): bool;
+
+    abstract public function search($value);
 }
