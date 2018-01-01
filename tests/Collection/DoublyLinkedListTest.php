@@ -47,4 +47,18 @@ class DoublyLinkedListTest extends TestCase
 
         $this->assertEquals($other, $list->toArray());
     }
+
+    public function testRemove()
+    {
+        $other = [1, 3];
+
+        $list = new DoublyLinkedList;
+
+        $list->push(1);
+        $list->push(2);
+        $list->push(3);
+        $list->remove(1);
+
+        $this->assertEquals($other, $list->toArray());
+    }
 }

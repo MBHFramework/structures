@@ -117,7 +117,7 @@ trait Functional
             $heap->insert($item);
         }
 
-        $this->setSfa(static::fromItems($heap));
+        $this->setValues(static::fromItems($heap));
 
         return $this;
     }
@@ -190,7 +190,7 @@ trait Functional
     public function slice(int $begin = 0, int $length = null)
     {
         $end = $begin + $length;
-        $it = new SliceIterator($this->getSfa(), $begin, $end);
+        $it = new SliceIterator($this->getValues(), $begin, $end);
         return static::fromArray($it->toArray());
     }
 
@@ -246,7 +246,7 @@ trait Functional
 
     abstract public static function fromItems(Traversable $array);
 
-    abstract protected function getSfa(): Traversable;
+    abstract protected function getValues(): Traversable;
 
     abstract public function count(): int;
 

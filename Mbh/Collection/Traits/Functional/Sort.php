@@ -34,7 +34,7 @@ trait Sort
             sort($array);
         }
 
-        $this->setSfa(SplFixedArray::fromArray($array));
+        $this->setValues(SplFixedArray::fromArray($array));
 
         return $this;
     }
@@ -64,7 +64,7 @@ trait Sort
             $h->insert($elem);
         }
 
-        $this->setSfa(SplFixedArray::fromArray($h->toArray()));
+        $this->setValues(SplFixedArray::fromArray($h->toArray()));
 
         return $this;
     }
@@ -149,7 +149,7 @@ trait Sort
 
     abstract public function count(): int;
 
-    abstract protected function setSfa(Traversable $traversable);
+    abstract protected function setValues(Traversable $traversable);
 
     abstract public function toArray(): array;
 }

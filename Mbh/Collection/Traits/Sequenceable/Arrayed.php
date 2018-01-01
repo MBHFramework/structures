@@ -245,7 +245,7 @@ trait Arrayed
     public function unserialize($values)
     {
         $values = unserialize($values);
-        $this->setSfa(SplFixedArray::fromArray($values));
+        $this->setValues(SplFixedArray::fromArray($values));
     }
 
     /**
@@ -265,14 +265,15 @@ trait Arrayed
         $this->checkCapacity();
     }
 
-    protected function getSfa(): Traversable
+    protected function getValues(): Traversable
     {
         return $this->sfa;
     }
 
-    protected function setSfa(Traversable $traversable)
+    protected function setValues(Traversable $traversable)
     {
-        $this->sfa = $traversable;
+        $this->clear();
+        $this->pushAll($traversable);
     }
 
     /**

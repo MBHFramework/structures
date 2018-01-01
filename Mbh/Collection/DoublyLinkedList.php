@@ -32,7 +32,7 @@ use Exception;
 final class DoublyLinkedList implements AllocatedInterface, SequenceableInterface
 {
     use Traits\Collection;
-    // use Traits\Functional;
+    use Traits\Functional;
     use Traits\Builder;
     use Capacity;
     use EmptyGuard;
@@ -211,6 +211,17 @@ final class DoublyLinkedList implements AllocatedInterface, SequenceableInterfac
         foreach ($values as &$value) {
             $this->insertBefore($index++, $value);
         }
+    }
+
+    protected function getValues(): Traversable
+    {
+        return SplFixedArray::fromArray($this->toArray());
+    }
+
+    protected function setValues(Traversable $traversable)
+    {
+        $this->clear();
+        $this->pushAll($traversable);
     }
 
     /**
@@ -431,8 +442,7 @@ final class DoublyLinkedList implements AllocatedInterface, SequenceableInterfac
 
     public function remove(int $index)
     {
-        $this->indexOf($index);
-        return $this->removeNode($this[$index]);
+        return $this->removeNode($this->guardedSeek($index, __METHOD__));
     }
 
     private function removeNode(LinkedNode $n)
