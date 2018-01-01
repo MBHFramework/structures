@@ -354,7 +354,7 @@ trait LinkedList
 
     /**
      * Extract the elements after the first of a list, which must be non-empty.
-     * @return DoublyLinkedList
+     * @return SequenceableInterface
      * @throws EmptyException
      */
     public function tail()
