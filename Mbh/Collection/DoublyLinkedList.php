@@ -32,10 +32,10 @@ use Exception;
  */
 final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface, SequenceableInterface
 {
-    use Traits\Sequenceable\LinkedList;
     use Traits\Builder;
     use Traits\Collection;
     use Traits\Functional;
+    use Traits\Sequenceable\LinkedList;
     use Capacity;
     use EmptyGuard;
 
