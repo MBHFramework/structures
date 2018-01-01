@@ -259,7 +259,7 @@ trait LinkedList
 
     public function remove(int $index)
     {
-        return $this->removeNode($this->guardedSeek($index, __METHOD__));
+        $this->removeNode($this->guardedSeek($index, __METHOD__));
     }
 
     protected function removeNode(LinkedNode $n)
