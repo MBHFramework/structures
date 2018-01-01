@@ -17,6 +17,7 @@ use Mbh\Collection\Internal\LinkedTerminalNode;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Mbh\Traits\Capacity;
 use Mbh\Traits\EmptyGuard;
+use SplFixedArray;
 use Traversable;
 use OutOfBoundsException;
 use Exception;
@@ -383,7 +384,7 @@ final class DoublyLinkedList implements AllocatedInterface, SequenceableInterfac
 
     /**
      * Extract the elements after the first of a list, which must be non-empty.
-     * @return LinkedList
+     * @return DoublyLinkedList
      * @throws EmptyException
      */
     public function tail()
