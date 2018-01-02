@@ -9,6 +9,7 @@
  */
 
 use Mbh\Collection\Interfaces\Collection as CollectionInterface;
+use Mbh\Collection\Internal\PriorityNode;
 use Mbh\Interfaces\Allocated as AllocatedInterface;
 use Mbh\Traits\SquaredCapacity;
 use Mbh\Traits\EmptyGuard;
