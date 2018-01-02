@@ -79,6 +79,8 @@ trait LinkedList
         $this->current = $this->head;
         $this->size = 0;
         $this->offset = -1;
+
+        $this->checkCapacity();
     }
 
     protected function copyFromContext(LinkedNode $context)
@@ -200,6 +202,8 @@ trait LinkedList
 
         $this->current = $n;
         $this->size++;
+
+        $this->checkCapacity();
     }
 
     /**
@@ -229,6 +233,7 @@ trait LinkedList
         $n = $this->seekTail();
         $this->removeNode($n);
 
+        $this->checkCapacity();
         return $n->value();
     }
 
@@ -243,6 +248,8 @@ trait LinkedList
             $this->insertBetween($this->tail->prev(), $this->tail, $value);
             $this->offset = $this->size - 1;
         }
+
+        $this->checkCapacity();
     }
 
     public function remove(int $index)
@@ -259,6 +266,8 @@ trait LinkedList
         $next->setPrev($prev);
 
         $this->size--;
+
+        $this->checkCapacity();
     }
 
     /**
@@ -381,6 +390,8 @@ trait LinkedList
     {
         return $this->offsetExists($index);
     }
+
+    abstract protected function checkCapacity();
 
     abstract protected function emptyGuard($method);
 

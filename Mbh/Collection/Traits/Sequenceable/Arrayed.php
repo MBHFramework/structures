@@ -212,7 +212,7 @@ trait Arrayed
     public function unshift(...$values)
     {
         $this->insert(0, ...$values);
-        
+
         return $this->count();
     }
 
