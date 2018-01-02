@@ -47,6 +47,4 @@ trait Builder
 
         return new static($sfa);
     }
-
-    abstract protected function checkCapacity();
 }
