@@ -85,7 +85,13 @@ trait LinkedList
 
     public function contains(...$values): bool
     {
-        return $this->indexOf($values, $f) >= 0;
+        foreach ($values as &$value) {
+            if ($this->search($value) === null) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function copy()
@@ -397,6 +403,8 @@ trait LinkedList
     {
         return $this->offsetExists($index);
     }
+
+    abstract protected function emptyGuard($method);
 
     abstract public function isEmpty(): bool;
 
