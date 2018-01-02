@@ -97,7 +97,7 @@ trait Functional
         }
 
         $sfa->setSize($newCount);
-        return new static($sfa);
+        return static::fromItems($sfa);
     }
 
     /**
@@ -157,7 +157,7 @@ trait Functional
             $sfa[$i] = $callback($this[$i], $i, $this);
         }
 
-        return new static($sfa);
+        return static::fromItems($sfa);
     }
 
     /**
