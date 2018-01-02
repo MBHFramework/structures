@@ -11,7 +11,7 @@
 use Mbh\Exceptions\EmptyException;
 
 /**
- * Common to structures that require a capacity which is a power of two.
+ * Common to structures that require an empty guard.
  */
 trait EmptyGuard
 {
