@@ -4,6 +4,7 @@ use Mbh\Collection\Interfaces\Sequenceable as SequenceableInterface;
 use Traversable;
 use ArrayAccess;
 use Iterator;
+use SplFixedArray;
 use SplHeap;
 use UnderflowException;
 use OutOfRangeException;
@@ -148,6 +149,8 @@ trait Sequenceable
      */
     abstract public function set(int $index, $value);
 
+    abstract protected function setValues(Traversable $traversable);
+
     /**
      * Removes and returns the first value in the sequence.
      *
@@ -156,6 +159,17 @@ trait Sequenceable
      * @throws UnderflowException if the sequence was empty.
      */
     abstract public function shift();
+
+    /**
+     * Returns an array representation of the collection.
+     *
+     * The format of the returned array is implementation-dependent.
+     * Some implementations may throw an exception if an array representation
+     * could not be created.
+     *
+     * @return array
+     */
+    abstract public function toArray(): array;
 
     /**
      * @inheritDoc
