@@ -271,7 +271,7 @@ trait Arrayed
 
     public function __clone()
     {
-        return $this->copy();
+        $this->sfa = SplFixedArray::fromArray($this->toArray());
     }
 
     abstract protected function checkCapacity();
