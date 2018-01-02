@@ -27,11 +27,12 @@ use Mbh\Traits\EmptyGuard;
  */
 class Deque implements AllocatedInterface, FunctionalInterface, SequenceableInterface
 {
-    use Traits\Collection;
-    use Traits\Sequenceable\Arrayed;
-    use Traits\Functional;
-    use SquaredCapacity;
     use EmptyGuard;
+    use SquaredCapacity;
+    use Traits\Collection;
+    use Traits\Functional;
+    use Traits\Sequenceable;
+    use Traits\Sequenceable\Arrayed;
 
     const MIN_CAPACITY = 8.0;
 }

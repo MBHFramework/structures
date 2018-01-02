@@ -32,12 +32,13 @@ use Exception;
  */
 final class DoublyLinkedList implements AllocatedInterface, FunctionalInterface, SequenceableInterface
 {
+    use Capacity;
+    use EmptyGuard;
     use Traits\Builder;
     use Traits\Collection;
     use Traits\Functional;
+    use Traits\Sequenceable;
     use Traits\Sequenceable\LinkedList;
-    use Capacity;
-    use EmptyGuard;
 
     const MIN_CAPACITY = 8.0;
 

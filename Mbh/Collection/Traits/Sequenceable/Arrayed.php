@@ -52,28 +52,6 @@ trait Arrayed
     /**
      * @inheritDoc
      */
-    public function contains(...$values): bool
-    {
-        foreach ($values as $value) {
-            if ($this->search($value) !== null) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function copy()
-    {
-        return static::fromArray($this->toArray());
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function first()
     {
         $this->emptyGuard(__METHOD__);
@@ -234,17 +212,8 @@ trait Arrayed
     public function unshift(...$values)
     {
         $this->insert(0, ...$values);
-
+        
         return $this->count();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function unserialize($values)
-    {
-        $values = unserialize($values);
-        $this->setValues(SplFixedArray::fromArray($values));
     }
 
     /**
@@ -252,7 +221,7 @@ trait Arrayed
      */
     protected function validIndex(int $index)
     {
-        return $index >= 0 && $index < $this->getSize();
+        return $index >= 0 && $index < $this->count();
     }
 
     /**
@@ -310,8 +279,6 @@ trait Arrayed
     abstract protected function emptyGuard($method);
 
     abstract public function isEmpty(): bool;
-
-    abstract public function search($value);
 
     abstract public function splice(int $begin = 0, int $length = null, $replacement = []);
 }

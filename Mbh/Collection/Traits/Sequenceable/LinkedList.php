@@ -39,7 +39,7 @@ trait LinkedList
      *
      * @param array|Traversable $array data
      */
-    public function __construct($array = null)
+    public function __construct($array = [])
     {
         $this->head = $head = new LinkedTerminalNode();
         $this->tail = $tail = new LinkedTerminalNode();
@@ -49,9 +49,7 @@ trait LinkedList
 
         $this->current = $this->head;
 
-        if ($array) {
-            $this->pushAll($array);
-        }
+        $this->pushAll($array);
     }
 
     public function __clone()
@@ -81,22 +79,6 @@ trait LinkedList
         $this->current = $this->head;
         $this->size = 0;
         $this->offset = -1;
-    }
-
-    public function contains(...$values): bool
-    {
-        foreach ($values as &$value) {
-            if ($this->search($value) === null) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public function copy()
-    {
-        return $this->copyFromContext($this->head->next());
     }
 
     protected function copyFromContext(LinkedNode $context)
@@ -382,10 +364,6 @@ trait LinkedList
         }
 
         return $array;
-    }
-
-    public function unserialize($serialized)
-    {
     }
 
     public function unshift(...$values)
