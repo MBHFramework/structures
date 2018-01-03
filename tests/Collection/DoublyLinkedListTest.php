@@ -104,9 +104,9 @@ class DoublyLinkedListTest extends TestCase
     public function testFilter()
     {
         $oddArr = [1, 3, 5, 7, 9];
-        $fixedArr = DoublyLinkedList::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $list = DoublyLinkedList::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-        $odds = $fixedArr->filter(function ($num) {
+        $odds = $list->filter(function ($num) {
             return $num % 2;
         });
 
@@ -137,18 +137,18 @@ class DoublyLinkedListTest extends TestCase
 
     public function testJoin()
     {
-        $imarr = DoublyLinkedList::fromArray(['foo', 'bar', 'baz']);
+        $list = DoublyLinkedList::fromArray(['foo', 'bar', 'baz']);
 
-        $this->assertEquals('foo,bar,baz', $imarr->join(), 'Default join failed.');
-        $this->assertEquals('fooXXXbarXXXbaz', $imarr->join('XXX'), 'Token join failed.');
-        $this->assertEquals('<li>foo</li><li>bar</li><li>baz</li>', $imarr->join('<li>', '</li>'), 'Two token join failed.');
+        $this->assertEquals('foo,bar,baz', $list->join(), 'Default join failed.');
+        $this->assertEquals('fooXXXbarXXXbaz', $list->join('XXX'), 'Token join failed.');
+        $this->assertEquals('<li>foo</li><li>bar</li><li>baz</li>', $list->join('<li>', '</li>'), 'Two token join failed.');
     }
 
     public function testSlice()
     {
-        $fixedArr = DoublyLinkedList::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $list = DoublyLinkedList::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-        $firstThree = $fixedArr->slice(0, 3);
+        $firstThree = $list->slice(0, 3);
 
         $this->assertCount(3, $firstThree);
         $this->assertSame([1, 2, 3], $firstThree->toArray());

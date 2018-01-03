@@ -125,11 +125,11 @@ class FixedArrayTest extends TestCase
 
     public function testJoin()
     {
-        $imarr = FixedArray::fromArray(['foo', 'bar', 'baz']);
+        $fixedArr = FixedArray::fromArray(['foo', 'bar', 'baz']);
 
-        $this->assertEquals('foo,bar,baz', $imarr->join(), 'Default join failed.');
-        $this->assertEquals('fooXXXbarXXXbaz', $imarr->join('XXX'), 'Token join failed.');
-        $this->assertEquals('<li>foo</li><li>bar</li><li>baz</li>', $imarr->join('<li>', '</li>'), 'Two token join failed.');
+        $this->assertEquals('foo,bar,baz', $fixedArr->join(), 'Default join failed.');
+        $this->assertEquals('fooXXXbarXXXbaz', $fixedArr->join('XXX'), 'Token join failed.');
+        $this->assertEquals('<li>foo</li><li>bar</li><li>baz</li>', $fixedArr->join('<li>', '</li>'), 'Two token join failed.');
     }
 
     public function testSlice()
