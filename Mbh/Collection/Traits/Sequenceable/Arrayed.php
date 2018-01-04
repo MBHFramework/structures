@@ -37,6 +37,11 @@ trait Arrayed
     use Arrayed\Iterator;
     use Builder;
 
+    /**
+     * @var integer internal capacity
+     */
+    protected $capacity = self::MIN_CAPACITY;
+
     protected $sfa = null;
 
     /**
@@ -230,7 +235,7 @@ trait Arrayed
     public function clear()
     {
         $this->sfa->setSize(0);
-        $this->checkCapacity();
+        $this->capacity = self::MIN_CAPACITY;
     }
 
     protected function getValues(): Traversable
