@@ -35,11 +35,6 @@ trait LinkedList
     protected $offset = -1;
 
     /**
-     * @var integer internal capacity
-     */
-    protected $capacity = self::MIN_CAPACITY;
-
-    /**
      * Create an fixed array
      *
      * @param array|Traversable $array data

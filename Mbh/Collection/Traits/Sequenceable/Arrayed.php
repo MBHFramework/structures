@@ -37,11 +37,6 @@ trait Arrayed
     use Arrayed\Iterator;
     use Builder;
 
-    /**
-     * @var integer internal capacity
-     */
-    protected $capacity = self::MIN_CAPACITY;
-
     protected $sfa = null;
 
     /**
