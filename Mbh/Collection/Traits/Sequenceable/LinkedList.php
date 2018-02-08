@@ -30,7 +30,7 @@ trait LinkedList
 
     protected $head;
     protected $tail;
-    protected $size;
+    protected $size = 0;
     protected $current;
     protected $offset = -1;
 
