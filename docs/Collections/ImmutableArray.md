@@ -1,6 +1,6 @@
-# Fixed Collections
+# Immutable Collections
 
-Fixed collections, with filter, map, join, sort, slice, and other methods. Well-suited for functional programming and memory-intensive applications. Runs especially fast in PHP 7.
+Immutable collections, with filter, map, join, sort, slice, and other methods. Well-suited for functional programming and memory-intensive applications. Runs especially fast in PHP 7.
 
 ## Basic Usage
 
@@ -9,10 +9,10 @@ Fixed collections, with filter, map, join, sort, slice, and other methods. Well-
 ```php
 <?php
 
-use Mbh\Collection\FixedArray;
-$polite = FixedArray::fromArray(['I', 'am', 'a', 'fixed', 'array']);
+use Mbh\Collection\ImmutableArray;
+$polite = ImmutableArray::fromArray(['set', 'once', 'don\'t', 'mutate']);
 echo $polite->join(' ');
-// "I am a fixed array"
+// "set once don't mutate"
 ```
 
 ### Map with a callback
@@ -36,7 +36,7 @@ EOT;
 // <article>
 //   <h3>A Wonderful List</h3>
 //   <ul>
-//     <li>I</li><li>AM</li><li>A</li><li>FIXED</li><li>ARRAY</li>
+//     <li>SET</li><li>ONCE</li><li>DON'T</li><li>MUTATE</li>
 //   </ul>
 // </article>
 ```
@@ -50,6 +50,8 @@ echo 'Ordered ascending: ' .
     $yelling
         ->sort(function ($a, $b) { return strcmp($a, $b); })
         ->join(' ');
+
+// "Ordered ascending: DON'T MUTATE ONCE SET"
 ```
 
 ### Slice
@@ -70,20 +72,20 @@ Until recently we saw examples of how to use certain features in small arrays. N
 ```php
 <?php
 
-use Mbh\Collection\FixedArray;
+use Mbh\Collection\ImmutableArray;
 
 // Big memory footprint: $fruits is 30MB on PHP5.6
 $fruits = array_merge(array_fill(0, 1000000, 'tomato'), array_fill(0, 1000000, 'apple'));
 
 // Small memory footprint: only 12MB
-$fruitsImm = FixedArray::fromArray($fruits);
+$fruitsImm = ImmutableArray::fromArray($fruits);
 
 // Especially big savings for slices -- array_slice() gives a 31MB object
 $range = range(0, 50000);
 $sliceArray = array_slice($range, 0, 30000);
 
 // But this is a 192 bytes iterator!
-$immSlice = FixedArray::fromArray($range)->slice(0, 30000);
+$immSlice = ImmutableArray::fromArray($range)->slice(0, 30000);
 ```
 
 ### Filter
@@ -102,8 +104,8 @@ $noApples = $fruitsImm->filter(function($fruit) { return $fruit !== 'apple'; });
 ```php
 <?php
 
-$ia = FixedArray::fromArray([1, 2, 3, 4]);
-$ib = FixedArray::fromArray([5, 6, 7, 8]);
+$ia = ImmutableArray::fromArray([1, 2, 3, 4]);
+$ib = ImmutableArray::fromArray([5, 6, 7, 8]);
 
 // Like in slice() method, it's just a little iterator in-memory
 $ic = $ia->concat($ib);
@@ -115,7 +117,7 @@ $ic = $ia->concat($ib);
 ```php
 <?php
 
-$fruits = FixedArray::fromArray(['peach', 'plum', 'orange']);
+$fruits = ImmutableArray::fromArray(['peach', 'plum', 'orange']);
 
 $fruits->reduce(function($last, $cur, $i) {
   return $last . '{"' . $i . '":' . $cur . '"},';
@@ -129,7 +131,7 @@ $fruits->reduce(function($last, $cur, $i) {
 ```php
 <?php
 
-$fruits = FixedArray::fromArray(['peach', 'apple', 'plum', 'banana', 'orange']);
+$fruits = ImmutableArray::fromArray(['peach', 'apple', 'plum', 'banana', 'orange']);
 
 $fruitILike = $fruits->find(function ($fruit) {
   return $fruit === 'banana';
@@ -171,5 +173,5 @@ foreach ($fruits as $fruit) {
 ```php
 <?php
 
-$vegetables = FixedArray::fromItems($vegetableIterator);
+$vegetables = ImmutableArray::fromItems($vegetableIterator);
 ```
