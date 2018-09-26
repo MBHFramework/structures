@@ -9,65 +9,25 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use Mbh\Collection\FixedArray;
+use Mbh\Collection\ImmutableArray;
 use Mbh\Collection\CallbackHeap;
 use ArrayIterator;
 
 /**
- * Test cases for verifying each FixedArray method
+ * Test cases for verifying each ImmutableArray method
  *
  * @package structures
  * @author Ulises Jeremias Cornejo Fandos <ulisescf.24@gmail.com>
  */
 
-class FixedArrayTest extends TestCase
+class ImmutableArrayTest extends TestCase
 {
-    public function testPush()
-    {
-        $base = [1, 2, 3, 4];
-        $other = [1, 2, 3, 4, 5, 6, 7];
-
-        $numberSet = FixedArray::fromArray($base);
-
-        $numberSet->push(5);
-        $numberSet->push(6);
-        $numberSet->push(7);
-
-        $this->assertEquals($other, $numberSet->toArray());
-    }
-
-    public function testPop()
-    {
-        $base = [1, 2, 3, 4, 5, 6, 7];
-        $other = [1, 2, 3, 4];
-
-        $numberSet = FixedArray::fromArray($base);
-
-        $numberSet->pop();
-        $numberSet->pop();
-        $numberSet->pop();
-
-        $this->assertEquals($other, $numberSet->toArray());
-    }
-
-    public function testInsert()
-    {
-        $base = [1, 2, 3, 4, 7];
-        $other = [1, 2, 3, 4, 5, 6, 7];
-
-        $numberSet = FixedArray::fromArray($base);
-
-        $numberSet->insert(4, 5, 6);
-
-        $this->assertEquals($other, $numberSet->toArray());
-    }
-
     public function testMap()
     {
         $base = [1, 2, 3, 4];
         $doubled = [2, 4, 6, 8];
 
-        $numberSet = FixedArray::fromArray($base);
+        $numberSet = ImmutableArray::fromArray($base);
         $mapped = $numberSet->map(function ($num) {
             return $num * 2;
         });
@@ -82,7 +42,7 @@ class FixedArrayTest extends TestCase
         $base = [1, 2, 3, 4, 5, 6, 7];
         $other = [1, 2, 3, 4, 7];
 
-        $numberSet = FixedArray::fromArray($base);
+        $numberSet = ImmutableArray::fromArray($base);
 
         $contains = $numberSet->contains($other);
 
@@ -92,7 +52,7 @@ class FixedArrayTest extends TestCase
     public function testFilter()
     {
         $oddArr = [1, 3, 5, 7, 9];
-        $fixedArr = FixedArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $fixedArr = ImmutableArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
         $odds = $fixedArr->filter(function ($num) {
             return $num % 2;
@@ -106,7 +66,7 @@ class FixedArrayTest extends TestCase
     public function testReduce()
     {
         $arIt = new ArrayIterator([1, 2, 3, 4, 5]);
-        $numberSet = FixedArray::fromItems($arIt);
+        $numberSet = ImmutableArray::fromItems($arIt);
 
         // Reduce with sum
         $sum = $numberSet->reduce(function ($last, $cur) {
@@ -125,7 +85,7 @@ class FixedArrayTest extends TestCase
 
     public function testJoin()
     {
-        $fixedArr = FixedArray::fromArray(['foo', 'bar', 'baz']);
+        $fixedArr = ImmutableArray::fromArray(['foo', 'bar', 'baz']);
 
         $this->assertEquals('foo,bar,baz', $fixedArr->join(), 'Default join failed.');
         $this->assertEquals('fooXXXbarXXXbaz', $fixedArr->join('XXX'), 'Token join failed.');
@@ -134,7 +94,7 @@ class FixedArrayTest extends TestCase
 
     public function testSlice()
     {
-        $fixedArr = FixedArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        $fixedArr = ImmutableArray::fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
         $firstThree = $fixedArr->slice(0, 3);
 
@@ -144,8 +104,8 @@ class FixedArrayTest extends TestCase
 
     public function testConcat()
     {
-        $setA = FixedArray::fromArray([1, 2, 3]);
-        $setB = FixedArray::fromItems(new ArrayIterator([4, 5, 6]));
+        $setA = ImmutableArray::fromArray([1, 2, 3]);
+        $setB = ImmutableArray::fromItems(new ArrayIterator([4, 5, 6]));
 
         $concatted = $setA->concat($setB);
         $this->assertSame([1, 2, 3, 4, 5, 6], $concatted->toArray());
@@ -153,7 +113,7 @@ class FixedArrayTest extends TestCase
 
     public function testSort()
     {
-        $unsorted = FixedArray::fromArray(['f', 'c', 'a', 'b', 'e', 'd']);
+        $unsorted = ImmutableArray::fromArray(['f', 'c', 'a', 'b', 'e', 'd']);
         $sorted = $unsorted->sort(function ($a, $b) {
             return strcmp($a, $b);
         });
@@ -163,7 +123,7 @@ class FixedArrayTest extends TestCase
 
     public function testHeapSort()
     {
-        $unsorted = FixedArray::fromArray(['f', 'c', 'a', 'b', 'e', 'd']);
+        $unsorted = ImmutableArray::fromArray(['f', 'c', 'a', 'b', 'e', 'd']);
 
         $heapSort = $unsorted->heapSort(new BasicHeap());
         $this->assertSame($heapSort->toArray(), ['a', 'b', 'c', 'd', 'e', 'f'], 'Heap sort failed.');
@@ -175,7 +135,7 @@ class FixedArrayTest extends TestCase
         ini_set('memory_limit', '50M');
 
         // Big Set Load
-        $bigSet = FixedArray::fromItems(new BigSetIterator(200000));
+        $bigSet = ImmutableArray::fromItems(new BigSetIterator(200000));
         $this->assertCount(200000, $bigSet);
         ini_set('memory_limit', $startMemoryLimit);
     }

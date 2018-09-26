@@ -63,17 +63,6 @@ interface Functional
     public function heapSort(SplHeap $heap);
 
     /**
-     * Sort a new Collection by filtering through a heap.
-     * Tends to run much faster than array or merge sorts, since you're only
-     * sorting the pointers, and the sort function is running in a highly
-     * optimized space.
-     *
-     * @param SplHeap $heap The heap to run for sorting
-     * @return Collection
-     */
-    public function heapSorted(SplHeap $heap);
-
-    /**
      * Join a set of strings together.
      *
      * @param string $token Main token to put between elements
@@ -126,14 +115,6 @@ interface Functional
      * @return Collection
      */
     public function sort(callable $callback = null);
-
-    /**
-     * Return a new sorted Collection
-     *
-     * @param callable $callback The sort callback
-     * @return Collection
-     */
-    public function sorted(callable $callback = null);
 
     /**
      * forEach, or "walk" the data

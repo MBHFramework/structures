@@ -163,21 +163,21 @@ class DoublyLinkedListTest extends TestCase
         $this->assertSame([1, 2, 3, 4, 5, 6], $concatted->toArray());
     }
 
-    public function testSorted()
+    public function testSort()
     {
         $unsorted = DoublyLinkedList::fromArray(['f', 'c', 'a', 'b', 'e', 'd']);
-        $sorted = $unsorted->sorted(function ($a, $b) {
+        $sorted = $unsorted->sort(function ($a, $b) {
             return strcmp($a, $b);
         });
 
         $this->assertSame($sorted->toArray(), ['a', 'b', 'c', 'd', 'e', 'f'], 'Callback sort failed.');
     }
 
-    public function testHeapSorted()
+    public function testHeapSort()
     {
         $unsorted = DoublyLinkedList::fromArray(['f', 'c', 'a', 'b', 'e', 'd']);
 
-        $heapSorted = $unsorted->heapSorted(new BasicHeap());
+        $heapSorted = $unsorted->heapSort(new BasicHeap());
         $this->assertSame($heapSorted->toArray(), ['a', 'b', 'c', 'd', 'e', 'f'], 'Heap sort failed.');
     }
 }

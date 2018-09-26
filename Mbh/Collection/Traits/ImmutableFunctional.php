@@ -28,10 +28,10 @@ use OutOfRangeException;
  * @license   https://github.com/MBHFramework/mbh-framework/blob/master/LICENSE (MIT License)
  */
 
-trait Functional
+trait ImmutableFunctional
 {
-    use Functional\InPlaceSort {
-        Functional\InPlaceSort::heapSort as heapSortWithCallback;
+    use Functional\ImmutableSort {
+        Functional\ImmutableSort::heapSort as heapSortWithCallback;
     }
 
     protected function getSplFixedArrayAndSize()
@@ -45,13 +45,13 @@ trait Functional
      */
     public function any(callable $callback)
     {
-        $count = $this->count();
+        list($sfa, $count) = $this->getSplFixedArrayAndSize();
 
         for ($i = 0; $i < $count; $i++) {
-            $this[$i] = $callback($this[$i], $i, $this);
+            $sfa[$i] = $callback($this[$i], $i, $this);
         }
 
-        return $this;
+        return $sfa;
     }
 
     /**
@@ -108,9 +108,7 @@ trait Functional
             $heap->insert($item);
         }
 
-        $this->setValues(static::fromItems($heap));
-
-        return $this;
+        return static::fromItems($heap);
     }
 
     /**

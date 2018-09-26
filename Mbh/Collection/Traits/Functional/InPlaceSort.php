@@ -16,7 +16,7 @@ use SplFixedArray;
 use SplStack;
 use LimitIterator;
 
-trait Sort
+trait InPlaceSort
 {
     /**
      * Fallback behaviour to use the builtin array sort functions
@@ -40,17 +40,6 @@ trait Sort
     }
 
     /**
-     * Sorts the collection
-     *
-     * @param callable $callback The callback for comparison
-     * @return CollectionInterface
-     */
-    public function arraySorted(callable $callback = null)
-    {
-        return $this->copy()->arraySort($callback);
-    }
-
-    /**
      * Sort by applying a CallbackHeap and building a new heap
      * Can be efficient for sorting large stored objects.
      *
@@ -67,29 +56,6 @@ trait Sort
         $this->setValues(SplFixedArray::fromArray($h->toArray()));
 
         return $this;
-    }
-
-    /**
-     * Sort by applying a CallbackHeap and building a new heap
-     * Can be efficient for sorting large stored objects.
-     *
-     * @param callable $callback The comparison callback
-     * @return CollectionInterface
-     */
-    public function heapSorted(callable $callback)
-    {
-        return $this->copy()->heapSort($callback);
-    }
-
-    /**
-     * Sorts the collection with mergeSort
-     *
-     * @param callable $callback The callback for comparison
-     * @return CollectionInterface
-     */
-    public function mergeSorted(callable $callback = null)
-    {
-        return $this->copy()->mergeSort($callback);
     }
 
     /**
